@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Domain
 {
-    public class Client : Person
+    public class Client : User
     {
         public int IdClient { get; set; }
         public List<Training> TrainingList { get; set; }

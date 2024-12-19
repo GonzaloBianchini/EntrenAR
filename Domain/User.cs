@@ -5,9 +5,10 @@ using System.Web;
 
 namespace Domain
 {
-    public class Person
+    public class User
     {
-        public int IdPerson { get; set; }
+        public int IdUser { get; set; }
+        public int IdRole { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime BirthDate { get; set; }
@@ -15,8 +16,8 @@ namespace Domain
         public string Phone {  get; set; }
         public string Email { get; set; }
         public bool IsActive { get; set; }
-        public string User {  get; set; }
-        public string Password { get; set; }
+        public string UserNickName {  get; set; }
+        public string UserPassword { get; set; }
         
 
 

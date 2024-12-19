@@ -5,6 +5,8 @@ using System.Web;
 
 namespace Domain
 {
+    //Cada instancia de Exercise, sera la de cada rutina en particular. Y sera leida de la BD mediante
+    //la tabla Exercises y  ExercisesByDailyRoutine
     public class Exercise
     {
         public int IdExercise { get; set; }
