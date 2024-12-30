@@ -1,0 +1,321 @@
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D864DDD3-A20E-4215-B968-13F5D105F57A}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ViewModel</RootNamespace>
+    <AssemblyName>ViewModel</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44388</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AdminEditPartner.aspx" />
+    <Content Include="AdminEditProgram.aspx" />
+    <Content Include="AdminEditTrainer.aspx" />
+    <Content Include="AdminNewPartner.aspx" />
+    <Content Include="AdminNewProgram.aspx" />
+    <Content Include="AdminNewTrainer.aspx" />
+    <Content Include="AdminPanel.aspx" />
+    <Content Include="AdminPartners.aspx" />
+    <Content Include="AdminRequests.aspx" />
+    <Content Include="AdminTrainers.aspx" />
+    <Content Include="AdminViewPartner.aspx" />
+    <Content Include="AdminViewTrainer.aspx" />
+    <Content Include="Content\MyStyles.css" />
+    <Content Include="PartnerPrograms.aspx" />
+    <Content Include="PartnerViewRoutine.aspx" />
+    <Content Include="TrainerEditProgram.aspx" />
+    <Content Include="TrainerNewProgram.aspx" />
+    <Content Include="TrainerViewPartner.aspx" />
+    <Content Include="TrainerPartners.aspx" />
+    <Content Include="Global.asax" />
+    <Content Include="Default.aspx" />
+    <Content Include="TrainerNewPartner.aspx" />
+    <Content Include="TrainerRequests.aspx" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdminEditPartner.aspx.cs">
+      <DependentUpon>AdminEditPartner.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminEditPartner.aspx.designer.cs">
+      <DependentUpon>AdminEditPartner.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminEditProgram.aspx.cs">
+      <DependentUpon>AdminEditProgram.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminEditProgram.aspx.designer.cs">
+      <DependentUpon>AdminEditProgram.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminEditTrainer.aspx.cs">
+      <DependentUpon>AdminEditTrainer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminEditTrainer.aspx.designer.cs">
+      <DependentUpon>AdminEditTrainer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminMaster.Master.cs">
+      <DependentUpon>AdminMaster.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminMaster.Master.designer.cs">
+      <DependentUpon>AdminMaster.Master</DependentUpon>
+    </Compile>
+    <Compile Include="AdminNewPartner.aspx.cs">
+      <DependentUpon>AdminNewPartner.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminNewPartner.aspx.designer.cs">
+      <DependentUpon>AdminNewPartner.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminNewProgram.aspx.cs">
+      <DependentUpon>AdminNewProgram.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminNewProgram.aspx.designer.cs">
+      <DependentUpon>AdminNewProgram.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminNewTrainer.aspx.cs">
+      <DependentUpon>AdminNewTrainer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminNewTrainer.aspx.designer.cs">
+      <DependentUpon>AdminNewTrainer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel.aspx.cs">
+      <DependentUpon>AdminPanel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel.aspx.designer.cs">
+      <DependentUpon>AdminPanel.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPartners.aspx.cs">
+      <DependentUpon>AdminPartners.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPartners.aspx.designer.cs">
+      <DependentUpon>AdminPartners.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminRequests.aspx.cs">
+      <DependentUpon>AdminRequests.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminRequests.aspx.designer.cs">
+      <DependentUpon>AdminRequests.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminTrainers.aspx.cs">
+      <DependentUpon>AdminTrainers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminTrainers.aspx.designer.cs">
+      <DependentUpon>AdminTrainers.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminViewPartner.aspx.cs">
+      <DependentUpon>AdminViewPartner.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminViewPartner.aspx.designer.cs">
+      <DependentUpon>AdminViewPartner.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminViewTrainer.aspx.cs">
+      <DependentUpon>AdminViewTrainer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminViewTrainer.aspx.designer.cs">
+      <DependentUpon>AdminViewTrainer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PartnerMaster.Master.cs">
+      <DependentUpon>PartnerMaster.Master</DependentUpon>
+    </Compile>
+    <Compile Include="PartnerMaster.Master.designer.cs">
+      <DependentUpon>PartnerMaster.Master</DependentUpon>
+    </Compile>
+    <Compile Include="PartnerPrograms.aspx.cs">
+      <DependentUpon>PartnerPrograms.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PartnerPrograms.aspx.designer.cs">
+      <DependentUpon>PartnerPrograms.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PartnerViewRoutine.aspx.cs">
+      <DependentUpon>PartnerViewRoutine.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PartnerViewRoutine.aspx.designer.cs">
+      <DependentUpon>PartnerViewRoutine.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TrainerEditProgram.aspx.cs">
+      <DependentUpon>TrainerEditProgram.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TrainerEditProgram.aspx.designer.cs">
+      <DependentUpon>TrainerEditProgram.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TrainerMaster.Master.cs">
+      <DependentUpon>TrainerMaster.Master</DependentUpon>
+    </Compile>
+    <Compile Include="TrainerMaster.Master.designer.cs">
+      <DependentUpon>TrainerMaster.Master</DependentUpon>
+    </Compile>
+    <Compile Include="TrainerNewProgram.aspx.cs">
+      <DependentUpon>TrainerNewProgram.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TrainerNewProgram.aspx.designer.cs">
+      <DependentUpon>TrainerNewProgram.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TrainerViewPartner.aspx.cs">
+      <DependentUpon>TrainerViewPartner.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TrainerViewPartner.aspx.designer.cs">
+      <DependentUpon>TrainerViewPartner.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TrainerPartners.aspx.cs">
+      <DependentUpon>TrainerPartners.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TrainerPartners.aspx.designer.cs">
+      <DependentUpon>TrainerPartners.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TrainerNewPartner.aspx.cs">
+      <DependentUpon>TrainerNewPartner.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TrainerNewPartner.aspx.designer.cs">
+      <DependentUpon>TrainerNewPartner.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TrainerRequests.aspx.cs">
+      <DependentUpon>TrainerRequests.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TrainerRequests.aspx.designer.cs">
+      <DependentUpon>TrainerRequests.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AdminMaster.Master" />
+    <None Include="packages.config" />
+    <Content Include="TrainerMaster.Master" />
+    <Content Include="PartnerMaster.Master" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>50242</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44388/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
