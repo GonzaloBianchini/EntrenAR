@@ -186,6 +186,7 @@
     </Compile>
     <Compile Include="PartnerMaster.Master.cs">
       <DependentUpon>PartnerMaster.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="PartnerMaster.Master.designer.cs">
       <DependentUpon>PartnerMaster.Master</DependentUpon>
@@ -213,6 +214,7 @@
     </Compile>
     <Compile Include="TrainerMaster.Master.cs">
       <DependentUpon>TrainerMaster.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="TrainerMaster.Master.designer.cs">
       <DependentUpon>TrainerMaster.Master</DependentUpon>

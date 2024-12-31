@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DDF7B7D2-2EEA-4A06-A4AF-8EAE2D323C66}</ProjectGuid>
+    <ProjectGuid>{BD7E2F5D-A760-43B3-B5AA-7CBAD29DAFAC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Business</RootNamespace>
-    <AssemblyName>Business</AssemblyName>
+    <RootNamespace>Domain</RootNamespace>
+    <AssemblyName>Domain</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -41,19 +41,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataAccess.cs" />
-    <Compile Include="ExercisesBusiness.cs" />
+    <Compile Include="DailyRoutine.cs" />
+    <Compile Include="Exercise.cs" />
+    <Compile Include="Partner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Domain\Domain.csproj">
-      <Project>{bd7e2f5d-a760-43b3-b5aa-7cbad29dafac}</Project>
-      <Name>Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ViewModel\ViewModel.csproj">
-      <Project>{d864ddd3-a20e-4215-b968-13f5d105f57a}</Project>
-      <Name>ViewModel</Name>
-    </ProjectReference>
+    <Compile Include="Role.cs" />
+    <Compile Include="StatusPartner.cs" />
+    <Compile Include="Trainer.cs" />
+    <Compile Include="Training.cs" />
+    <Compile Include="TrainingType.cs" />
+    <Compile Include="User.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

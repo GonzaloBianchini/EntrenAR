@@ -14,9 +14,9 @@
 
             <h1 class="h3 mb-0">Athleticon</h1>
             <a class="nav-link" href="Default.aspx"><span>Default</span></a>
-            <a class="nav-link" href="TrainerClient.aspx"><span>TrainerClient</span></a>
+            <a class="nav-link" href="TrainerPartners.aspx"><span>TrainerClient</span></a>
             <a class="nav-link" href="TrainerRequests.aspx"><span>TrainerRequests</span></a>
-            <a class="nav-link" href="TrainerNewClient.aspx"><span>TrainerNewClient</span></a>
+            <a class="nav-link" href="TrainerNewPartner.aspx"><span>TrainerNewClient</span></a>
 
 
         </header>

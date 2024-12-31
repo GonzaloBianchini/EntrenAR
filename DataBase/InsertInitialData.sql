@@ -1,6 +1,6 @@
 use ENTRENAR_DB
 
-INSERT INTO StatusesClient (StatusName, StatusDescription)
+INSERT INTO StatusesPartner (StatusName, StatusDescription)
 VALUES 
 ('Available', 'No tiene trainer y está buscando, puede enviar solicitudes'),
 ('Pending', 'Envió solicitud y espera respuesta'),
@@ -17,7 +17,7 @@ INSERT INTO Roles (RolName)
 VALUES 
     ('Admin'),
     ('Trainer'),
-    ('Client');
+    ('Partner');
 
 INSERT INTO Exercises (ExerciseName, ExerciseDescription, UrlExercise)
 VALUES
@@ -25,5 +25,7 @@ VALUES
     ('Pecho plano', 'Ejercicio básico/compuesto de pecho', 'www.entrenar.com/bench-press'),
     ('Dominadas', 'Ejercicio básico/compuesto de espalda', 'www.entrenar.com/pull-ups'),
     ('Curl de bíceps', 'Ejercicio básico/localizado de bíceps', 'www.entrenar.com/curl-biceps');
+
+    
 
 

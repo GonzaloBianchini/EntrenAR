@@ -25,18 +25,18 @@ CREATE TABLE Users (
     FOREIGN KEY (IdRole) REFERENCES Roles(IdRole)
 );
 
--- Tabla: StatusClient
-CREATE TABLE StatusesClient (
+-- Tabla: StatusPartner
+CREATE TABLE StatusesPartner (
     IdStatus INT PRIMARY KEY IDENTITY(1,1),
     StatusName VARCHAR(50) NOT NULL UNIQUE,
     StatusDescription VARCHAR(150)
 );
 
-CREATE TABLE Clients (
-    IdClient INT PRIMARY KEY IDENTITY(1,1),
+CREATE TABLE Partners (
+    IdPartner INT PRIMARY KEY IDENTITY(1,1),
     IdUser INT NOT NULL,  
     IdStatus INT NOT NULL,
-    FOREIGN KEY (IdStatus) REFERENCES StatusesClient(IdStatus),
+    FOREIGN KEY (IdStatus) REFERENCES StatusesPartner(IdStatus),
     FOREIGN KEY (IdUser) REFERENCES Users(IdUser)
 );
 
@@ -46,13 +46,13 @@ CREATE TABLE Trainers (
     FOREIGN KEY (IdUser) REFERENCES Users(IdUser)
 );
 
--- Tabla intermedia: TrainerByClient (para asociar entrenadores con clientes)
-CREATE TABLE ClientsByTrainer (
+-- Tabla intermedia: TrainerByPartner (para asociar entrenadores con Partners)
+CREATE TABLE PartnersByTrainer (
     IdTrainer INT NOT NULL,
-    IdClient INT NOT NULL,
-    PRIMARY KEY (IdTrainer, IdClient),
+    IdPartner INT NOT NULL,
+    PRIMARY KEY (IdTrainer, IdPartner),
     FOREIGN KEY (IdTrainer) REFERENCES Trainers(IdTrainer),
-    FOREIGN KEY (IdClient) REFERENCES Clients(IdClient)
+    FOREIGN KEY (IdPartner) REFERENCES Partners(IdPartner)
 );
 
 -- Tabla: TrainingType
@@ -73,12 +73,12 @@ CREATE TABLE Trainings (
     FOREIGN KEY (IdType) REFERENCES TrainingTypes(IdType)
 );
 
--- Tabla intermedia: TrainingByClient (para asociar entrenamientos con clientes)
-CREATE TABLE TrainingsByClients (
-    IdClient INT NOT NULL,
+-- Tabla intermedia: TrainingsByPartner (para asociar entrenamientos con Partners)
+CREATE TABLE TrainingsByPartner (
+    IdPartner INT NOT NULL,
     IdTraining INT NOT NULL,
-    PRIMARY KEY (IdClient, IdTraining),
-    FOREIGN KEY (IdClient) REFERENCES Clients(IdClient),
+    PRIMARY KEY (IdPartner, IdTraining),
+    FOREIGN KEY (IdPartner) REFERENCES Partners(IdPartner),
     FOREIGN KEY (IdTraining) REFERENCES Trainings(Id)
 );
 

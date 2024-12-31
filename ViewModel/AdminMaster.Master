@@ -10,38 +10,10 @@
     <link href="\content\MyStyles.css" rel="stylesheet" />
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
-    <%--<style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        .sidebar {
-            height: 100vh;
-            background-color: #f8f9fa;
-            padding-top: 20px;
-        }
-
-        .navbar-custom {
-            background-color: #dc3545;
-            color: white;
-        }
-
-            .navbar-custom a {
-                color: white;
-            }
-    </style>--%>
+    
 </head>
 <body>
     <form id="form1" runat="server">
-        <%--<nav class="nav flex-column">
-            <a class="nav-link active" href="Default.aspx">Home</a>
-            <a class="nav-link active" href="TrainerClients.aspx">Clientes</a>
-            <a class="nav-link active" href="TrainerRequests.aspx">Solicitudes</a>
-        </nav>
-
-        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-        </asp:ContentPlaceHolder>--%>
-
         <div class="container-fluid">
             <div class="row">
                 <!-- Barra lateral -->

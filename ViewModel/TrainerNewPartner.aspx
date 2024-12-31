@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/AdminMaster.Master" AutoEventWireup="true" CodeBehind="TrainerNewPartner.aspx.cs" Inherits="ViewModel.TrainerNewClient" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/TrainerMaster.Master" AutoEventWireup="true" CodeBehind="TrainerNewPartner.aspx.cs" Inherits="ViewModel.TrainerNewClient" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -6,7 +6,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container my-5">
-        <h2 class="mb-4">Alta de Cliente</h2>
+        <h2 class="mb-4">Alta de Partner</h2>
         <!-- Usuario y Contraseña -->
         <div class="row mb-3">
             <div class="col-md-6">
@@ -122,7 +122,7 @@
 
         <!-- Botón -->
         <div class="text-end">
-            <button type="submit" class="btn btn-danger">Dar de alta</button>
+            <button type="submit" class="btn btn-warning">Dar de alta</button>
         </div>
     </div>
 </asp:Content>
