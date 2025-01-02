@@ -30,8 +30,18 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="TrainerRequests.aspx" >
+                                <a class="nav-link" href="TrainerRequests.aspx">
                                     <span class="bi bi-list-check"></span>Solicitudes
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="TrainerViewExercises.aspx">
+                                    <span class="bi bi-list-check"></span>Lista de ejercicios
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="TrainerNewExercise.aspx">
+                                    <span class="bi bi-list-check"></span>Nuevo Ejercicio
                                 </a>
                             </li>
                         </ul>

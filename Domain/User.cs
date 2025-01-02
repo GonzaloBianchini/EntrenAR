@@ -9,7 +9,8 @@ namespace Domain
     public class User
     {
         public int IdUser { get; set; }
-        public int IdRole { get; set; }
+        //public int IdRole { get; set; }
+        public Role UserRole { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime BirthDate { get; set; }
@@ -19,5 +20,7 @@ namespace Domain
         public bool IsActive { get; set; }
         public string UserNickName { get; set; }
         public string UserPassword { get; set; }
+
+        public Address UserAddress { get; set; }
     }
 }

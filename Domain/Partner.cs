@@ -9,7 +9,7 @@ namespace Domain
     public class Partner
     {
         public int IdPartner { get; set; }
-        public List<Training> TrainingList { get; set; }
         public StatusPartner Status { get; set; }
+        public List<Training> TrainingList { get; set; }
     }
 }

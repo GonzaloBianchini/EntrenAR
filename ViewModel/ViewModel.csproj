@@ -83,7 +83,9 @@
     <Content Include="PartnerPrograms.aspx" />
     <Content Include="PartnerViewRoutine.aspx" />
     <Content Include="TrainerEditProgram.aspx" />
+    <Content Include="TrainerNewExercise.aspx" />
     <Content Include="TrainerNewProgram.aspx" />
+    <Content Include="TrainerViewExercises.aspx" />
     <Content Include="TrainerViewPartner.aspx" />
     <Content Include="TrainerPartners.aspx" />
     <Content Include="Global.asax" />
@@ -219,12 +221,26 @@
     <Compile Include="TrainerMaster.Master.designer.cs">
       <DependentUpon>TrainerMaster.Master</DependentUpon>
     </Compile>
+    <Compile Include="TrainerNewExercise.aspx.cs">
+      <DependentUpon>TrainerNewExercise.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TrainerNewExercise.aspx.designer.cs">
+      <DependentUpon>TrainerNewExercise.aspx</DependentUpon>
+    </Compile>
     <Compile Include="TrainerNewProgram.aspx.cs">
       <DependentUpon>TrainerNewProgram.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="TrainerNewProgram.aspx.designer.cs">
       <DependentUpon>TrainerNewProgram.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TrainerViewExercises.aspx.cs">
+      <DependentUpon>TrainerViewExercises.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TrainerViewExercises.aspx.designer.cs">
+      <DependentUpon>TrainerViewExercises.aspx</DependentUpon>
     </Compile>
     <Compile Include="TrainerViewPartner.aspx.cs">
       <DependentUpon>TrainerViewPartner.aspx</DependentUpon>
@@ -281,6 +297,16 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Business\Business.csproj">
+      <Project>{ddf7b7d2-2eea-4a06-a4af-8eae2d323c66}</Project>
+      <Name>Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{bd7e2f5d-a760-43b3-b5aa-7cbad29dafac}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
