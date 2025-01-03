@@ -16,8 +16,14 @@ namespace ViewModel
             //Prueba READ OK
             ExercisesBusiness exercisesBusiness = new ExercisesBusiness();
             Exercise exercise = new Exercise();
-
+            /*
             exercise = exercisesBusiness.Read(2);
+            exercise.Name = "BENCH PRESS MODIFIED";
+            exercise.IsActive = true;
+
+            exercisesBusiness.UpdateExercise(exercise);
+            */
+            
             //
         }
 
@@ -32,7 +38,7 @@ namespace ViewModel
 
             try
             {
-                exercisesBusiness.CreateExercise(auxExercise);
+                exercisesBusiness.Create(auxExercise);
             }
             catch (Exception ex)
             {

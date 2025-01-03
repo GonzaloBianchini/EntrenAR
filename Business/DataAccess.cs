@@ -48,6 +48,7 @@ namespace Business
 
         public void ExecuteAction()
         {
+            //TODO: hacer que esta funcion devuelva int rows, para chequear si se modificaron filas o no...
             _command.Connection = _connection;
             try
             {

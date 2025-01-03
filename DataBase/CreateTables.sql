@@ -18,11 +18,25 @@ CREATE TABLE Users (
     Dni INT NOT NULL UNIQUE,
     Phone VARCHAR(50),
     Email VARCHAR(50) UNIQUE,
-    IsActive BIT NOT NULL,
+    IsActive BIT DEFAULT 1 NOT NULL,
     UserNickName VARCHAR(50) NOT NULL,
     UserPassword VARCHAR(50) NOT NULL,
     IdRole INT NOT NULL,
     FOREIGN KEY (IdRole) REFERENCES Roles(IdRole)
+);
+
+-- Tabla: Addresses
+CREATE TABLE Addresses (
+    IdAddress INT PRIMARY KEY IDENTITY(1,1),
+    IdUser INT NOT NULL,
+    StreetName VARCHAR(50) NOT NULL,
+    StreetNumber VARCHAR(50) NOT NULL,
+    Flat VARCHAR(50) NULL,
+    Details VARCHAR(50) NULL,
+    City VARCHAR(50) NOT NULL,
+    Province VARCHAR(50) NOT NULL,
+    Country VARCHAR(50) NOT NULL,
+    FOREIGN KEY (IdUser) REFERENCES Users(Iduser)
 );
 
 -- Tabla: StatusPartner
@@ -91,6 +105,7 @@ CREATE TABLE DailyRoutines (
 -- Tabla: Exercise
 CREATE TABLE Exercises (
     IdExercise INT PRIMARY KEY IDENTITY(1,1),
+    IsActive BIT DEFAULT 1 NOT NULL,
     ExerciseName VARCHAR(50) NOT NULL,
     ExerciseDescription VARCHAR(150),
     UrlExercise VARCHAR(150)

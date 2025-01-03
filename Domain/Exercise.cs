@@ -18,5 +18,6 @@ namespace Domain
         public double Weight { get; set; }
         public int RestTime { get; set; }
         public string UrlExercise { get; set; }
+        public bool IsActive { get; set; }
     }
 }

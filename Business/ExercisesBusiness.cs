@@ -13,14 +13,15 @@ namespace Business
 
         public ExercisesBusiness()
         {
-            Data = new DataAccess();
+            //Data = new DataAccess();
         }
         public List<Exercise> List()
         {
+            Data = new DataAccess();
             List<Exercise> listExercises = new List<Exercise>();
             try
             {
-                Data.SetQuery("select * from Exercises");
+                Data.SetQuery("select * from Exercises Where IsActive=1");
                 Data.ExecuteRead();
 
                 while (Data.Reader.Read())
@@ -30,6 +31,7 @@ namespace Business
                     auxExercise.Name = Data.Reader["ExerciseName"].ToString();
                     auxExercise.Description = Data.Reader["ExerciseDescription"].ToString();
                     auxExercise.UrlExercise = Data.Reader["UrlExercise"].ToString();
+                    auxExercise.IsActive = bool.Parse(Data.Reader["IsActive"].ToString());
 
                     listExercises.Add(auxExercise);
                 }
@@ -47,8 +49,12 @@ namespace Business
             return listExercises;
         }
 
-        public bool CreateExercise(Exercise exercise)
+        public bool Create(Exercise exercise)
         {
+            //TODO: verificar return
+            //TODO: posiblemente convenga devolver el id creado, para la proxima...
+            //TODO: ver como grabar null en db...
+            Data = new DataAccess();
             try
             {
                 Data.SetQuery("INSERT INTO Exercises (ExerciseName, ExerciseDescription, UrlExercise) VALUES (@ExerciseName, @ExerciseDescription, @UrlExercise)");
@@ -74,6 +80,7 @@ namespace Business
 
         public Exercise Read(int id)
         {
+            Data = new DataAccess();
             Exercise auxExercise = new Exercise();
 
             try
@@ -88,6 +95,7 @@ namespace Business
                     auxExercise.Name = Data.Reader["ExerciseName"].ToString();
                     auxExercise.Description= Data.Reader["ExerciseDescription"].ToString();
                     auxExercise.UrlExercise=Data.Reader["UrlExercise"].ToString();
+                    auxExercise.IsActive = bool.Parse(Data.Reader["IsActive"].ToString());
                 }
             }
             catch (Exception)
@@ -101,6 +109,59 @@ namespace Business
             }
 
             return auxExercise;
+        }
+
+        public bool Update(Exercise exercise)
+        {
+            //TODO: verificar return
+            Data = new DataAccess();
+            int rows = 0;
+            try
+            {
+                Data.SetQuery("UPDATE Exercises SET ExerciseName =@ExerciseName, ExerciseDescription = @ExerciseDescription, UrlExercise = @UrlExercise, IsActive = @IsActive WHERE IdExercise =@IdExercise;");
+                Data.SetParameter("@IdExercise", exercise.IdExercise);
+                Data.SetParameter("@ExerciseName", exercise.Name);
+                Data.SetParameter("@ExerciseDescription", exercise.Description);
+                Data.SetParameter("@UrlExercise", exercise.UrlExercise);
+                Data.SetParameter("@IdExercise", exercise.IdExercise);
+                Data.SetParameter("@IsActive", exercise.IsActive);
+
+                Data.ExecuteAction();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                Data.CloseConnection();
+            }
+
+            return (rows > 0);
+        }
+
+        public bool Delete(Exercise exercise)
+        {
+            //TODO: verificar return
+            Data = new DataAccess();
+            int rows = 0;
+
+            try
+            {
+                exercise.IsActive = false;
+                Update(exercise);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                Data.CloseConnection();
+            }
+            return (rows > 0);
         }
     }
 }

@@ -20,6 +20,28 @@ namespace ViewModel
 
             dgvExerciseList.DataSource = ExerciseList;
             dgvExerciseList.DataBind();
+
+
+            //prueba Address
+            AddressBusiness addressBusiness = new AddressBusiness();
+            Address auxAddress = new Address();
+
+            /*
+            auxAddress.IdUser = 1;
+            auxAddress.StreetName = "Besares";
+            auxAddress.StreetNumber = 2370;
+            auxAddress.Flat = "9B";
+            auxAddress.Details = string.Empty;
+            auxAddress.City = "Victoria";
+            auxAddress.Province = "BSAS";
+            auxAddress.Country = "Arg";
+
+            addressBusiness.Create(auxAddress);
+            */
+            
+            //auxAddress = addressBusiness.Read(7);
+            //auxAddress.Details = "LA CASA LA CASA LA CASA";
+            //addressBusiness.Update(auxAddress);
         }
     }
 }

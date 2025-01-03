@@ -45,8 +45,24 @@ VALUES
 (2, 4), -- Cliente 4 con Entrenador 2
 (2, 5); -- Cliente 5 con Entrenador 2;
 
+INSERT INTO Addresses (IdUser, StreetName, StreetNumber, Flat, Details, City, Province, Country)
+VALUES 
+(1, 'Av. Corrientes', '1234', '8A', 'Frente al Obelisco', 'Buenos Aires', 'CABA', 'Argentina'),
+(2, 'San Martín', '567', NULL, NULL, 'Rosario', 'Santa Fe', 'Argentina'),
+(3, '9 de Julio', '789', '3B', 'Edificio con portero', 'Córdoba', 'Córdoba', 'Argentina'),
+(4, 'Mitre', '456', NULL, NULL, 'Mendoza', 'Mendoza', 'Argentina'),
+(5, 'Sarmiento', '321', '1C', NULL, 'La Plata', 'Buenos Aires', 'Argentina'),
+(6, 'Belgrano', '654', NULL, 'Casa esquinera', 'Salta', 'Salta', 'Argentina');
+
+
 select * from Users
 SELECT * from Trainers
 SELECT * from Partners
-select * from Exercises
+select * from Exercises Where IsActive=1
 SELECT * from PartnersByTrainer
+SELECT * from Addresses
+
+
+
+
+

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    public class Partner
+    public class Partner : User
     {
         public int IdPartner { get; set; }
         public StatusPartner Status { get; set; }
