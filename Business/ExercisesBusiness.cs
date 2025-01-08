@@ -21,7 +21,7 @@ namespace Business
             List<Exercise> listExercises = new List<Exercise>();
             try
             {
-                Data.SetQuery("select * from Exercises Where IsActive=1");
+                Data.SetQuery("select * from Exercises Where ActiveStatus=1");
                 Data.ExecuteRead();
 
                 while (Data.Reader.Read())
@@ -31,7 +31,7 @@ namespace Business
                     auxExercise.Name = Data.Reader["ExerciseName"].ToString();
                     auxExercise.Description = Data.Reader["ExerciseDescription"].ToString();
                     auxExercise.UrlExercise = Data.Reader["UrlExercise"].ToString();
-                    auxExercise.IsActive = bool.Parse(Data.Reader["IsActive"].ToString());
+                    auxExercise.ActiveStatus = bool.Parse(Data.Reader["ActiveStatus"].ToString());
 
                     listExercises.Add(auxExercise);
                 }
@@ -95,7 +95,7 @@ namespace Business
                     auxExercise.Name = Data.Reader["ExerciseName"].ToString();
                     auxExercise.Description= Data.Reader["ExerciseDescription"].ToString();
                     auxExercise.UrlExercise=Data.Reader["UrlExercise"].ToString();
-                    auxExercise.IsActive = bool.Parse(Data.Reader["IsActive"].ToString());
+                    auxExercise.ActiveStatus = bool.Parse(Data.Reader["ActiveStatus"].ToString());
                 }
             }
             catch (Exception)
@@ -116,15 +116,16 @@ namespace Business
             //TODO: verificar return
             Data = new DataAccess();
             int rows = 0;
+            
             try
             {
-                Data.SetQuery("UPDATE Exercises SET ExerciseName =@ExerciseName, ExerciseDescription = @ExerciseDescription, UrlExercise = @UrlExercise, IsActive = @IsActive WHERE IdExercise =@IdExercise;");
+                Data.SetQuery("UPDATE Exercises SET ExerciseName =@ExerciseName, ExerciseDescription = @ExerciseDescription, UrlExercise = @UrlExercise, ActiveStatus = @ActiveStatus WHERE IdExercise =@IdExercise;");
                 Data.SetParameter("@IdExercise", exercise.IdExercise);
                 Data.SetParameter("@ExerciseName", exercise.Name);
                 Data.SetParameter("@ExerciseDescription", exercise.Description);
                 Data.SetParameter("@UrlExercise", exercise.UrlExercise);
                 Data.SetParameter("@IdExercise", exercise.IdExercise);
-                Data.SetParameter("@IsActive", exercise.IsActive);
+                Data.SetParameter("@ActiveStatus", exercise.ActiveStatus);
 
                 Data.ExecuteAction();
             }
@@ -149,7 +150,7 @@ namespace Business
 
             try
             {
-                exercise.IsActive = false;
+                exercise.ActiveStatus = false;
                 Update(exercise);
             }
             catch (Exception ex)

@@ -61,7 +61,7 @@ namespace Business
             {
                 Data.SetQuery("INSERT INTO Addresses (IdUser, StreetName, StreetNumber, Flat, Details, City, Province, Country) VALUES (@IdUser, @StreetName, @StreetNumber, @Flat, @Details, @City, @Province, @Country)");
                 
-                Data.SetParameter("@IdUser", address.IdUser);
+                
                 Data.SetParameter("@StreetName", address.StreetName);
                 Data.SetParameter("@StreetNumber", address.StreetNumber.ToString());
                 Data.SetParameter("@Flat", address.Flat);

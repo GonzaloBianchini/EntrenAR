@@ -13,7 +13,7 @@ VALUES
 ('MetCon', 'Cardio de distintas disciplinas'),
 ('Funcional', 'Entrenamiento all around con BodyWeight');
 
-INSERT INTO Roles (RolName)
+INSERT INTO Roles (RoleName)
 VALUES 
     ('Admin'),
     ('Trainer'),

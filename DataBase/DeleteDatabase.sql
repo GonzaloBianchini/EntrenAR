@@ -7,7 +7,7 @@ DROP TABLE Exercises;
 
 DROP TABLE DailyRoutines;
 
-DROP TABLE TrainingsByPartner;
+-- DROP TABLE TrainingsByPartner;
 
 DROP TABLE Trainings;
 
@@ -24,4 +24,7 @@ DROP TABLE StatusesPartner;
 DROP TABLE Users;
 
 DROP TABLE Roles;
+
+DROP TABLE Addresses;
+
 

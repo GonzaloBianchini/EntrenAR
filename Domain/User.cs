@@ -8,19 +8,10 @@ namespace Domain
 {
     public class User
     {
-        public int IdUser { get; set; }
-        //public int IdRole { get; set; }
-        public Role UserRole { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public DateTime BirthDate { get; set; }
-        public int Dni { get; set; }
-        public string Phone { get; set; }
-        public string Email { get; set; }
-        public bool IsActive { get; set; }
-        public string UserNickName { get; set; }
-        public string UserPassword { get; set; }
-
-        public Address UserAddress { get; set; }
+        public int idUser { get; set; }
+        public string userName { get; set; }
+        public string userPassword { get; set; }
+        public Role role { get; set; }
+        
     }
 }

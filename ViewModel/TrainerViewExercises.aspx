@@ -4,6 +4,9 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <h1>Lista de ejercicios</h1>
+
+    <asp:Label Text="El index es: " id="lblIndex" runat="server" />
+
     <asp:GridView runat="server" ID="dgvExerciseList" AutoGenerateColumns="false" DataKeyNames="IdExercise" class="table table-striped table-bordered table-dark mt-3">
         <Columns>
             <asp:BoundField DataField="IdExercise" HeaderText="ID EJERCICIO" />

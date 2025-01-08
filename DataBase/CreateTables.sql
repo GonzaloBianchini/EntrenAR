@@ -6,29 +6,12 @@ GO
 
 CREATE TABLE Roles (
     IdRole INT PRIMARY KEY IDENTITY(1,1),
-    RolName VARCHAR(50) NOT NULL
-);
-
--- Tabla: Users
-CREATE TABLE Users (
-    IdUser INT PRIMARY KEY IDENTITY(1,1),
-    FirstName VARCHAR(50) NOT NULL,
-    LastName VARCHAR(50) NOT NULL,
-    BirthDate DATE NOT NULL,
-    Dni INT NOT NULL UNIQUE,
-    Phone VARCHAR(50),
-    Email VARCHAR(50) UNIQUE,
-    IsActive BIT DEFAULT 1 NOT NULL,
-    UserNickName VARCHAR(50) NOT NULL,
-    UserPassword VARCHAR(50) NOT NULL,
-    IdRole INT NOT NULL,
-    FOREIGN KEY (IdRole) REFERENCES Roles(IdRole)
+    RoleName VARCHAR(50) NOT NULL
 );
 
 -- Tabla: Addresses
 CREATE TABLE Addresses (
     IdAddress INT PRIMARY KEY IDENTITY(1,1),
-    IdUser INT NOT NULL,
     StreetName VARCHAR(50) NOT NULL,
     StreetNumber VARCHAR(50) NOT NULL,
     Flat VARCHAR(50) NULL,
@@ -36,7 +19,15 @@ CREATE TABLE Addresses (
     City VARCHAR(50) NOT NULL,
     Province VARCHAR(50) NOT NULL,
     Country VARCHAR(50) NOT NULL,
-    FOREIGN KEY (IdUser) REFERENCES Users(Iduser)
+);
+
+-- Tabla: Users
+CREATE TABLE Users (
+    IdUser INT PRIMARY KEY IDENTITY(1,1),
+    IdRole INT DEFAULT 3 NOT NULL, -- Id Role 3 es para crear PARTNERS por DEFAULT
+    UserNickName VARCHAR(50) NOT NULL,
+    UserPassword VARCHAR(50) NOT NULL,
+    FOREIGN KEY (IdRole) REFERENCES Roles(IdRole)
 );
 
 -- Tabla: StatusPartner
@@ -49,9 +40,18 @@ CREATE TABLE StatusesPartner (
 CREATE TABLE Partners (
     IdPartner INT PRIMARY KEY IDENTITY(1,1),
     IdUser INT NOT NULL,  
-    IdStatus INT NOT NULL,
+    IdStatus INT DEFAULT 1 NOT NULL,
+    ActiveStatus BIT DEFAULT 1 NOT NULL,
+    Dni INT NOT NULL UNIQUE,
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
+    Gender VARCHAR(50) NULL,
+    Email VARCHAR(50) UNIQUE,
+    Phone VARCHAR(50) NOT NULL,
+    BirthDate DATE NOT NULL,
+    IdAddress INT NOT NULL,
+    FOREIGN KEY (IdUser) REFERENCES Users(IdUser),
     FOREIGN KEY (IdStatus) REFERENCES StatusesPartner(IdStatus),
-    FOREIGN KEY (IdUser) REFERENCES Users(IdUser)
 );
 
 CREATE TABLE Trainers (
@@ -87,15 +87,6 @@ CREATE TABLE Trainings (
     FOREIGN KEY (IdType) REFERENCES TrainingTypes(IdType)
 );
 
--- Tabla intermedia: TrainingsByPartner (para asociar entrenamientos con Partners)
-CREATE TABLE TrainingsByPartner (
-    IdPartner INT NOT NULL,
-    IdTraining INT NOT NULL,
-    PRIMARY KEY (IdPartner, IdTraining),
-    FOREIGN KEY (IdPartner) REFERENCES Partners(IdPartner),
-    FOREIGN KEY (IdTraining) REFERENCES Trainings(Id)
-);
-
 -- Tabla: DailyRoutine
 CREATE TABLE DailyRoutines (
     IdDailyRoutine INT PRIMARY KEY IDENTITY(1,1),
@@ -105,7 +96,7 @@ CREATE TABLE DailyRoutines (
 -- Tabla: Exercise
 CREATE TABLE Exercises (
     IdExercise INT PRIMARY KEY IDENTITY(1,1),
-    IsActive BIT DEFAULT 1 NOT NULL,
+    ActiveStatus BIT DEFAULT 1 NOT NULL,
     ExerciseName VARCHAR(50) NOT NULL,
     ExerciseDescription VARCHAR(150),
     UrlExercise VARCHAR(150)

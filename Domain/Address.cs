@@ -11,7 +11,7 @@ namespace Domain
     public class Address
     {
         public int IdAddress { get; set; }
-        public int IdUser { get; set; }
+        //public int IdUser { get; set; }
         public string StreetName { get; set; }
         public int StreetNumber { get; set; }
         public string Flat { get; set; }
