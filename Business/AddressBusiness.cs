@@ -9,36 +9,37 @@ namespace Business
 {
     public class AddressBusiness
     {
-        private DataAccess Data;
+        private DataAccess data;
 
         public AddressBusiness()
         {
 
         }
 
+        //TODO: revisar list...
         public List<Address> List()
         {
-            Data = new DataAccess();
+            data = new DataAccess();
             List<Address> listAddresses = new List<Address>();
 
             try
             {
-                Data.SetQuery("select * from Addresses");
-                Data.ExecuteRead();
+                data.SetQuery("select * from Addresses");
+                data.ExecuteRead();
 
-                while (Data.Reader.Read())
+                while (data.Reader.Read())
                 {
                     Address auxAddress = new Address();
-                    auxAddress.IdAddress = int.Parse(Data.Reader["IdAddress"].ToString());
-                    auxAddress.StreetName = Data.Reader["StreetName"].ToString();
-                    auxAddress.StreetNumber = int.Parse(Data.Reader["StreetNumber"].ToString());
+                    auxAddress.idAddress = int.Parse(data.Reader["IdAddress"].ToString());
+                    auxAddress.streetName = data.Reader["StreetName"].ToString();
+                    auxAddress.streetNumber = int.Parse(data.Reader["StreetNumber"].ToString());
                     //auxAddress.Flat = Data.Reader["Flat"] == null ? "" : Data.Reader["Flat"].ToString();
-                    auxAddress.Flat = Data.Reader["Flat"].ToString();
+                    auxAddress.flat = data.Reader["Flat"].ToString();
                     //auxAddress.Details = Data.Reader["Details"] == null ? "" : Data.Reader["Details"].ToString();
-                    auxAddress.Details = Data.Reader["Details"].ToString();
-                    auxAddress.City = Data.Reader["City"].ToString();
-                    auxAddress.Province = Data.Reader["Province"].ToString();
-                    auxAddress.Country = Data.Reader["Country"].ToString();
+                    auxAddress.details = data.Reader["Details"].ToString();
+                    auxAddress.city = data.Reader["City"].ToString();
+                    auxAddress.province.idProvince = int.Parse(data.Reader["Province"].ToString());
+                    auxAddress.country = data.Reader["Country"].ToString();
 
                     listAddresses.Add(auxAddress);
                 }
@@ -51,62 +52,67 @@ namespace Business
 
             return listAddresses;
         }
-        public bool Create(Address address)
+        public int Create(Address address)
         {
-            //TODO: verificar return
-            //TODO: posiblemente convenga devolver el id creado, para la proxima...
-            //TODO: ver como grabar null en db...
-            Data = new DataAccess();
+            data = new DataAccess();
+            int lastIndex;
+
             try
             {
-                Data.SetQuery("INSERT INTO Addresses (IdUser, StreetName, StreetNumber, Flat, Details, City, Province, Country) VALUES (@IdUser, @StreetName, @StreetNumber, @Flat, @Details, @City, @Province, @Country)");
+                //data.SetQuery("INSERT INTO Addresses (IdUser, StreetName, StreetNumber, Flat, Details, City, Province, Country) VALUES (@IdUser, @StreetName, @StreetNumber, @Flat, @Details, @City, @Province, @Country)");
+                data.SetStoredProcedure("insert_address");
+
+                data.SetParameter("@IdProvince", address.province.idProvince);
+                data.SetParameter("@StreetName", address.streetName);
+                data.SetParameter("@StreetNumber", address.streetNumber.ToString());
+                //data.SetParameter("@Flat", address.flat ?? (object)DBNull.Value);
+                data.SetParameter("@Flat", address.flat == string.Empty ? (object)DBNull.Value : address.flat );
+                //data.SetParameter("@Details", address.details ?? (object)DBNull.Value);
+                data.SetParameter("@Details", address.details == string.Empty ? (object)DBNull.Value : address.details);
+                data.SetParameter("@City", address.city);
+                data.SetParameter("@Country", address.country);
                 
-                
-                Data.SetParameter("@StreetName", address.StreetName);
-                Data.SetParameter("@StreetNumber", address.StreetNumber.ToString());
-                Data.SetParameter("@Flat", address.Flat);
-                Data.SetParameter("@Details", address.Details);
-                Data.SetParameter("@City", address.City);
-                Data.SetParameter("@Province", address.Province);
-                Data.SetParameter("@Country", address.Country);
-                
-                Data.ExecuteAction();
+                data.ExecuteRead();
+
+                data.Reader.Read();
+                lastIndex = int.Parse(data.Reader["LastId"].ToString());
 
             }
             catch (Exception ex)
             {
-
+                lastIndex = 0;
                 throw ex;
             }
             finally
             {
-                Data.CloseConnection();
+                data.CloseConnection();
             }
 
-            return true;
+            return lastIndex;
         }
-
+        
+        //TODO: revisar READ y UPDATE de todos los business...
         public Address Read(int id)
         {
-            Data = new DataAccess();
+            data = new DataAccess();
             Address auxAddress = new Address();
 
             try
             {
-                Data.SetQuery("SELECT * FROM Addresses WHERE IdAddress=@IdAddress");
-                Data.SetParameter("@IdAddress", id);
-                Data.ExecuteRead();
+                data.SetQuery("SELECT * FROM Addresses WHERE IdAddress=@IdAddress");
+                data.SetParameter("@IdAddress", id);
+                data.ExecuteRead();
 
-                if (Data.Reader.Read())
+                if (data.Reader.Read())
                 {
-                    auxAddress.IdAddress = id;
-                    auxAddress.StreetName = Data.Reader["StreetName"].ToString();
-                    auxAddress.StreetNumber= int.Parse(Data.Reader["StreetNumber"].ToString());
-                    auxAddress.Flat = Data.Reader["Flat"].ToString();
-                    auxAddress.Details = Data.Reader["Details"].ToString();
-                    auxAddress.City = Data.Reader["City"].ToString();
-                    auxAddress.Province = Data.Reader["Province"].ToString();
-                    auxAddress.Country = Data.Reader["Country"].ToString();
+                    auxAddress.idAddress = id;
+                    auxAddress.streetName = data.Reader["StreetName"].ToString();
+                    auxAddress.streetNumber= int.Parse(data.Reader["StreetNumber"].ToString());
+                    auxAddress.flat = data.Reader["Flat"].ToString();
+                    auxAddress.details = data.Reader["Details"].ToString();
+                    auxAddress.city = data.Reader["City"].ToString();
+                    auxAddress.province.idProvince = int.Parse(data.Reader["Province"].ToString());
+                    auxAddress.country = data.Reader["Country"].ToString();
                 }
             }
             catch (Exception)
@@ -116,7 +122,7 @@ namespace Business
             }
             finally
             {
-                Data.CloseConnection();
+                data.CloseConnection();
             }
 
             return auxAddress;
@@ -125,21 +131,21 @@ namespace Business
         public bool Update(Address address)
         {
             //TODO: verificar return
-            Data = new DataAccess();
+            data = new DataAccess();
             int rows = 0;
             try
             {
-                Data.SetQuery("UPDATE Addresses SET StreetName =@StreetName, StreetNumber = @StreetNumber, Flat = @Flat, Details = @Details, City = @City, Province = @Province, Country = @Country WHERE IdAddress =@IdAddress;");
-                Data.SetParameter("@IdAddress", address.IdAddress);
-                Data.SetParameter("@StreetName", address.StreetName);
-                Data.SetParameter("@StreetNumber", address.StreetNumber.ToString());
-                Data.SetParameter("@Flat", address.Flat);
-                Data.SetParameter("@Details", address.Details);
-                Data.SetParameter("@City", address.City);
-                Data.SetParameter("@Province", address.Province);
-                Data.SetParameter("@Country", address.Country);
+                data.SetQuery("UPDATE Addresses SET StreetName =@StreetName, StreetNumber = @StreetNumber, Flat = @Flat, Details = @Details, City = @City, Province = @Province, Country = @Country WHERE IdAddress =@IdAddress;");
+                data.SetParameter("@IdAddress", address.idAddress);
+                data.SetParameter("@StreetName", address.streetName);
+                data.SetParameter("@StreetNumber", address.streetNumber.ToString());
+                data.SetParameter("@Flat", address.flat);
+                data.SetParameter("@Details", address.details);
+                data.SetParameter("@City", address.city);
+                data.SetParameter("@Province", address.province);
+                data.SetParameter("@Country", address.country);
 
-                Data.ExecuteAction();
+                data.ExecuteAction();
             }
             catch (Exception ex)
             {
@@ -148,7 +154,7 @@ namespace Business
             }
             finally
             {
-                Data.CloseConnection();
+                data.CloseConnection();
             }
 
             return (rows > 0);

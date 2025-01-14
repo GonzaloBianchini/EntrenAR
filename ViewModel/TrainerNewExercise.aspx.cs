@@ -14,7 +14,7 @@ namespace ViewModel
         protected void Page_Load(object sender, EventArgs e)
         {
             //Prueba READ OK
-            ExercisesBusiness exercisesBusiness = new ExercisesBusiness();
+            ExerciseBusiness exercisesBusiness = new ExerciseBusiness();
             Exercise exercise = new Exercise();
             /*
             exercise = exercisesBusiness.Read(2);
@@ -29,7 +29,7 @@ namespace ViewModel
 
         protected void btnCreateExercise_Click(object sender, EventArgs e)
         {
-            ExercisesBusiness exercisesBusiness = new ExercisesBusiness();
+            ExerciseBusiness exercisesBusiness = new ExerciseBusiness();
             Exercise auxExercise = new Exercise();
 
             auxExercise.Name = txtExerciceName.Text;

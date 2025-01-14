@@ -10,7 +10,7 @@ namespace Business
     public class PartnerBusiness
     {
         private DataAccess data;
-
+        private AddressBusiness addressBusiness;
         public PartnerBusiness()
         {
 
@@ -53,14 +53,15 @@ namespace Business
         {
             data = new DataAccess();
             int lastIndex;
-            
+            int addressIndex;
+            addressBusiness = new AddressBusiness();
             try
             {
                 data.SetStoredProcedure("insert_partner");
                 data.SetParameter("@UserName", partner.userName);
                 data.SetParameter("@UserPassword", partner.userPassword);
                 data.SetParameter("@IdRole", partner.role.IdRole);
-                data.SetParameter("@IdStatus",1);
+                data.SetParameter("@IdStatus",partner.status.IdStatus);
                 data.SetParameter("@Dni", partner.dni);
                 data.SetParameter("@FirstName", partner.firstName);
                 data.SetParameter("@LastName", partner.lastName);
@@ -68,18 +69,19 @@ namespace Business
                 data.SetParameter("@Email", partner.email);
                 data.SetParameter("@Phone", partner.phone);
                 data.SetParameter("@BirthDate", partner.birthDate);
-                //TODO: CREAR ADDRESS....revisar el business y la BD
-                data.SetParameter("@IdAddress", partner.address.IdAddress);
+
+                addressIndex = addressBusiness.Create(partner.address);
+                data.SetParameter("@IdAddress", addressIndex);
 
                 data.ExecuteRead();
 
                 data.Reader.Read();
                 lastIndex = int.Parse(data.Reader["LastId"].ToString());
-
             }
             catch (Exception ex)
             {
                 lastIndex = 0;
+                addressIndex = 0;
                 throw ex;
             }
             finally

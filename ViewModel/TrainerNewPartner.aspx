@@ -10,12 +10,12 @@
         <!-- Usuario y Contraseña -->
         <div class="row mb-3">
             <div class="col-md-6">
-                <label for="usuario" class="form-label">Usuario</label>
-                <input type="text" class="form-control" id="usuario" placeholder="admin">
+                <asp:Label Text="User" ID="lblUser" runat="server" class="form-label" />
+                <asp:TextBox runat="server" ID="txtUser" class="form-control" placeholder="Nombre Usuari@" />
             </div>
             <div class="col-md-6">
-                <label for="contrasena" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="contrasena">
+                <asp:Label Text="Password" ID="lblPassword" runat="server" class="form-label" />
+                <asp:TextBox runat="server" ID="txtPassWord" class="form-control" placeholder="Password" />
                 <small class="text-muted">* La contraseña debe contener al menos una mayúscula, una minúscula y un número.</small>
             </div>
         </div>
@@ -23,106 +23,96 @@
         <!-- Nombre y Apellido -->
         <div class="row mb-3">
             <div class="col-md-6">
-                <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="nombre" placeholder="Nombre">
+                <asp:Label Text="Nombre" ID="lblFirstName" runat="server" class="form-label" />
+                <asp:TextBox runat="server" ID="txtFirstName" class="form-control" placeholder="Nombre" />
             </div>
             <div class="col-md-6">
-                <label for="apellido" class="form-label">Apellido</label>
-                <input type="text" class="form-control" id="apellido" placeholder="Apellido">
+                <asp:Label Text="Apellido" ID="lblLastName" runat="server" class="form-label" />
+                <asp:TextBox runat="server" ID="txtLastName" class="form-control" placeholder="Apellido" />
             </div>
         </div>
 
-        <!-- DNI y CUIL -->
+        <!-- DNI-->
         <div class="row mb-3">
             <div class="col-md-6">
-                <label for="dni" class="form-label">DNI</label>
-                <input type="text" class="form-control" id="dni" placeholder="DNI del cliente (sin espacios ni puntos)">
-            </div>
-            <div class="col-md-6">
-                <label for="cuil" class="form-label">CUIL</label>
-                <input type="text" class="form-control" id="cuil" placeholder="CUIL">
+                <asp:Label Text="DNI" ID="lblDni" runat="server" class="form-label" />
+                <asp:TextBox runat="server" ID="txtDni" class="form-control" placeholder="DNI del cliente (sin espacios ni puntos)" />
             </div>
         </div>
 
         <!-- Fecha de Nacimiento, Género y Nacionalidad -->
         <div class="row mb-3">
             <div class="col-md-4">
-                <label for="fecha-nacimiento" class="form-label">Fecha de nacimiento</label>
-                <input type="date" class="form-control" id="fecha-nacimiento">
+                <asp:Label Text="Fecha de nacimiento" ID="lblBirthDate" runat="server" class="form-label" />
+                <asp:TextBox runat="server" ID="txtBirthDate" TextMode="Date" class="form-control" placeholder="Fecha de nacimiento" />
             </div>
             <div class="col-md-4">
-                <label for="genero" class="form-label">Género</label>
-                <select class="form-select" id="genero">
-                    <option>No informado</option>
-                    <option>Masculino</option>
-                    <option>Femenino</option>
-                </select>
+                <asp:Label Text="Genero" ID="lblGender" runat="server" class="form-label" />
+                <asp:DropDownList ID="ddlGender" class="btn btn-outline-dark dropdown-toggle" runat="server">
+                    <asp:ListItem Text="Femenino" />
+                    <asp:ListItem Text="Masculino" />
+                    <asp:ListItem Text="No informado" />
+                </asp:DropDownList>
             </div>
             <div class="col-md-4">
-                <label for="nacionalidad" class="form-label">Nacionalidad</label>
-                <input type="text" class="form-control" id="nacionalidad" placeholder="Nacionalidad">
+                <asp:Label Text="Nacionalidad" ID="lblCountry" runat="server" class="form-label" />
+                <asp:TextBox runat="server" ID="txtCountry" class="form-control" placeholder="Nacionalidad" />
             </div>
         </div>
 
         <!-- Teléfono y Email -->
         <div class="row mb-3">
             <div class="col-md-6">
-                <label for="telefono" class="form-label">Teléfono</label>
-                <input type="text" class="form-control" id="telefono" placeholder="Teléfono de contacto">
+                <asp:Label Text="Teléfono" ID="lblPhone" runat="server" class="form-label" />
+                <asp:TextBox runat="server" ID="txtPhone" class="form-control" placeholder="Fecha de nacimiento" />
             </div>
             <div class="col-md-6">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" placeholder="Email">
+                <asp:Label Text="Email" ID="lblEmail" runat="server" class="form-label" />
+                <asp:TextBox runat="server" ID="txtEmail" class="form-control" placeholder="Email" />
             </div>
         </div>
 
         <!-- Calle y Número -->
         <div class="row mb-3">
             <div class="col-md-6">
-                <label for="calle" class="form-label">Calle</label>
-                <input type="text" class="form-control" id="calle" placeholder="Calle">
+                <asp:Label Text="Calle" ID="lblStreetName" runat="server" class="form-label" />
+                <asp:TextBox runat="server" ID="txtStreetName" class="form-control" placeholder="Calle" />
             </div>
             <div class="col-md-6">
-                <label for="numero" class="form-label">Número</label>
-                <input type="text" class="form-control" id="numero" placeholder="Número">
+                <asp:Label Text="Numero" ID="lblStreetNumber" runat="server" class="form-label" />
+                <asp:TextBox runat="server" ID="txtStreetNumber" class="form-control" placeholder="Numero" />
             </div>
         </div>
 
         <!-- Piso/Depto y Observaciones -->
         <div class="row mb-3">
             <div class="col-md-6">
-                <label for="piso" class="form-label">Piso/Depto</label>
-                <input type="text" class="form-control" id="piso" placeholder="Piso/Depto">
+                <asp:Label Text="Piso/Depto" ID="lblFlat" runat="server" class="form-label" />
+                <asp:TextBox runat="server" ID="txtFlat" class="form-control" placeholder="Piso/Depto" />
             </div>
             <div class="col-md-6">
-                <label for="observaciones" class="form-label">Observaciones</label>
-                <input type="text" class="form-control" id="observaciones" placeholder="Observaciones del domicilio">
+                <asp:Label Text="Observaciones" ID="lblDetails" runat="server" class="form-label" />
+                <asp:TextBox runat="server" ID="txtDetails" class="form-control" placeholder="Observaciones" />
             </div>
         </div>
 
-        <!-- Provincia, Localidad y CP -->
+        <!-- Provincia, Localidad -->
         <div class="row mb-3">
             <div class="col-md-4">
-                <label for="provincia" class="form-label">Provincia</label>
-                <select class="form-select" id="provincia">
-                    <option>Buenos Aires</option>
-                    <option>Córdoba</option>
-                    <option>Santa Fe</option>
-                </select>
+                <asp:Label Text="Provincia" ID="lblProvince" runat="server" class="form-label" />
+                <asp:DropDownList ID="ddlProvince" DataValueField="idProvince" DataTextField="name" class="btn btn-outline-dark dropdown-toggle" runat="server">
+                </asp:DropDownList>
             </div>
             <div class="col-md-4">
-                <label for="localidad" class="form-label">Localidad</label>
-                <input type="text" class="form-control" id="localidad" placeholder="Ingrese Ciudad">
-            </div>
-            <div class="col-md-4">
-                <label for="cp" class="form-label">CP</label>
-                <input type="text" class="form-control" id="cp" placeholder="CP">
+                <asp:Label Text="Localidad/Barrio" ID="lblCity" class="form-label" runat="server" />
+                <asp:TextBox runat="server" ID="txtCity" class="form-control" placeholder="Localidad/Barrio" />
             </div>
         </div>
 
         <!-- Botón -->
         <div class="text-end">
-            <button type="submit" class="btn btn-warning">Dar de alta</button>
+            <asp:Button Text="Dar de alta" ID="btnCreatePartner" OnClick="btnCreatePartner_Click" class="btn btn-warning" runat="server" />
+            <%--<button type="submit" id="btnCreatePartner" class="btn btn-warning">Dar de alta</button>--%>
         </div>
     </div>
 </asp:Content>

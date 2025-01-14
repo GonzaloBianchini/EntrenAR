@@ -27,4 +27,9 @@ DROP TABLE Roles;
 
 DROP TABLE Addresses;
 
+DROP PROCEDURE insert_partner;
+
+DROP PROCEDURE insert_user;
+
+
 

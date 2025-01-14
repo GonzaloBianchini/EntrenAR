@@ -1,5 +1,33 @@
 use ENTRENAR_DB
 
+INSERT INTO Provinces (ProvinceName)
+VALUES
+('Cap Fed'),
+('Buenos Aires'),
+('Catamarca'),
+('Chaco'),
+('Chubut'),
+('Córdoba'),
+('Corrientes'),
+('Entre Ríos'),
+('Formosa'),
+('Jujuy'),
+('La Pampa'),
+('La Rioja'),
+('Mendoza'),
+('Misiones'),
+('Neuquén'),
+('Río Negro'),
+('Salta'),
+('San Juan'),
+('San Luis'),
+('Santa Cruz'),
+('Santa Fe'),
+('Santiago del Estero'),
+('Tierra del Fuego'),
+('Tucumán');
+
+
 INSERT INTO StatusesPartner (StatusName, StatusDescription)
 VALUES 
 ('Available', 'No tiene trainer y está buscando, puede enviar solicitudes'),

@@ -1,87 +1,88 @@
 use ENTRENAR_DB
 go
 
-INSERT INTO Addresses (StreetName, StreetNumber, Flat, Details, City, Province, Country)
-VALUES 
-('Av. Corrientes', '1234', '8A', 'Frente al Obelisco', 'Buenos Aires', 'CABA', 'Argentina'),
-('San Martín', '567', NULL, NULL, 'Rosario', 'Santa Fe', 'Argentina'),
-('9 de Julio', '789', '3B', 'Edificio con portero', 'Córdoba', 'Córdoba', 'Argentina'),
-('Mitre', '456', NULL, NULL, 'Mendoza', 'Mendoza', 'Argentina'),
-('Sarmiento', '321', '1C', NULL, 'La Plata', 'Buenos Aires', 'Argentina'),
-('San Juan', '101', NULL, 'Cerca del parque principal', 'San Juan', 'San Juan', 'Argentina'),
-('Rivadavia', '2020', '2A', 'Edificio con ascensor', 'San Luis', 'San Luis', 'Argentina'),
-('Alem', '555', NULL, NULL, 'Mar del Plata', 'Buenos Aires', 'Argentina'),
-('Urquiza', '777', '5C', 'Edificio moderno', 'Tucumán', 'Tucumán', 'Argentina'),
-('Entre Ríos', '888', NULL, 'Frente a la plaza central', 'Paraná', 'Entre Ríos', 'Argentina'),
-('Mitre', '123', '3A', 'Cerca de la estación de tren', 'Neuquén', 'Neuquén', 'Argentina'),
-('Alsina', '444', '1B', NULL, 'Bahía Blanca', 'Buenos Aires', 'Argentina'),
-('Castelli', '333', NULL, 'Barrio tranquilo', 'Resistencia', 'Chaco', 'Argentina'),
-('San Martín', '909', NULL, 'Casa de esquina', 'Posadas', 'Misiones', 'Argentina'),
-('Belgrano', '2222', '6D', 'Vista panorámica', 'Bariloche', 'Río Negro', 'Argentina'),
-('Belgrano', '654', NULL, 'Casa esquinera', 'Salta', 'Salta', 'Argentina');
+INSERT INTO Addresses (IdProvince, StreetName, StreetNumber, Flat, Details, City, Country)
+VALUES
+(1, 'Av. Corrientes', '1234', '8A', 'Frente al Obelisco', 'Buenos Aires', 'Argentina'),
+(5, 'San Martín', '567', NULL, NULL, 'Córdoba', 'Argentina'),
+(7, '9 de Julio', '789', '3B', 'Edificio con portero', 'Paraná', 'Argentina'),
+(2, 'Mitre', '456', NULL, NULL, 'San Fernando del Valle de Catamarca', 'Argentina'),
+(3, 'Belgrano', '321', '1C', NULL, 'Resistencia', 'Argentina'),
+(4, 'Rivadavia', '654', NULL, 'Casa esquinera', 'Trelew', 'Argentina'),
+(6, 'Sarmiento', '111', '2A', 'Cerca del río', 'Corrientes', 'Argentina'),
+(8, 'España', '222', '4B', NULL, 'Formosa', 'Argentina'),
+(9, 'Italia', '333', NULL, 'Barrio central', 'San Salvador de Jujuy', 'Argentina'),
+(10, 'San Lorenzo', '444', NULL, NULL, 'Santa Rosa', 'Argentina'),
+(11, 'Colón', '555', '5D', 'Zona histórica', 'La Rioja', 'Argentina'),
+(12, 'Alsina', '666', NULL, 'Barrio residencial', 'Mendoza', 'Argentina'),
+(13, 'Francia', '777', NULL, NULL, 'Posadas', 'Argentina'),
+(14, 'Bolívar', '888', '6E', 'Vista al río', 'Barrio Norte', 'Argentina'),
+(15, 'Castelli', '999', NULL, 'Cerca del puerto', 'Viedma', 'Argentina'),
+(16, 'Perú', '1010', NULL, NULL, 'Salta', 'Argentina');
 
--- Crear los usuarios
-INSERT INTO Users (IdAddress,FirstName, LastName, BirthDate, Dni, Phone, Email, ActiveStatus, UserNickName, UserPassword, IdRole)
-VALUES 
-(1,'Admin', 'Main', '1980-01-01', 10000001, '123456789', 'admin@entrenar.com', 1, 'admin', 'admin123', 1), -- Admin
-(2,'Trainer1', 'Coach', '1985-02-01', 10000002, '123456780', 'trainer1@entrenar.com', 1, 'trainer1', 'trainer123', 2), -- Trainer 1
-(3,'Trainer2', 'Coach', '1986-03-01', 10000003, '123456781', 'trainer2@entrenar.com', 1, 'trainer2', 'trainer123', 2), -- Trainer 2
-(4,'Trainer3', 'Coach', '1987-04-01', 10000004, '123456782', 'trainer3@entrenar.com', 1, 'trainer3', 'trainer123', 2), -- Trainer 3
-(5,'Client1', 'User', '1990-01-01', 10000005, '123456783', 'client1@entrenar.com', 1, 'client1', 'client123', 3), -- Client 1
-(6,'Client2', 'User', '1991-02-01', 10000006, '123456784', 'client2@entrenar.com', 1, 'client2', 'client123', 3), -- Client 2
-(7,'Client3', 'User', '1992-03-01', 10000007, '123456785', 'client3@entrenar.com', 1, 'client3', 'client123', 3), -- Client 3
-(8,'Client4', 'User', '1993-04-01', 10000008, '123456786', 'client4@entrenar.com', 1, 'client4', 'client123', 3), -- Client 4
-(9,'Client5', 'User', '1994-05-01', 10000009, '123456787', 'client5@entrenar.com', 1, 'client5', 'client123', 3), -- Client 5
-(10,'Client6', 'User', '1995-06-01', 10000010, '123456788', 'client6@entrenar.com', 1, 'client6', 'client123', 3), -- Client 6
-(11,'Client7', 'User', '1996-07-01', 10000011, '123456789', 'client7@entrenar.com', 1, 'client7', 'client123', 3), -- Client 7
-(12,'Client8', 'User', '1997-08-01', 10000012, '123456790', 'client8@entrenar.com', 1, 'client8', 'client123', 3); -- Client 8
 
--- Asignar los entrenadores a la tabla Trainers
+-- Insertar Admin
+INSERT INTO Users (IdRole, UserNickName, UserPassword)
+VALUES (1, 'admin_user', 'AdminPass'); -- Admin tiene IdRole = 1
+
+-- Insertar Trainers
+INSERT INTO Users (IdRole, UserNickName, UserPassword)
+VALUES 
+(2, 'trainer1', 'TrainerPass1'),
+(2, 'trainer2', 'TrainerPass2'),
+(2, 'trainer3', 'TrainerPass3'); -- Trainers tienen IdRole = 2
+
+-- Insertar Partners
+INSERT INTO Users (IdRole, UserNickName, UserPassword)
+VALUES 
+(3, 'partner1', 'PartnerPass1'),
+(3, 'partner2', 'PartnerPass2'),
+(3, 'partner3', 'PartnerPass3'),
+(3, 'partner4', 'PartnerPass4'),
+(3, 'partner5', 'PartnerPass5'),
+(3, 'partner6', 'PartnerPass6'); -- Partners tienen IdRole = 3
+
+-- Insertar Trainers en la tabla Trainers
 INSERT INTO Trainers (IdUser)
 VALUES 
-(2), -- Trainer 1
-(3), -- Trainer 2
-(4); -- Trainer 3
+((SELECT IdUser FROM Users WHERE UserNickName = 'trainer1')),
+((SELECT IdUser FROM Users WHERE UserNickName = 'trainer2')),
+((SELECT IdUser FROM Users WHERE UserNickName = 'trainer3'));
 
--- Asignar los clientes a la tabla Clients con el estado correspondiente
-INSERT INTO Partners (IdUser, IdStatus)
-VALUES 
-(5, 3), -- Cliente 1 asignado (Assigned)
-(6, 3), -- Cliente 2 asignado (Assigned)
-(7, 3), -- Cliente 3 asignado (Assigned)
-(8, 3), -- Cliente 4 asignado (Assigned)
-(9, 3), -- Cliente 5 asignado (Assigned)
-(10, 1), -- Cliente 6 disponible (Available)
-(11, 1), -- Cliente 7 disponible (Available)
-(12, 1); -- Cliente 8 disponible (Available)
 
--- Asociar clientes con entrenadores en ClientsByTrainer
+-- Insertar Partners en la tabla Partners
+INSERT INTO Partners (IdUser, IdStatus, Dni, FirstName, LastName, Gender, Email, Phone, BirthDate, IdAddress)
+VALUES
+((SELECT IdUser FROM Users WHERE UserNickName = 'partner1'), 3, 12345678, 'John', 'Doe', 'Male', 'john.doe@example.com', '123456789', '1990-01-01', 1),
+((SELECT IdUser FROM Users WHERE UserNickName = 'partner2'), 3, 23456789, 'Jane', 'Doe', 'Female', 'jane.doe@example.com', '987654321', '1991-02-02', 2),
+((SELECT IdUser FROM Users WHERE UserNickName = 'partner3'), 3, 34567890, 'Alice', 'Smith', 'Female', 'alice.smith@example.com', '567890123', '1992-03-03', 3),
+((SELECT IdUser FROM Users WHERE UserNickName = 'partner4'), 3, 45678901, 'Bob', 'Brown', 'Male', 'bob.brown@example.com', '890123456', '1993-04-04', 4),
+((SELECT IdUser FROM Users WHERE UserNickName = 'partner5'), 3, 56789012, 'Charlie', 'Johnson', 'Male', 'charlie.johnson@example.com', '345678901', '1994-05-05', 5),
+((SELECT IdUser FROM Users WHERE UserNickName = 'partner6'), 1, 67890123, 'Eve', 'Davis', 'Female', 'eve.davis@example.com', '123890456', '1995-06-06', 6);
+
+-- Asociar Partners con Trainers
 INSERT INTO PartnersByTrainer (IdTrainer, IdPartner)
-VALUES 
-(1, 1), -- Cliente 1 con Entrenador 1
-(1, 2), -- Cliente 2 con Entrenador 1
-(1, 3), -- Cliente 3 con Entrenador 1
-(2, 4), -- Cliente 4 con Entrenador 2
-(2, 5); -- Cliente 5 con Entrenador 2;
-
+VALUES
+((SELECT IdTrainer FROM Trainers WHERE IdUser = (SELECT IdUser FROM Users WHERE UserNickName = 'trainer1')),
+ (SELECT IdPartner FROM Partners WHERE IdUser = (SELECT IdUser FROM Users WHERE UserNickName = 'partner1'))),
+((SELECT IdTrainer FROM Trainers WHERE IdUser = (SELECT IdUser FROM Users WHERE UserNickName = 'trainer1')),
+ (SELECT IdPartner FROM Partners WHERE IdUser = (SELECT IdUser FROM Users WHERE UserNickName = 'partner2'))),
+((SELECT IdTrainer FROM Trainers WHERE IdUser = (SELECT IdUser FROM Users WHERE UserNickName = 'trainer2')),
+ (SELECT IdPartner FROM Partners WHERE IdUser = (SELECT IdUser FROM Users WHERE UserNickName = 'partner3'))),
+((SELECT IdTrainer FROM Trainers WHERE IdUser = (SELECT IdUser FROM Users WHERE UserNickName = 'trainer2')),
+ (SELECT IdPartner FROM Partners WHERE IdUser = (SELECT IdUser FROM Users WHERE UserNickName = 'partner4'))),
+((SELECT IdTrainer FROM Trainers WHERE IdUser = (SELECT IdUser FROM Users WHERE UserNickName = 'trainer2')),
+ (SELECT IdPartner FROM Partners WHERE IdUser = (SELECT IdUser FROM Users WHERE UserNickName = 'partner5')));
 
 
 
 select * from Users
 SELECT * from Trainers
 SELECT * from Partners
-select * from Exercises Where IsActive=1
 SELECT * from PartnersByTrainer
 SELECT * from Addresses
+SELECT * FROM Provinces
+SELECT * FROM Exercises
+Select * from ROLES
 
-
-INSERT INTO Users (FirstName, LastName, BirthDate, Dni, Phone, Email, UserNickName, UserPassword)
-VALUES 
-('Lalo', 'Landa', '1988-11-02', 33956474, '1134385063', 'lalo@entrenar.com', 'lalo22', 'blabla1')
-
-
-select * from Users U 
-left join Partners P
-ON P.IdUser = U.IdUser
-where U.IdRole = 3 and U.IsActive = 1 
 

@@ -13,13 +13,13 @@ namespace ViewModel
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //Prueba Address
-            AddressBusiness addressBusiness = new AddressBusiness();
-            List<Address> addressesList = new List<Address>();
-            addressesList = addressBusiness.List();
+            ////Prueba Address
+            //AddressBusiness addressBusiness = new AddressBusiness();
+            //List<Address> addressesList = new List<Address>();
+            //addressesList = addressBusiness.List();
 
-            dgvAddressList.DataSource = addressesList;
-            dgvAddressList.DataBind();
+            //dgvAddressList.DataSource = addressesList;
+            //dgvAddressList.DataBind();
         }
     }
 }

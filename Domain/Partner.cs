@@ -21,5 +21,13 @@ namespace Domain
       
         public Address address { get; set; }
         public List<Training> trainingList { get; set; }
+
+        public Partner()
+        {
+            role = new Role();
+            status = new StatusPartner();
+            address = new Address();
+            trainingList = new List<Training>();
+        }
     }
 }

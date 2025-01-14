@@ -10,15 +10,20 @@ namespace Domain
 {
     public class Address
     {
-        public int IdAddress { get; set; }
+        public int idAddress { get; set; }
         //public int IdUser { get; set; }
-        public string StreetName { get; set; }
-        public int StreetNumber { get; set; }
-        public string Flat { get; set; }
-        public string Details { get; set; }
-        public string City { get; set; }
-        public string Province { get; set; }
-        public string Country { get; set; }
+        public string streetName { get; set; }
+        public int streetNumber { get; set; }
+        public string flat { get; set; }
+        public string details { get; set; }
+        public string city { get; set; }
+        public Province province { get; set; }
+        public string country { get; set; }
+
+        public Address()
+        {
+            this.province = new Province();
+        }
         
     }
 }

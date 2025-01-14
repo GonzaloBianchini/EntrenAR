@@ -9,16 +9,22 @@ CREATE TABLE Roles (
     RoleName VARCHAR(50) NOT NULL
 );
 
+CREATE TABLE Provinces (
+    IdProvince INT PRIMARY KEY IDENTITY(1,1),
+    ProvinceName VARCHAR(50) NOT NULL 
+);
+
 -- Tabla: Addresses
 CREATE TABLE Addresses (
     IdAddress INT PRIMARY KEY IDENTITY(1,1),
+    IdProvince INT NOT NULL,
     StreetName VARCHAR(50) NOT NULL,
     StreetNumber VARCHAR(50) NOT NULL,
     Flat VARCHAR(50) NULL,
     Details VARCHAR(50) NULL,
     City VARCHAR(50) NOT NULL,
-    Province VARCHAR(50) NOT NULL,
     Country VARCHAR(50) NOT NULL,
+    FOREIGN KEY (IdProvince) REFERENCES Provinces(IdProvince)
 );
 
 -- Tabla: Users
@@ -40,7 +46,7 @@ CREATE TABLE StatusesPartner (
 CREATE TABLE Partners (
     IdPartner INT PRIMARY KEY IDENTITY(1,1),
     IdUser INT NOT NULL,  
-    IdStatus INT DEFAULT 1 NOT NULL,
+    IdStatus INT NOT NULL,
     ActiveStatus BIT DEFAULT 1 NOT NULL,
     Dni INT NOT NULL UNIQUE,
     FirstName VARCHAR(50) NOT NULL,

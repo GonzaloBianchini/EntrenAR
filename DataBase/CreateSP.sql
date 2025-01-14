@@ -2,8 +2,6 @@
 use ENTRENAR_DB
 GO
 
---DROP PROCEDURE insert_user
-
 CREATE PROCEDURE insert_user
     @Username VARCHAR(50), -- Nombre de usuario
     @UserPassword VARCHAR(50), -- Contraseña del usuario
@@ -20,100 +18,6 @@ BEGIN
     SELECT SCOPE_IDENTITY() AS LastId
 END;
 GO
-
--- DECLARE @elultimo INT;
-
--- EXEC insert_user 'user12','aasdeg',3;
-
--- select @elultimo
-
--- select * from Users
--- select * from Addresses
--- select * from Users Where IdUser=15
--- select * from Roles where IdRole=3
-
--- DROP PROCEDURE insert_partner
-
--- CREATE PROCEDURE insert_partner
---     @Username VARCHAR(50), -- Nombre de usuario
---     @UserPassword VARCHAR(50), -- Contraseña del usuario
---     @IdRole INT, -- Rol del usuario (probablemente 3 para Partner)
---     @IdStatus INT, -- Estado inicial del socio
---     @Dni INT, -- DNI del socio
---     @FirstName VARCHAR(50), -- Nombre del socio
---     @LastName VARCHAR(50), -- Apellido del socio
---     @Gender VARCHAR(50) NULL, -- Género del socio
---     @Email VARCHAR(50) NULL, -- Email del socio
---     @Phone VARCHAR(50), -- Teléfono del socio
---     @BirthDate DATE, -- Fecha de nacimiento del socio
---     @IdAddress INT -- ID de la dirección del socio
--- AS
--- BEGIN
---     -- Inicia una transacción
---     BEGIN TRANSACTION;
-
---     BEGIN TRY
---         DECLARE @NewUserId INT;
-
---         -- Llama al SP insert_user para crear el usuario
---         EXEC insert_user @Username, @UserPassword, @IdRole;
-
---         -- Recupera el ID generado por el usuario
---         SELECT @NewUserId = SCOPE_IDENTITY();
-
---         -- Inserta el socio en la tabla Partners
---         INSERT INTO Partners (
---             IdUser,
---             IdStatus,
---             ActiveStatus,
---             Dni,
---             FirstName,
---             LastName,
---             Gender,
---             Email,
---             Phone,
---             BirthDate,
---             IdAddress
---         )
---         VALUES (
---             @NewUserId,
---             @IdStatus,
---             1, -- Socio activo por defecto
---             @Dni,
---             @FirstName,
---             @LastName,
---             @Gender,
---             @Email,
---             @Phone,
---             @BirthDate,
---             @IdAddress
---         );
-
---         -- Confirma la transacción
---         COMMIT TRANSACTION;
---     END TRY
---     BEGIN CATCH
---         -- Si hay un error, revierte la transacción
---         ROLLBACK TRANSACTION;
---         THROW;
---     END CATCH;
--- END;
--- GO
-
--- DROP PROCEDURE insert_user_alternative
-
-
-
-
--- EXEC insert_partner 'gonzoofonzoo','Hola123',2,1,'33956434','Andres','Bianchinosky','Masculino','andres3.b@gmail.com','47459806','1989-01-15',1;
-
-
-
--- select * from Users
--- select * from Partners
-
--- REVISAR LOS IDS GENERADOS EN USERS!!!!!
-DROP PROCEDURE insert_partner
 
 CREATE PROCEDURE insert_partner
     @Username VARCHAR(50),
@@ -183,11 +87,31 @@ BEGIN
 END;
 GO
 
+CREATE PROCEDURE insert_address
+    @IdProvince INT, -- ID de la provincia
+    @StreetName VARCHAR(50), -- Nombre de la calle
+    @StreetNumber VARCHAR(50), -- Número de la calle
+    @Flat VARCHAR(50) = NULL, -- Departamento (opcional)
+    @Details VARCHAR(50) = NULL, -- Detalles adicionales (opcional)
+    @City VARCHAR(50), -- Ciudad
+    @Country VARCHAR(50) -- País
+AS
+BEGIN
+    -- Inserta una nueva dirección
+    INSERT INTO Addresses (IdProvince, StreetName, StreetNumber, Flat, Details, City, Country)
+    VALUES (@IdProvince, @StreetName, @StreetNumber, @Flat, @Details, @City, @Country);
 
-EXEC insert_partner 'gonzfonz','Hola123',2,1,'33956402','Andres','Bianchinosky','Masculino','andres6.b@gmail.com','47459806','1989-01-15',1;
+    -- Recupera el ID generado y lo devuelve
+    SELECT SCOPE_IDENTITY() AS LastId;
+END;
+GO
 
--- select * from Users
--- select * from Partners
 
+
+
+
+select * from Addresses
+select * from Users
+select * from Partners
 
 

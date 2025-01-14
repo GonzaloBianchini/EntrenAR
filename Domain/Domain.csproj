@@ -46,6 +46,7 @@
     <Compile Include="Exercise.cs" />
     <Compile Include="Partner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Province.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="StatusPartner.cs" />
     <Compile Include="Trainer.cs" />

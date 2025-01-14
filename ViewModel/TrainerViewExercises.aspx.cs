@@ -15,8 +15,8 @@ namespace ViewModel
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            ExercisesBusiness exercisesBusiness = new ExercisesBusiness();
-            List<Exercise> ExerciseList = exercisesBusiness.List();
+            ExerciseBusiness exerciseBusiness = new ExerciseBusiness();
+            List<Exercise> ExerciseList = exerciseBusiness.List();
 
             dgvExerciseList.DataSource = ExerciseList;
             dgvExerciseList.DataBind();
@@ -26,19 +26,18 @@ namespace ViewModel
             AddressBusiness addressBusiness = new AddressBusiness();
             Address auxAddress = new Address();
 
-            /*
-            auxAddress.IdUser = 1;
-            auxAddress.StreetName = "Besares";
-            auxAddress.StreetNumber = 2370;
-            auxAddress.Flat = "9B";
-            auxAddress.Details = string.Empty;
-            auxAddress.City = "Victoria";
-            auxAddress.Province = "BSAS";
-            auxAddress.Country = "Arg";
 
-            addressBusiness.Create(auxAddress);
-            */
-            
+            auxAddress.province.idProvince = 7;
+            auxAddress.streetName = "2Franklin2";
+            auxAddress.streetNumber = 2594;
+            auxAddress.flat = "7mo piso";
+            auxAddress.details = null;
+            auxAddress.city = "VIRREEE pa";
+            auxAddress.country = "argentitititi";
+
+            //addressBusiness.Create(auxAddress);
+
+
             //auxAddress = addressBusiness.Read(7);
             //auxAddress.Details = "LA CASA LA CASA LA CASA";
             //addressBusiness.Update(auxAddress);
@@ -58,42 +57,43 @@ namespace ViewModel
 
             //userBusiness.Create(auxUser);
 
-            UserBusiness userBusiness = new UserBusiness();
-            PartnerBusiness partnerBusiness = new PartnerBusiness();   
+            //UserBusiness userBusiness = new UserBusiness();
+            PartnerBusiness partnerBusiness = new PartnerBusiness();
             RoleBusiness roleBusiness = new RoleBusiness();
-            User user = new User();
+            StatusPartnerBusiness statusPartnerBusiness = new StatusPartnerBusiness();
+            //User user = new User();
 
             Partner partner = new Partner();
-            partner.userName = "FONZOuSer";
+            partner.userName = "FONZALOOOOOO";
             partner.userPassword = "passwordDificil";
             partner.role = roleBusiness.Read(2);
-            //TODO: StatusPartner Business
-            StatusPartner statusPartner = new StatusPartner();
-            statusPartner.IdStatus = 1;
-            statusPartner.Name = "Available";
-            statusPartner.Description = "No tiene trainer y está buscando, puede enviar solicitudes";
             
-            auxAddress.IdAddress = 1;
-            auxAddress.StreetName = "Besares";
-            auxAddress.StreetNumber = 2370;
-            auxAddress.Flat = "9B";
-            auxAddress.Details = string.Empty;
-            auxAddress.City = "Victoria";
-            auxAddress.Province = "BSAS";
-            auxAddress.Country = "Arg";
+            StatusPartner statusPartner = new StatusPartner();
+            //statusPartner.IdStatus = 1;
+            //statusPartner.Name = "Available";
+            //statusPartner.Description = "No tiene trainer y está buscando, puede enviar solicitudes";
+            statusPartner = statusPartnerBusiness.Read(3);
+
+            //auxAddress.IdAddress = 1;
+            //auxAddress.StreetName = "Besares";
+            //auxAddress.StreetNumber = 2370;
+            //auxAddress.Flat = "9B";
+            //auxAddress.Details = string.Empty;
+            //auxAddress.City = "Victoria";
+            //auxAddress.Province = "BSAS";
+            //auxAddress.Country = "Arg";
 
             partner.status = statusPartner;
-            partner.firstName = "Andres";
-            partner.lastName = "Bianchinosky";
-            partner.gender = "masculine";
+            partner.firstName = "Andresiiiiito";
+            partner.lastName = "B de bueno";
+            partner.gender = "masc";
             partner.birthDate = DateTime.Now;
-            partner.dni = 124;
+            partner.dni = 124567899;
             partner.phone = "47459806";
-            partner.email = "gonzamail@.com";
+            partner.email = "gonzamailasasscita@.com";
             partner.activeStatus = true;
-            partner.address= auxAddress;
+            partner.address = auxAddress;
 
-            
             partnerBusiness.Create(partner);
             //user.userName = "Fonzalo22";
             //user.userPassword = "Holaqtalco12";
@@ -101,7 +101,7 @@ namespace ViewModel
 
             //user.idUser = userBusiness.Create(user);
 
-            lblIndex.Text = lblIndex.Text + partner.idUser.ToString();
+            //lblIndex.Text = lblIndex.Text + partner.idUser.ToString();
         }
     }
 }

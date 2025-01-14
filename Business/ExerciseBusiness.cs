@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Business
 {
-    public class ExercisesBusiness
+    public class ExerciseBusiness
     {
         private DataAccess Data;
 
-        public ExercisesBusiness()
+        public ExerciseBusiness()
         {
             //Data = new DataAccess();
         }
