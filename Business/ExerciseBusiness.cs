@@ -8,30 +8,30 @@ using System.Threading.Tasks;
 namespace Business
 {
     public class ExerciseBusiness
-    {
-        private DataAccess Data;
+    {   
+        private DataAccess data;
 
         public ExerciseBusiness()
         {
-            //Data = new DataAccess();
+
         }
         public List<Exercise> List()
         {
-            Data = new DataAccess();
+            data = new DataAccess();
             List<Exercise> listExercises = new List<Exercise>();
             try
             {
-                Data.SetQuery("select * from Exercises Where ActiveStatus=1");
-                Data.ExecuteRead();
+                data.SetQuery("select * from Exercises Where ActiveStatus=1");
+                data.ExecuteRead();
 
-                while (Data.Reader.Read())
+                while (data.Reader.Read())
                 {
                     Exercise auxExercise = new Exercise();
-                    auxExercise.IdExercise = int.Parse(Data.Reader["IdExercise"].ToString());
-                    auxExercise.Name = Data.Reader["ExerciseName"].ToString();
-                    auxExercise.Description = Data.Reader["ExerciseDescription"].ToString();
-                    auxExercise.UrlExercise = Data.Reader["UrlExercise"].ToString();
-                    auxExercise.ActiveStatus = bool.Parse(Data.Reader["ActiveStatus"].ToString());
+                    auxExercise.IdExercise = int.Parse(data.Reader["IdExercise"].ToString());
+                    auxExercise.ActiveStatus = bool.Parse(data.Reader["ActiveStatus"].ToString());
+                    auxExercise.Name = data.Reader["ExerciseName"].ToString();
+                    auxExercise.Description = data.Reader["ExerciseDescription"].ToString();
+                    auxExercise.UrlExercise = data.Reader["UrlExercise"].ToString();
 
                     listExercises.Add(auxExercise);
                 }
@@ -43,7 +43,7 @@ namespace Business
             }
             finally
             {
-                Data.CloseConnection();
+                data.CloseConnection();
             }
 
             return listExercises;
@@ -53,16 +53,17 @@ namespace Business
         {
             //TODO: verificar return
             //TODO: posiblemente convenga devolver el id creado, para la proxima...
-            //TODO: ver como grabar null en db...
-            Data = new DataAccess();
+            //TODO: HACER SP
+            //TODO: grabar null en db donde corresponda
+            data = new DataAccess();
             try
             {
-                Data.SetQuery("INSERT INTO Exercises (ExerciseName, ExerciseDescription, UrlExercise) VALUES (@ExerciseName, @ExerciseDescription, @UrlExercise)");
-                Data.SetParameter("@ExerciseName", exercise.Name);
-                Data.SetParameter("@ExerciseDescription", exercise.Description);
-                Data.SetParameter("@UrlExercise", exercise.UrlExercise);
+                data.SetQuery("INSERT INTO Exercises (ExerciseName, ExerciseDescription, UrlExercise) VALUES (@ExerciseName, @ExerciseDescription, @UrlExercise)");
+                data.SetParameter("@ExerciseName", exercise.Name);
+                data.SetParameter("@ExerciseDescription", exercise.Description);
+                data.SetParameter("@UrlExercise", exercise.UrlExercise);
 
-                Data.ExecuteAction();
+                data.ExecuteAction();
 
             }
             catch (Exception ex)
@@ -72,7 +73,7 @@ namespace Business
             }
             finally
             {
-                Data.CloseConnection();
+                data.CloseConnection();
             }
 
             return true;
@@ -80,22 +81,22 @@ namespace Business
 
         public Exercise Read(int id)
         {
-            Data = new DataAccess();
+            data = new DataAccess();
             Exercise auxExercise = new Exercise();
 
             try
             {
-                Data.SetQuery("SELECT * FROM Exercises WHERE IdExercise=@IdExercise");
-                Data.SetParameter("@IdExercise", id);
-                Data.ExecuteRead();
+                data.SetQuery("SELECT * FROM Exercises WHERE IdExercise=@IdExercise");
+                data.SetParameter("@IdExercise", id);
+                data.ExecuteRead();
 
-                if (Data.Reader.Read())
+                if (data.Reader.Read())
                 {
                     auxExercise.IdExercise = id;
-                    auxExercise.Name = Data.Reader["ExerciseName"].ToString();
-                    auxExercise.Description= Data.Reader["ExerciseDescription"].ToString();
-                    auxExercise.UrlExercise=Data.Reader["UrlExercise"].ToString();
-                    auxExercise.ActiveStatus = bool.Parse(Data.Reader["ActiveStatus"].ToString());
+                    auxExercise.Name = data.Reader["ExerciseName"].ToString();
+                    auxExercise.Description = data.Reader["ExerciseDescription"].ToString();
+                    auxExercise.UrlExercise = data.Reader["UrlExercise"].ToString();
+                    auxExercise.ActiveStatus = bool.Parse(data.Reader["ActiveStatus"].ToString());
                 }
             }
             catch (Exception)
@@ -105,7 +106,7 @@ namespace Business
             }
             finally
             {
-                Data.CloseConnection();
+                data.CloseConnection();
             }
 
             return auxExercise;
@@ -113,56 +114,56 @@ namespace Business
 
         public bool Update(Exercise exercise)
         {
-            //TODO: verificar return
-            Data = new DataAccess();
-            int rows = 0;
-            
+            data = new DataAccess();
+            int rows;
+
             try
             {
-                Data.SetQuery("UPDATE Exercises SET ExerciseName =@ExerciseName, ExerciseDescription = @ExerciseDescription, UrlExercise = @UrlExercise, ActiveStatus = @ActiveStatus WHERE IdExercise =@IdExercise;");
-                Data.SetParameter("@IdExercise", exercise.IdExercise);
-                Data.SetParameter("@ExerciseName", exercise.Name);
-                Data.SetParameter("@ExerciseDescription", exercise.Description);
-                Data.SetParameter("@UrlExercise", exercise.UrlExercise);
-                Data.SetParameter("@IdExercise", exercise.IdExercise);
-                Data.SetParameter("@ActiveStatus", exercise.ActiveStatus);
+                data.SetQuery("UPDATE Exercises SET ExerciseName =@ExerciseName, ExerciseDescription = @ExerciseDescription, UrlExercise = @UrlExercise, ActiveStatus = @ActiveStatus WHERE IdExercise =@IdExercise;");
+                data.SetParameter("@IdExercise", exercise.IdExercise);
+                data.SetParameter("@ExerciseName", exercise.Name);
+                data.SetParameter("@ExerciseDescription", exercise.Description);
+                data.SetParameter("@UrlExercise", exercise.UrlExercise);
+                data.SetParameter("@IdExercise", exercise.IdExercise);
+                data.SetParameter("@ActiveStatus", exercise.ActiveStatus);
 
-                Data.ExecuteAction();
+                rows = data.ExecuteAction();
             }
             catch (Exception ex)
             {
-
+                rows = 0;
                 throw ex;
             }
             finally
             {
-                Data.CloseConnection();
+                data.CloseConnection();
             }
 
             return (rows > 0);
         }
 
+        //TODO: ver si el delete debe tomar por parametro ID en vez de el propio EXERCISE...
         public bool Delete(Exercise exercise)
         {
             //TODO: verificar return
-            Data = new DataAccess();
-            int rows = 0;
+            data = new DataAccess();
+            bool flag;
 
             try
             {
                 exercise.ActiveStatus = false;
-                Update(exercise);
+                flag = Update(exercise);
             }
             catch (Exception ex)
             {
-
+                flag = false;
                 throw ex;
             }
             finally
             {
-                Data.CloseConnection();
+                data.CloseConnection();
             }
-            return (rows > 0);
+            return flag;
         }
     }
 }

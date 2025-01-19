@@ -13,5 +13,20 @@ namespace ViewModel
         {
 
         }
+
+        protected void btnRegistrarme_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnLogin_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnIngresar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

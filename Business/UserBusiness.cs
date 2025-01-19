@@ -16,39 +16,6 @@ namespace Business
 
         }
 
-        //public bool Create(User user)
-        //{
-        //    Data = new DataAccess();
-
-        //    try
-        //    {
-        //        Data.SetQuery("INSERT INTO Users (FirstName, LastName, BirthDate, Dni, Phone, Email, UserNickName, UserPassword) VALUES (@FirstName, @LastName, @BirthDate, @Dni, @Phone, @Email, @UserNickName, @UserPassword)");
-        //        Data.SetParameter("@FirstName",user.FirstName);
-        //        Data.SetParameter("@LastName",user.LastName);
-        //        Data.SetParameter("@BirthDate",user.BirthDate);
-        //        Data.SetParameter("@Dni",user.Dni);
-        //        Data.SetParameter("@Phone",user.Phone);
-        //        Data.SetParameter("@Email",user.Email);
-        //        Data.SetParameter("@UserNickName",user.UserNickName);
-        //        Data.SetParameter("@UserPassword",user.UserPassword);
-
-        //        Data.ExecuteAction();
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        throw ex;
-        //    }
-        //    finally
-        //    {
-        //        Data.CloseConnection();
-        //    }
-
-        //    return true;
-        //}
-        //prueba
-
-
         /// <summary>
         /// Crea User, ideal para ser usada en PartnerBusiness y TrainerBusiness
         /// </summary>
@@ -113,6 +80,70 @@ namespace Business
                 data.CloseConnection();
             }
             return auxUser;
+        }
+
+        public bool Update(User user)
+        {
+            //TODO: verificar return
+            data = new DataAccess();
+            int rows;
+            roleBusiness = new RoleBusiness();
+            try
+            {
+                data.SetQuery("UPDATE Users SET IdRole =@IdRole, UserNickName = @UserNickName, UserPassword = @UserPassword WHERE IdUser =@IdUser;");
+                data.SetParameter("@IdRole", roleBusiness.Read(user.role.IdRole));
+                data.SetParameter("@UserNickName",user.userName);
+                data.SetParameter("@UserPassword", user.userPassword);
+                data.SetParameter("@IdUser", user.idUser);
+
+                rows = data.ExecuteAction();
+            }
+            catch (Exception ex)
+            {
+                rows = 0;
+                throw ex;
+            }
+            finally
+            {
+                data.CloseConnection();
+            }
+
+            return (rows > 0);
+        }
+
+        public List<User> List()
+        {
+            roleBusiness = new RoleBusiness();
+            data = new DataAccess();
+            List<User> listUsers = new List<User>();
+            try
+            {
+                data.SetQuery("select * from Users");
+                data.ExecuteRead();
+
+                while (data.Reader.Read())
+                {
+                    User auxUser = new User();
+
+                    auxUser.idUser = int.Parse(data.Reader["IdUser"].ToString());
+                    auxUser.role = roleBusiness.Read(int.Parse(data.Reader["IdRole"].ToString()));
+                    auxUser.userName = data.Reader["UserNickName"].ToString();
+                    auxUser.userPassword = data.Reader["UserPassword"].ToString();                    
+
+                    listUsers.Add(auxUser);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                data.CloseConnection();
+            }
+
+            return listUsers;
         }
     }
 }

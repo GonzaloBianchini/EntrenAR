@@ -45,21 +45,26 @@ namespace Business
                 throw ex;
             }
         }
-
-        public void ExecuteAction()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>Filas afectadas</returns>
+        public int ExecuteAction()
         {
             //TODO: hacer que esta funcion devuelva int rows, para chequear si se modificaron filas o no...
             _command.Connection = _connection;
+            int rows;
             try
             {
                 _connection.Open();
-                _command.ExecuteNonQuery();
+                rows = _command.ExecuteNonQuery();
             }
             catch (Exception ex)
             {
-
+                rows = 0;
                 throw ex;
             }
+            return rows;
         }
 
         public void SetParameter(string parameter, object value)
