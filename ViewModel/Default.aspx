@@ -22,6 +22,8 @@
             </div>
         </nav>
 
+        <asp:Label Text="PRUEBA MENSAAAAJEEE" id="lblMessage" visible="false" runat="server" />
+
         <!-- Cuadro Login-->
         <div class="d-flex justify-content-center align-items-center vh-100 bg-light">
             <div class="card p-4 shadow" style="width: 20rem;">
