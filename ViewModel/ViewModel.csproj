@@ -67,82 +67,79 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AdminEditPartner.aspx" />
-    <Content Include="AdminEditProgram.aspx" />
-    <Content Include="AdminEditTrainer.aspx" />
-    <Content Include="AdminNewPartner.aspx" />
-    <Content Include="AdminNewProgram.aspx" />
-    <Content Include="AdminNewTrainer.aspx" />
+    <Content Include="DashBoard.aspx" />
+    <Content Include="EditExercise.aspx" />
+    <Content Include="EditPartner.aspx" />
+    <Content Include="EditProgram.aspx" />
+    <Content Include="EditTrainer.aspx" />
+    <Content Include="NewProgram.aspx" />
+    <Content Include="NewTrainer.aspx" />
     <Content Include="AdminPanel.aspx" />
-    <Content Include="AdminPartners.aspx" />
-    <Content Include="AdminRequests.aspx" />
-    <Content Include="AdminTrainers.aspx" />
-    <Content Include="AdminViewPartner.aspx" />
-    <Content Include="AdminViewTrainer.aspx" />
+    <Content Include="ViewPartners.aspx" />
+    <Content Include="PartnerRequest.aspx" />
+    <Content Include="ViewTrainers.aspx" />
+    <Content Include="ViewPartner.aspx" />
+    <Content Include="ViewTrainer.aspx" />
     <Content Include="Content\MyStyles.css" />
-    <Content Include="PartnerPrograms.aspx" />
-    <Content Include="PartnerViewRoutine.aspx" />
-    <Content Include="TrainerEditProgram.aspx" />
-    <Content Include="TrainerNewExercise.aspx" />
-    <Content Include="TrainerNewProgram.aspx" />
-    <Content Include="TrainerViewExercises.aspx" />
-    <Content Include="TrainerViewPartner.aspx" />
-    <Content Include="TrainerPartners.aspx" />
+    <Content Include="ViewPrograms.aspx" />
+    <Content Include="ViewRoutine.aspx" />
+    <Content Include="NewExercise.aspx" />
+    <Content Include="ViewExercises.aspx" />
     <Content Include="Global.asax" />
-    <Content Include="Default.aspx" />
-    <Content Include="TrainerNewPartner.aspx" />
+    <Content Include="Login.aspx" />
+    <Content Include="NewPartner.aspx" />
     <Content Include="TrainerRequests.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdminEditPartner.aspx.cs">
-      <DependentUpon>AdminEditPartner.aspx</DependentUpon>
+    <Compile Include="DashBoard.aspx.cs">
+      <DependentUpon>DashBoard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AdminEditPartner.aspx.designer.cs">
-      <DependentUpon>AdminEditPartner.aspx</DependentUpon>
+    <Compile Include="DashBoard.aspx.designer.cs">
+      <DependentUpon>DashBoard.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AdminEditProgram.aspx.cs">
-      <DependentUpon>AdminEditProgram.aspx</DependentUpon>
+    <Compile Include="EditExercise.aspx.cs">
+      <DependentUpon>EditExercise.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AdminEditProgram.aspx.designer.cs">
-      <DependentUpon>AdminEditProgram.aspx</DependentUpon>
+    <Compile Include="EditExercise.aspx.designer.cs">
+      <DependentUpon>EditExercise.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AdminEditTrainer.aspx.cs">
-      <DependentUpon>AdminEditTrainer.aspx</DependentUpon>
+    <Compile Include="EditPartner.aspx.cs">
+      <DependentUpon>EditPartner.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AdminEditTrainer.aspx.designer.cs">
-      <DependentUpon>AdminEditTrainer.aspx</DependentUpon>
+    <Compile Include="EditPartner.aspx.designer.cs">
+      <DependentUpon>EditPartner.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AdminMaster.Master.cs">
-      <DependentUpon>AdminMaster.Master</DependentUpon>
+    <Compile Include="EditProgram.aspx.cs">
+      <DependentUpon>EditProgram.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AdminMaster.Master.designer.cs">
-      <DependentUpon>AdminMaster.Master</DependentUpon>
+    <Compile Include="EditProgram.aspx.designer.cs">
+      <DependentUpon>EditProgram.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AdminNewPartner.aspx.cs">
-      <DependentUpon>AdminNewPartner.aspx</DependentUpon>
+    <Compile Include="EditTrainer.aspx.cs">
+      <DependentUpon>EditTrainer.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AdminNewPartner.aspx.designer.cs">
-      <DependentUpon>AdminNewPartner.aspx</DependentUpon>
+    <Compile Include="EditTrainer.aspx.designer.cs">
+      <DependentUpon>EditTrainer.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AdminNewProgram.aspx.cs">
-      <DependentUpon>AdminNewProgram.aspx</DependentUpon>
+    <Compile Include="NewProgram.aspx.cs">
+      <DependentUpon>NewProgram.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AdminNewProgram.aspx.designer.cs">
-      <DependentUpon>AdminNewProgram.aspx</DependentUpon>
+    <Compile Include="NewProgram.aspx.designer.cs">
+      <DependentUpon>NewProgram.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AdminNewTrainer.aspx.cs">
-      <DependentUpon>AdminNewTrainer.aspx</DependentUpon>
+    <Compile Include="NewTrainer.aspx.cs">
+      <DependentUpon>NewTrainer.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AdminNewTrainer.aspx.designer.cs">
-      <DependentUpon>AdminNewTrainer.aspx</DependentUpon>
+    <Compile Include="NewTrainer.aspx.designer.cs">
+      <DependentUpon>NewTrainer.aspx</DependentUpon>
     </Compile>
     <Compile Include="AdminPanel.aspx.cs">
       <DependentUpon>AdminPanel.aspx</DependentUpon>
@@ -151,128 +148,93 @@
     <Compile Include="AdminPanel.aspx.designer.cs">
       <DependentUpon>AdminPanel.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AdminPartners.aspx.cs">
-      <DependentUpon>AdminPartners.aspx</DependentUpon>
+    <Compile Include="ViewPartners.aspx.cs">
+      <DependentUpon>ViewPartners.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AdminPartners.aspx.designer.cs">
-      <DependentUpon>AdminPartners.aspx</DependentUpon>
+    <Compile Include="ViewPartners.aspx.designer.cs">
+      <DependentUpon>ViewPartners.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AdminRequests.aspx.cs">
-      <DependentUpon>AdminRequests.aspx</DependentUpon>
+    <Compile Include="PartnerRequest.aspx.cs">
+      <DependentUpon>PartnerRequest.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AdminRequests.aspx.designer.cs">
-      <DependentUpon>AdminRequests.aspx</DependentUpon>
+    <Compile Include="PartnerRequest.aspx.designer.cs">
+      <DependentUpon>PartnerRequest.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AdminTrainers.aspx.cs">
-      <DependentUpon>AdminTrainers.aspx</DependentUpon>
+    <Compile Include="ViewTrainers.aspx.cs">
+      <DependentUpon>ViewTrainers.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AdminTrainers.aspx.designer.cs">
-      <DependentUpon>AdminTrainers.aspx</DependentUpon>
+    <Compile Include="ViewTrainers.aspx.designer.cs">
+      <DependentUpon>ViewTrainers.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AdminViewPartner.aspx.cs">
-      <DependentUpon>AdminViewPartner.aspx</DependentUpon>
+    <Compile Include="ViewPartner.aspx.cs">
+      <DependentUpon>ViewPartner.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AdminViewPartner.aspx.designer.cs">
-      <DependentUpon>AdminViewPartner.aspx</DependentUpon>
+    <Compile Include="ViewPartner.aspx.designer.cs">
+      <DependentUpon>ViewPartner.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AdminViewTrainer.aspx.cs">
-      <DependentUpon>AdminViewTrainer.aspx</DependentUpon>
+    <Compile Include="ViewTrainer.aspx.cs">
+      <DependentUpon>ViewTrainer.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AdminViewTrainer.aspx.designer.cs">
-      <DependentUpon>AdminViewTrainer.aspx</DependentUpon>
+    <Compile Include="ViewTrainer.aspx.designer.cs">
+      <DependentUpon>ViewTrainer.aspx</DependentUpon>
     </Compile>
-    <Compile Include="PartnerMaster.Master.cs">
-      <DependentUpon>PartnerMaster.Master</DependentUpon>
+    <Compile Include="ViewPrograms.aspx.cs">
+      <DependentUpon>ViewPrograms.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="PartnerMaster.Master.designer.cs">
-      <DependentUpon>PartnerMaster.Master</DependentUpon>
+    <Compile Include="ViewPrograms.aspx.designer.cs">
+      <DependentUpon>ViewPrograms.aspx</DependentUpon>
     </Compile>
-    <Compile Include="PartnerPrograms.aspx.cs">
-      <DependentUpon>PartnerPrograms.aspx</DependentUpon>
+    <Compile Include="ViewRoutine.aspx.cs">
+      <DependentUpon>ViewRoutine.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="PartnerPrograms.aspx.designer.cs">
-      <DependentUpon>PartnerPrograms.aspx</DependentUpon>
+    <Compile Include="ViewRoutine.aspx.designer.cs">
+      <DependentUpon>ViewRoutine.aspx</DependentUpon>
     </Compile>
-    <Compile Include="PartnerViewRoutine.aspx.cs">
-      <DependentUpon>PartnerViewRoutine.aspx</DependentUpon>
+    <Compile Include="AllMaster.Master.cs">
+      <DependentUpon>AllMaster.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="PartnerViewRoutine.aspx.designer.cs">
-      <DependentUpon>PartnerViewRoutine.aspx</DependentUpon>
+    <Compile Include="AllMaster.Master.designer.cs">
+      <DependentUpon>AllMaster.Master</DependentUpon>
     </Compile>
-    <Compile Include="TrainerEditProgram.aspx.cs">
-      <DependentUpon>TrainerEditProgram.aspx</DependentUpon>
+    <Compile Include="NewExercise.aspx.cs">
+      <DependentUpon>NewExercise.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="TrainerEditProgram.aspx.designer.cs">
-      <DependentUpon>TrainerEditProgram.aspx</DependentUpon>
+    <Compile Include="NewExercise.aspx.designer.cs">
+      <DependentUpon>NewExercise.aspx</DependentUpon>
     </Compile>
-    <Compile Include="TrainerMaster.Master.cs">
-      <DependentUpon>TrainerMaster.Master</DependentUpon>
+    <Compile Include="ViewExercises.aspx.cs">
+      <DependentUpon>ViewExercises.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="TrainerMaster.Master.designer.cs">
-      <DependentUpon>TrainerMaster.Master</DependentUpon>
-    </Compile>
-    <Compile Include="TrainerNewExercise.aspx.cs">
-      <DependentUpon>TrainerNewExercise.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="TrainerNewExercise.aspx.designer.cs">
-      <DependentUpon>TrainerNewExercise.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="TrainerNewProgram.aspx.cs">
-      <DependentUpon>TrainerNewProgram.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="TrainerNewProgram.aspx.designer.cs">
-      <DependentUpon>TrainerNewProgram.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="TrainerViewExercises.aspx.cs">
-      <DependentUpon>TrainerViewExercises.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="TrainerViewExercises.aspx.designer.cs">
-      <DependentUpon>TrainerViewExercises.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="TrainerViewPartner.aspx.cs">
-      <DependentUpon>TrainerViewPartner.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="TrainerViewPartner.aspx.designer.cs">
-      <DependentUpon>TrainerViewPartner.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="TrainerPartners.aspx.cs">
-      <DependentUpon>TrainerPartners.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="TrainerPartners.aspx.designer.cs">
-      <DependentUpon>TrainerPartners.aspx</DependentUpon>
+    <Compile Include="ViewExercises.aspx.designer.cs">
+      <DependentUpon>ViewExercises.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TrainerNewPartner.aspx.cs">
-      <DependentUpon>TrainerNewPartner.aspx</DependentUpon>
+    <Compile Include="NewPartner.aspx.cs">
+      <DependentUpon>NewPartner.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="TrainerNewPartner.aspx.designer.cs">
-      <DependentUpon>TrainerNewPartner.aspx</DependentUpon>
+    <Compile Include="NewPartner.aspx.designer.cs">
+      <DependentUpon>NewPartner.aspx</DependentUpon>
     </Compile>
     <Compile Include="TrainerRequests.aspx.cs">
       <DependentUpon>TrainerRequests.aspx</DependentUpon>
@@ -283,10 +245,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AdminMaster.Master" />
     <None Include="packages.config" />
-    <Content Include="TrainerMaster.Master" />
-    <Content Include="PartnerMaster.Master" />
+    <Content Include="AllMaster.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

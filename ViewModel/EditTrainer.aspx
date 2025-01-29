@@ -1,8 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/AllMaster.Master" AutoEventWireup="true" CodeBehind="TrainerRequests.aspx.cs" Inherits="ViewModel.TrainerRequests" %>
-
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/AdminMaster.Master" AutoEventWireup="true" CodeBehind="EditTrainer.aspx.cs" Inherits="ViewModel.AdminEditTrainer" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
-   
 </asp:Content>
