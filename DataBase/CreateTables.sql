@@ -63,6 +63,8 @@ CREATE TABLE Partners (
 CREATE TABLE Trainers (
     IdTrainer INT PRIMARY KEY IDENTITY(1,1),
     IdUser INT NOT NULL,
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
     FOREIGN KEY (IdUser) REFERENCES Users(IdUser)
 );
 

@@ -49,6 +49,7 @@
     <Compile Include="ProvinceBusiness.cs" />
     <Compile Include="RoleBusiness.cs" />
     <Compile Include="StatusPartnerBusiness.cs" />
+    <Compile Include="TrainerBusiness.cs" />
     <Compile Include="UserBusiness.cs" />
   </ItemGroup>
   <ItemGroup>

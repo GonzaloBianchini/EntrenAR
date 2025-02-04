@@ -12,6 +12,11 @@ namespace Domain
         public string userName { get; set; }
         public string userPassword { get; set; }
         public Role role { get; set; }
+
+        public User() 
+        {
+            role = new Role();
+        }
         
     }
 }

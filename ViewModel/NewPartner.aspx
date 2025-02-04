@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/AllMaster.Master" AutoEventWireup="true" CodeBehind="NewPartner.aspx.cs" Inherits="ViewModel.TrainerNewClient" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <%--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>--%>
 </asp:Content>
 
 
@@ -14,7 +15,8 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <asp:Label Text="User" ID="lblUser" runat="server" class="form-label" />
-                        <asp:TextBox runat="server" ID="txtUser" class="form-control" placeholder="Nombre Usuari@" />
+                        <asp:TextBox runat="server" ID="txtUserName" class="form-control" placeholder="Nombre Usuari@" />
+                        <asp:RequiredFieldValidator ID="rfvNombre" runat="server" ControlToValidate="txtUserName" ErrorMessage="El nombre es obligatorio" ForeColor="Red" Display="Dynamic" />
                     </div>
                     <div class="col-md-6">
                         <asp:Label Text="Password" ID="lblPassword" runat="server" class="form-label" />

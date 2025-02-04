@@ -9,7 +9,14 @@ namespace Domain
 {
     public class Trainer : User
     {
-        public int IdTrainer { get; set; }
-        public List<Partner> PartnersList { get; set; }
+        public int idTrainer { get; set; }
+        public string firstName { get; set; }
+        public string lastName { get; set; }
+        public List<Partner> partnersList { get; set; }
+
+        public Trainer() 
+        {
+            partnersList = new List<Partner>();
+        }
     }
 }

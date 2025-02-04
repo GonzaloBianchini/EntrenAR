@@ -19,6 +19,8 @@ namespace ViewModel
         List<Province> provinceList;
         protected void Page_Load(object sender, EventArgs e)
         {
+            //UnobtrusiveValidationMode = UnobtrusiveValidationMode.None;
+
             provinceBusiness = new ProvinceBusiness();
             provinceList = new List<Province>();
             provinceList = provinceBusiness.List();
@@ -36,7 +38,7 @@ namespace ViewModel
             roleBusiness = new RoleBusiness();
             statusPartnerBusiness = new StatusPartnerBusiness();
 
-            partner.userName = txtUser.Text;
+            partner.userName = txtUserName.Text;
             partner.userPassword = txtPassWord.Text;
             partner.role = roleBusiness.Read(3);
 

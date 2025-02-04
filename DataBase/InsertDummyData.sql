@@ -25,55 +25,34 @@ VALUES
 INSERT INTO Users (IdRole, UserNickName, UserPassword)
 VALUES (1, 'admin_user', 'AdminPass'); -- Admin tiene IdRole = 1
 
--- Insertar Trainers
-INSERT INTO Users (IdRole, UserNickName, UserPassword)
-VALUES 
-(2, 'trainer1', 'TrainerPass1'),
-(2, 'trainer2', 'TrainerPass2'),
-(2, 'trainer3', 'TrainerPass3'); -- Trainers tienen IdRole = 2
 
--- Insertar Partners
-INSERT INTO Users (IdRole, UserNickName, UserPassword)
-VALUES 
-(3, 'partner1', 'PartnerPass1'),
-(3, 'partner2', 'PartnerPass2'),
-(3, 'partner3', 'PartnerPass3'),
-(3, 'partner4', 'PartnerPass4'),
-(3, 'partner5', 'PartnerPass5'),
-(3, 'partner6', 'PartnerPass6'); -- Partners tienen IdRole = 3
+EXEC insert_trainer 'gonzoo','holaqueTal123',2,'Gonzalo','Bianchini'
+EXEC insert_trainer 'trainer1','TrainerPass1',2,'Entrenador 1','Apellido 1'
+EXEC insert_trainer 'trainer2','TrainerPass2',2,'Entrenador 2','Apellido 2'
+EXEC insert_trainer 'trainer3','TrainerPass3',2,'Entrenador 3','Apellido 3'
 
--- Insertar Trainers en la tabla Trainers
-INSERT INTO Trainers (IdUser)
-VALUES 
-((SELECT IdUser FROM Users WHERE UserNickName = 'trainer1')),
-((SELECT IdUser FROM Users WHERE UserNickName = 'trainer2')),
-((SELECT IdUser FROM Users WHERE UserNickName = 'trainer3'));
+EXEC insert_partner 'partner1','PartnerPass1',3,1,12345678,'John', 'Doe', 'Male','john.doe@example.com', '123456789', '1990-01-01', 1
+EXEC insert_partner 'partner2','PartnerPass2',3,1,23456789, 'Jane', 'Doe', 'Female', 'jane.doe@example.com', '987654321', '1991-02-02', 2
+EXEC insert_partner 'partner3','PartnerPass3',3,1,34567890, 'Alice', 'Smith', 'Female', 'alice.smith@example.com', '567890123', '1992-03-03', 3
+EXEC insert_partner 'partner4','PartnerPass4',3,1,45678901, 'Bob', 'Brown', 'Male', 'bob.brown@example.com', '890123456', '1993-04-04', 4
+EXEC insert_partner 'partner5','PartnerPass5',3,1,56789012, 'Charlie', 'Johnson', 'Male', 'charlie.johnson@example.com', '345678901', '1994-05-05', 5
+EXEC insert_partner 'partner6','PartnerPass6',3,1,67890123, 'Eve', 'Davis', 'Female', 'eve.davis@example.com', '123890456', '1995-06-06', 6;
 
 
--- Insertar Partners en la tabla Partners
-INSERT INTO Partners (IdUser, IdStatus, Dni, FirstName, LastName, Gender, Email, Phone, BirthDate, IdAddress)
-VALUES
-((SELECT IdUser FROM Users WHERE UserNickName = 'partner1'), 3, 12345678, 'John', 'Doe', 'Male', 'john.doe@example.com', '123456789', '1990-01-01', 1),
-((SELECT IdUser FROM Users WHERE UserNickName = 'partner2'), 3, 23456789, 'Jane', 'Doe', 'Female', 'jane.doe@example.com', '987654321', '1991-02-02', 2),
-((SELECT IdUser FROM Users WHERE UserNickName = 'partner3'), 3, 34567890, 'Alice', 'Smith', 'Female', 'alice.smith@example.com', '567890123', '1992-03-03', 3),
-((SELECT IdUser FROM Users WHERE UserNickName = 'partner4'), 3, 45678901, 'Bob', 'Brown', 'Male', 'bob.brown@example.com', '890123456', '1993-04-04', 4),
-((SELECT IdUser FROM Users WHERE UserNickName = 'partner5'), 3, 56789012, 'Charlie', 'Johnson', 'Male', 'charlie.johnson@example.com', '345678901', '1994-05-05', 5),
-((SELECT IdUser FROM Users WHERE UserNickName = 'partner6'), 1, 67890123, 'Eve', 'Davis', 'Female', 'eve.davis@example.com', '123890456', '1995-06-06', 6);
 
--- Asociar Partners con Trainers
-INSERT INTO PartnersByTrainer (IdTrainer, IdPartner)
-VALUES
-((SELECT IdTrainer FROM Trainers WHERE IdUser = (SELECT IdUser FROM Users WHERE UserNickName = 'trainer1')),
- (SELECT IdPartner FROM Partners WHERE IdUser = (SELECT IdUser FROM Users WHERE UserNickName = 'partner1'))),
-((SELECT IdTrainer FROM Trainers WHERE IdUser = (SELECT IdUser FROM Users WHERE UserNickName = 'trainer1')),
- (SELECT IdPartner FROM Partners WHERE IdUser = (SELECT IdUser FROM Users WHERE UserNickName = 'partner2'))),
-((SELECT IdTrainer FROM Trainers WHERE IdUser = (SELECT IdUser FROM Users WHERE UserNickName = 'trainer2')),
- (SELECT IdPartner FROM Partners WHERE IdUser = (SELECT IdUser FROM Users WHERE UserNickName = 'partner3'))),
-((SELECT IdTrainer FROM Trainers WHERE IdUser = (SELECT IdUser FROM Users WHERE UserNickName = 'trainer2')),
- (SELECT IdPartner FROM Partners WHERE IdUser = (SELECT IdUser FROM Users WHERE UserNickName = 'partner4'))),
-((SELECT IdTrainer FROM Trainers WHERE IdUser = (SELECT IdUser FROM Users WHERE UserNickName = 'trainer2')),
- (SELECT IdPartner FROM Partners WHERE IdUser = (SELECT IdUser FROM Users WHERE UserNickName = 'partner5')));
-
+-- -- Asociar Partners con Trainers
+-- INSERT INTO PartnersByTrainer (IdTrainer, IdPartner)
+-- VALUES
+-- ((SELECT IdTrainer FROM Trainers WHERE IdUser = (SELECT IdUser FROM Users WHERE UserNickName = 'trainer1')),
+--  (SELECT IdPartner FROM Partners WHERE IdUser = (SELECT IdUser FROM Users WHERE UserNickName = 'partner1'))),
+-- ((SELECT IdTrainer FROM Trainers WHERE IdUser = (SELECT IdUser FROM Users WHERE UserNickName = 'trainer1')),
+--  (SELECT IdPartner FROM Partners WHERE IdUser = (SELECT IdUser FROM Users WHERE UserNickName = 'partner2'))),
+-- ((SELECT IdTrainer FROM Trainers WHERE IdUser = (SELECT IdUser FROM Users WHERE UserNickName = 'trainer2')),
+--  (SELECT IdPartner FROM Partners WHERE IdUser = (SELECT IdUser FROM Users WHERE UserNickName = 'partner3'))),
+-- ((SELECT IdTrainer FROM Trainers WHERE IdUser = (SELECT IdUser FROM Users WHERE UserNickName = 'trainer2')),
+--  (SELECT IdPartner FROM Partners WHERE IdUser = (SELECT IdUser FROM Users WHERE UserNickName = 'partner4'))),
+-- ((SELECT IdTrainer FROM Trainers WHERE IdUser = (SELECT IdUser FROM Users WHERE UserNickName = 'trainer2')),
+--  (SELECT IdPartner FROM Partners WHERE IdUser = (SELECT IdUser FROM Users WHERE UserNickName = 'partner5')));
 
 
 select * from Users
@@ -85,4 +64,4 @@ SELECT * FROM Provinces
 SELECT * FROM Exercises
 Select * from ROLES
 
-
+-- DELETE  FROM Users

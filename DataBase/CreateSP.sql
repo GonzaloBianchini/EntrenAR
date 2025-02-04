@@ -19,6 +19,7 @@ BEGIN
 END;
 GO
 
+
 CREATE PROCEDURE insert_partner
     @Username VARCHAR(50),
     @UserPassword VARCHAR(50),
@@ -87,6 +88,45 @@ BEGIN
 END;
 GO
 
+CREATE PROCEDURE insert_trainer
+    @Username VARCHAR(50),
+    @UserPassword VARCHAR(50),
+    @IdRole INT,
+    @FirstName VARCHAR(50),
+    @LastName VARCHAR(50)
+AS
+BEGIN
+    -- Comienza una transacción explícita
+    BEGIN TRANSACTION;
+
+    BEGIN TRY
+        -- Declaramos variable para capturar el ID del usuario
+        DECLARE @NewUserId INT;
+
+        -- Llama al procedimiento insert_user para crear el usuario
+        INSERT INTO Users (UserNickName, UserPassword, IdRole)
+        VALUES (@Username, @UserPassword, @IdRole);
+
+        -- Recupera el ID del usuario creado
+        SET @NewUserId = SCOPE_IDENTITY();
+
+        -- Inserta el nuevo Partner usando el ID del usuario creado
+        INSERT INTO Trainers (IdUser, FirstName, LastName)
+        VALUES (@NewUserId,@FirstName,@LastName);
+
+        SELECT SCOPE_IDENTITY() AS LastId
+        -- Si ambas operaciones fueron exitosas, confirma la transacción
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        -- Si ocurre un error, revierte la transacción
+        ROLLBACK TRANSACTION;
+        THROW; -- Lanza el error para depuración
+    END CATCH;
+END;
+GO
+
+
 CREATE PROCEDURE insert_address
     @IdProvince INT, -- ID de la provincia
     @StreetName VARCHAR(50), -- Nombre de la calle
@@ -107,11 +147,13 @@ END;
 GO
 
 
-
-
-
 select * from Addresses
 select * from Users
 select * from Partners
+select * from Trainers
+select * from Provinces
+select * from Roles
+select * from Exercises
 
 
+EXEC insert_trainer 'gonzoo','holaqueTal123',2,'Gonzalo','Bianchini'

@@ -23,7 +23,7 @@ namespace Domain
 
         public Partner()
         {
-            role = new Role();
+            //role = new Role();
             status = new StatusPartner();
             address = new Address();
             trainingList = new List<Training>();

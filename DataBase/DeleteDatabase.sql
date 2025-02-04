@@ -7,8 +7,6 @@ DROP TABLE Exercises;
 
 DROP TABLE DailyRoutines;
 
--- DROP TABLE TrainingsByPartner;
-
 DROP TABLE Trainings;
 
 DROP TABLE TrainingTypes;
@@ -27,9 +25,12 @@ DROP TABLE Roles;
 
 DROP TABLE Addresses;
 
-DROP PROCEDURE insert_partner;
+DROP TABLE Provinces;
 
-DROP PROCEDURE insert_user;
+-- DROP PROCEDURE insert_partner;
 
+-- DROP PROCEDURE insert_user;
+
+-- DROP PROCEDURE insert_trainer;
 
 

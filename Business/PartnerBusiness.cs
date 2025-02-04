@@ -31,7 +31,7 @@ namespace Business
                 data.SetStoredProcedure("insert_partner");
                 data.SetParameter("@UserName", partner.userName);
                 data.SetParameter("@UserPassword", partner.userPassword);
-                data.SetParameter("@IdRole", partner.role.IdRole);
+                data.SetParameter("@IdRole", 3 /*partner.role.IdRole*/);
                 data.SetParameter("@IdStatus", partner.status.IdStatus);
                 data.SetParameter("@Dni", partner.dni);
                 data.SetParameter("@FirstName", partner.firstName);
@@ -95,7 +95,7 @@ namespace Business
                     auxPartner.gender = data.Reader["Gender"].ToString();
                     auxPartner.email = data.Reader["Email"].ToString();
                     auxPartner.phone = data.Reader["Phone"].ToString();
-                    auxPartner.birthDate = DateTime.Parse(data.Reader["Phone"].ToString());
+                    auxPartner.birthDate = DateTime.Parse(data.Reader["BirtDate"].ToString());
 
                     auxPartner.address = addressBusiness.Read(int.Parse(data.Reader["IdAddress"].ToString()));
                     
@@ -150,24 +150,41 @@ namespace Business
         }
 
 
-        /*
+        
         public List<Partner> List()
         {
-            Data = new DataAccess();
-            List<Partner> partnerList = new List<Partner>();
+            data = new DataAccess();
+            List<Partner> partnersList = new List<Partner>();
 
             try
             {
-                Data.SetQuery("select * from Users where IdRole = 3 and IsActive = 1 ");
-                Data.ExecuteRead();
+                data.SetQuery("select * from Partners where ActiveStatus = 1");
+                data.ExecuteRead();
 
-                while (Data.Reader.Read())
+                //levanto los partners de la BD, pero no cargo todos los campos,
+                //si necesito seleccionar algun partner,
+                //hago un READ completo luego....
+
+                while (data.Reader.Read())
                 {
+                    statusPartnerBusiness = new StatusPartnerBusiness();
+                    
                     Partner auxPartner = new Partner();
-                    auxPartner.IdPartner = Data.Reader[""]
-                        auxPartner.IdUser
-
-                //TODO: LEER TrainingList!!
+                    auxPartner.idPartner = int.Parse(data.Reader["IdPartner"].ToString());
+                    auxPartner.idUser = int.Parse(data.Reader["IdUser"].ToString());
+                    auxPartner.status = statusPartnerBusiness.Read(int.Parse(data.Reader["IdStatus"].ToString()));
+                    
+                    auxPartner.dni = int.Parse(data.Reader["Dni"].ToString());
+                    auxPartner.firstName = data.Reader["FirstName"].ToString();
+                    auxPartner.lastName = data.Reader["LastName"].ToString();
+                    auxPartner.gender = data.Reader["Gender"].ToString();
+                    auxPartner.email = data.Reader["Email"].ToString();
+                    auxPartner.phone = data.Reader["Phone"].ToString();
+                    auxPartner.birthDate = DateTime.Parse(data.Reader["BirthDate"].ToString());
+                    //no leo Address
+                    //no leo training list
+                    
+                    partnersList.Add(auxPartner);
                 }
                 
             }
@@ -178,13 +195,13 @@ namespace Business
             }
             finally
             {
-                Data.CloseConnection();
+                data.CloseConnection();
             }
 
             
-            return partnerList;
+            return partnersList;
         }
-        */
+        
 
     }
 }
