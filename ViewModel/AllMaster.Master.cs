@@ -35,5 +35,11 @@ namespace ViewModel
         {
             Response.Redirect("~/DashBoard.aspx", false);
         }
+
+        protected void btnTraining_Click(object sender, EventArgs e)
+        {
+            //hace falta este redirect?debuggear y ver si es necesario o al venir al postback ya actualizo todo...
+            //Response.Redirect("~/NewTraining.aspx", false);
+        }
     }
 }

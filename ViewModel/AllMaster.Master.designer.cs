@@ -33,13 +33,13 @@ namespace ViewModel
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// txtModalBodyGuardarCambios control.
+        /// lblModalBodyGuardarCambios control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label txtModalBodyGuardarCambios;
+        protected global::System.Web.UI.WebControls.Label lblModalBodyGuardarCambios;
 
         /// <summary>
         /// btnOk control.
@@ -49,6 +49,24 @@ namespace ViewModel
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnOk;
+
+        /// <summary>
+        /// lblModalBodyGuardarCambiosTraining control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblModalBodyGuardarCambiosTraining;
+
+        /// <summary>
+        /// btnTraining control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnTraining;
 
         /// <summary>
         /// txtModalTitle control.
@@ -76,24 +94,6 @@ namespace ViewModel
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnAceptar;
-
-        /// <summary>
-        /// txtNombre control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNombre;
-
-        /// <summary>
-        /// btnGuardarUsuario control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGuardarUsuario;
 
         /// <summary>
         /// lblInicio control.
@@ -159,13 +159,13 @@ namespace ViewModel
         protected global::System.Web.UI.WebControls.Label lblNewPartner;
 
         /// <summary>
-        /// Label1 control.
+        /// lblNewTrainer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Label lblNewTrainer;
 
         /// <summary>
         /// ContentPlaceHolder1 control.

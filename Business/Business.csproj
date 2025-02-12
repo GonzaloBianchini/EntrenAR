@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddressBusiness.cs" />
+    <Compile Include="DaiyRoutineBusiness.cs" />
     <Compile Include="DataAccess.cs" />
     <Compile Include="ExerciseBusiness.cs" />
     <Compile Include="PartnerBusiness.cs" />
@@ -50,6 +51,8 @@
     <Compile Include="RoleBusiness.cs" />
     <Compile Include="StatusPartnerBusiness.cs" />
     <Compile Include="TrainerBusiness.cs" />
+    <Compile Include="TrainingBusiness.cs" />
+    <Compile Include="TrainingTypeBusiness.cs" />
     <Compile Include="UserBusiness.cs" />
   </ItemGroup>
   <ItemGroup>

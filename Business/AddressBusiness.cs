@@ -10,7 +10,7 @@ namespace Business
     public class AddressBusiness
     {
         private DataAccess data;
-
+        private ProvinceBusiness provinceBusiness;
         public AddressBusiness()
         {
 
@@ -95,8 +95,9 @@ namespace Business
         public Address Read(int id)
         {
             data = new DataAccess();
+            provinceBusiness = new ProvinceBusiness();
             Address auxAddress = new Address();
-
+            
             try
             {
                 data.SetQuery("SELECT * FROM Addresses WHERE IdAddress=@IdAddress");
@@ -111,7 +112,8 @@ namespace Business
                     auxAddress.flat = data.Reader["Flat"].ToString();
                     auxAddress.details = data.Reader["Details"].ToString();
                     auxAddress.city = data.Reader["City"].ToString();
-                    auxAddress.province.idProvince = int.Parse(data.Reader["Province"].ToString());
+                    //auxAddress.province.idProvince = int.Parse(data.Reader["Province"].ToString());
+                    auxAddress.province = provinceBusiness.Read(int.Parse(data.Reader["IdProvince"].ToString()));
                     auxAddress.country = data.Reader["Country"].ToString();
                 }
             }

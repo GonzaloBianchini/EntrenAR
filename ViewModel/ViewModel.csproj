@@ -72,7 +72,7 @@
     <Content Include="EditPartner.aspx" />
     <Content Include="EditProgram.aspx" />
     <Content Include="EditTrainer.aspx" />
-    <Content Include="NewProgram.aspx" />
+    <Content Include="NewTraining.aspx" />
     <Content Include="NewTrainer.aspx" />
     <Content Include="AdminPanel.aspx" />
     <Content Include="ViewPartners.aspx" />
@@ -127,12 +127,12 @@
     <Compile Include="EditTrainer.aspx.designer.cs">
       <DependentUpon>EditTrainer.aspx</DependentUpon>
     </Compile>
-    <Compile Include="NewProgram.aspx.cs">
-      <DependentUpon>NewProgram.aspx</DependentUpon>
+    <Compile Include="NewTraining.aspx.cs">
+      <DependentUpon>NewTraining.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="NewProgram.aspx.designer.cs">
-      <DependentUpon>NewProgram.aspx</DependentUpon>
+    <Compile Include="NewTraining.aspx.designer.cs">
+      <DependentUpon>NewTraining.aspx</DependentUpon>
     </Compile>
     <Compile Include="NewTrainer.aspx.cs">
       <DependentUpon>NewTrainer.aspx</DependentUpon>

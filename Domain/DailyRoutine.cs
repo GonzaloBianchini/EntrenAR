@@ -8,8 +8,14 @@ namespace Domain
 {
     public class DailyRoutine
     {
-        public int IdDailyRoutine { get; set; }
-        public DateTime Date { get; set; }
-        public List<Exercise> ExercisesList { get; set; }
+        public int idDailyRoutine { get; set; }
+        public int idTraining {  get; set; }
+        public DateTime dailyRoutineDate { get; set; }
+        public List<Exercise> exercisesList { get; set; }
+
+        public DailyRoutine() 
+        {
+            exercisesList = new List<Exercise>();
+        }
     }
 }

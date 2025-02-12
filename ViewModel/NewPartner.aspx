@@ -105,7 +105,7 @@
                 <div class="row mb-3">
                     <div class="col-md-4">
                         <asp:Label Text="Provincia" ID="lblProvince" runat="server" class="form-label" />
-                        <asp:DropDownList ID="ddlProvince" DataValueField="idProvince" DataTextField="name" class="btn btn-outline-dark dropdown-toggle" runat="server">
+                        <asp:DropDownList ID="ddlProvince" DataValueField="idProvince" DataTextField="name" class="btn btn-outline-dark dropdown-toggle" autopostback="false" runat="server">
                         </asp:DropDownList>
                     </div>
                     <div class="col-md-4">

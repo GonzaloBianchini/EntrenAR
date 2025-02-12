@@ -20,14 +20,16 @@ namespace ViewModel
         protected void Page_Load(object sender, EventArgs e)
         {
             //UnobtrusiveValidationMode = UnobtrusiveValidationMode.None;
-
-            provinceBusiness = new ProvinceBusiness();
-            provinceList = new List<Province>();
-            provinceList = provinceBusiness.List();
-            ddlProvince.DataSource = provinceList;
-            //ddlProvince.DataTextField = "name";
-            //ddlProvince.DataValueField = "idProvince";
-            ddlProvince.DataBind();
+            if (!IsPostBack)
+            {
+                provinceBusiness = new ProvinceBusiness();
+                provinceList = new List<Province>();
+                provinceList = provinceBusiness.List();
+                ddlProvince.DataSource = provinceList;
+                //ddlProvince.DataTextField = "name";
+                //ddlProvince.DataValueField = "idProvince";
+                ddlProvince.DataBind();
+            }
         }
 
         protected void btnCreatePartner_Click(object sender, EventArgs e)

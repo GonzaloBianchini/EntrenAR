@@ -60,7 +60,6 @@ namespace Business
             data = new DataAccess();
             roleBusiness = new RoleBusiness();
             User auxUser = new User();
-            auxUser = null;
 
             try
             {

@@ -15,6 +15,7 @@ namespace Business
         private AddressBusiness addressBusiness;
         private UserBusiness userBusiness;
         private User auxUser;
+        private TrainingBusiness trainingBusiness;
         public PartnerBusiness()
         {
 
@@ -70,10 +71,11 @@ namespace Business
             userBusiness = new UserBusiness();
             auxUser = new User();
             addressBusiness = new AddressBusiness();
+            trainingBusiness = new TrainingBusiness();
 
             try
             {
-                data.SetQuery("select * from Partners Where IdPartner=@IdPartner");
+                data.SetQuery("select * from Partners Where IdPartner = @IdPartner");
                 data.SetParameter("@IdPartner", id);
                 data.ExecuteRead();
 
@@ -95,11 +97,11 @@ namespace Business
                     auxPartner.gender = data.Reader["Gender"].ToString();
                     auxPartner.email = data.Reader["Email"].ToString();
                     auxPartner.phone = data.Reader["Phone"].ToString();
-                    auxPartner.birthDate = DateTime.Parse(data.Reader["BirtDate"].ToString());
+                    auxPartner.birthDate = DateTime.Parse(data.Reader["BirthDate"].ToString());
 
                     auxPartner.address = addressBusiness.Read(int.Parse(data.Reader["IdAddress"].ToString()));
-                    
-                    //TODO: LEER TrainingList!!
+
+                    auxPartner.trainingList = trainingBusiness.List(auxPartner.idPartner);
                 }
             }
             catch (Exception ex)
@@ -201,7 +203,6 @@ namespace Business
             
             return partnersList;
         }
-        
 
     }
 }

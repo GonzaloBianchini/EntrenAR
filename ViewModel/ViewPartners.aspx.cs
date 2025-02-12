@@ -24,5 +24,28 @@ namespace ViewModel
             dgvPartnersList.DataBind();
 
         }
+
+        protected void btnViewPartner_Command(object sender, CommandEventArgs e)
+        {
+            if (e.CommandName == "Ver")
+            {
+                string idPartner = e.CommandArgument.ToString();
+                Response.Redirect("ViewPartner.aspx?idPartner=" + idPartner);
+            }
+        }
+
+        protected void btnEditPartner_Command(object sender, CommandEventArgs e)
+        {
+            
+        }
+
+        protected void btnManageTrainings_Command(object sender, CommandEventArgs e)
+        {
+            if (e.CommandName == "Gestionar")
+            {
+                string idPartner = e.CommandArgument.ToString();
+                Response.Redirect("NewTraining.aspx?idPartner=" + idPartner);
+            }
+        }
     }
 }

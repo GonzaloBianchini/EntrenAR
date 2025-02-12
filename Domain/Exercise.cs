@@ -15,9 +15,8 @@ namespace Domain
         public string Description { get; set; }
         public int Sets { get; set; }
         public int Reps { get; set; }
-        public double Weight { get; set; }
+        public decimal Weight { get; set; }
         public int RestTime { get; set; }
         public string UrlExercise { get; set; }
-        public bool ActiveStatus { get; set; }
     }
 }

@@ -68,7 +68,6 @@ CREATE TABLE Trainers (
     FOREIGN KEY (IdUser) REFERENCES Users(IdUser)
 );
 
--- Tabla intermedia: TrainerByPartner (para asociar entrenadores con Partners)
 CREATE TABLE PartnersByTrainer (
     IdTrainer INT NOT NULL,
     IdPartner INT NOT NULL,
@@ -84,39 +83,57 @@ CREATE TABLE TrainingTypes (
     TrainingTypeDescription VARCHAR(150)
 );
 
--- Tabla: Training
 CREATE TABLE Trainings (
-    Id INT PRIMARY KEY IDENTITY(1,1),
+    IdTraining INT PRIMARY KEY IDENTITY(1,1),
+    IdPartner INT NOT NULL,
     TrainingName VARCHAR(50) NOT NULL,
     TrainingDescription VARCHAR(150),
     IdType INT NOT NULL,
     StartDate DATETIME NOT NULL,
     EndDate DATETIME NOT NULL,
+    FOREIGN KEY (IdPartner) REFERENCES Partners (IdPartner),
     FOREIGN KEY (IdType) REFERENCES TrainingTypes(IdType)
 );
+
+-- CREO QUE NO ES NECESARIA AL PONER EL IdPartner E TRAINING..
+-- CREATE TABLE TrainingsByPartner (
+--     IdTraining INT NOT NULL,
+--     IdPartner INT NOT NULL,
+--     PRIMARY KEY (IdTraining, IdPartner),
+--     FOREIGN KEY (IdTraining) REFERENCES Trainings(IdTraining),
+--     FOREIGN KEY (IdPartner) REFERENCES Partners(IdPartner)
+-- )
 
 -- Tabla: DailyRoutine
 CREATE TABLE DailyRoutines (
     IdDailyRoutine INT PRIMARY KEY IDENTITY(1,1),
-    DailyRoutineDate DATE NOT NULL
+    IdTraining INT NOT NULL,
+    DailyRoutineDate DATE NOT NULL,
+    FOREIGN KEY (IdTraining) REFERENCES Trainings(IdTraining)
 );
 
--- Tabla: Exercise
 CREATE TABLE Exercises (
     IdExercise INT PRIMARY KEY IDENTITY(1,1),
-    ActiveStatus BIT DEFAULT 1 NOT NULL,
+    -- ActiveStatus BIT DEFAULT 1 NOT NULL,
     ExerciseName VARCHAR(50) NOT NULL,
     ExerciseDescription VARCHAR(150),
-    UrlExercise VARCHAR(150)
+    UrlExercise VARCHAR(150),
+    -- FOREIGN KEY (IdDailyRoutine) REFERENCES DailyRoutines(IdDailyRoutine)
 );
 
--- Tabla intermedia: DailyRoutineByExercise (para asociar ejercicios con rutinas)
-CREATE TABLE ExercisesByDailyRoutine(
-    IdDailyRoutine INT NOT NULL,
+CREATE TABLE ExercisesInDailyRoutine (
+    IdExerciseInDailyRoutine INT PRIMARY KEY IDENTITY(1,1),
     IdExercise INT NOT NULL,
-    PRIMARY KEY (IdDailyRoutine, IdExercise),
+    IdDailyRoutine INT NOT NULL,
+    ExerciseSets INT NOT NULL,
+    ExerciseWeight DECIMAL NOT NULL,
+    ExerciseRestTime INT NOT NULL,  -- TIEMPO DE DESCANSO EN SEGUNDOS
     FOREIGN KEY (IdDailyRoutine) REFERENCES DailyRoutines(IdDailyRoutine),
     FOREIGN KEY (IdExercise) REFERENCES Exercises(IdExercise)
 );
 
+
+select ED.IdExercise, E.ExerciseName, E.ExerciseDescription, ED.ExerciseSets, ED.ExerciseWeight, ED.ExerciseWeight, ED.ExerciseRestTime, E.UrlExercise from Exercises E
+INNER JOIN ExercisesInDailyRoutine ED ON E.IdExercise = ED.IdExercise
+WHERE ED.IdDailyRoutine = 1
 

@@ -147,13 +147,77 @@ END;
 GO
 
 
-select * from Addresses
-select * from Users
-select * from Partners
-select * from Trainers
-select * from Provinces
-select * from Roles
-select * from Exercises
+CREATE PROCEDURE insert_training
+    @IdPartner INT,
+    @TrainingName VARCHAR(50), 
+    @TrainingDescription VARCHAR(150), 
+    @IdType INT, 
+    @StartDate DATETIME, 
+    @EndDate DATETIME
+AS
+BEGIN
+    
+    INSERT INTO Trainings (IdPartner, TrainingName, TrainingDescription, IdType, StartDate, EndDate)
+    VALUES (@IdPartner, @TrainingName, @TrainingDescription, @IdType, @StartDate, @EndDate);
+
+    SELECT SCOPE_IDENTITY() AS LastId;
+END;
+GO
 
 
-EXEC insert_trainer 'gonzoo','holaqueTal123',2,'Gonzalo','Bianchini'
+CREATE PROCEDURE insert_daily_routine
+    @IdTraining INT,
+    @DailyRoutineDate DATETIME
+AS
+BEGIN
+    INSERT INTO DailyRoutines (IdTraining, DailyRoutineDate)
+    VALUES (@IdTraining, @DailyRoutineDate)
+
+    SELECT SCOPE_IDENTITY() AS LastId;
+END;
+GO
+
+CREATE PROCEDURE insert_exercise_in_daily_routine
+    @IdDailyRoutine INT,
+    @IdExercise INT,
+    @ExerciseSets INT,
+    @ExerciseWeight DECIMAL,
+    @ExerciseRestTime INT
+AS
+BEGIN
+    INSERT INTO ExercisesInDailyRoutine(IdDailyRoutine, IdExercise, ExerciseSets, ExerciseWeight, ExerciseRestTime)
+    VALUES(@IdDailyRoutine, @IdExercise, @ExerciseSets, @ExerciseWeight, @ExerciseRestTime)
+END;
+GO
+
+
+-- select * from Addresses
+-- select * from Users
+-- select * from Partners
+-- select * from Trainers
+-- select * from Provinces
+-- select * from Roles
+-- select * from Exercises
+-- select * from Trainings
+-- select * from DailyRoutines
+-- select * from PartnersByTrainer
+-- select * from ExercisesInDailyRoutine
+
+EXEC insert_training 12,'John-Fuerza-FEB2025','Entrenamiento de fuerza para John bla bla bla',1,'2025-02-01','2025-05-01'
+EXEC insert_daily_routine '1','2025-03-01'
+EXEC insert_daily_routine '1','2025-03-02'
+EXEC insert_daily_routine '1','2025-03-03'
+
+INSERT INTO PartnersByTrainer(IdPartner,IdTrainer) 
+VALUES
+(13,3),
+(12,3),
+(7,6),
+(9,7)
+
+
+select * from Trainers T
+INNER join PartnersByTrainer P ON T.IdTrainer = P.IdTrainer
+WHERE P.IdPartner = 12
+
+INSERT INTO DailyRoutines(IdTraining,DailyRoutineDate) VALUES(2,'2025-02-10')

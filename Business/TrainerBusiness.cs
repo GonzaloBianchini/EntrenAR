@@ -103,6 +103,47 @@ namespace Business
 
         //    return auxPartner;
         //}
+        public Trainer GetTrainerByParterId(int idPartner)
+        {
+            data = new DataAccess();
+            Trainer trainer = new Trainer();
+            userBusiness = new UserBusiness();
+            auxUser = new User();
+
+            try
+            {
+                data.SetQuery("select * from Trainers T INNER join PartnersByTrainer P ON T.IdTrainer = P.IdTrainer WHERE P.IdPartner = @IdPartner");
+                data.SetParameter("@IdPartner", idPartner);
+                data.ExecuteRead();
+
+                if (data.Reader.Read())
+                {
+
+                    trainer.idUser = int.Parse(data.Reader["IdUser"].ToString());
+
+                    auxUser = userBusiness.Read(trainer.idUser);
+
+                    trainer.userName = auxUser.userName;
+                    trainer.userPassword = auxUser.userPassword;
+                    trainer.role = auxUser.role;
+
+                    trainer.idTrainer = int.Parse(data.Reader["IdTrainer"].ToString());
+                    trainer.firstName = data.Reader["FirstName"].ToString();
+                    trainer.lastName = data.Reader["LastName"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                data.CloseConnection();
+            }
+
+            return trainer;
+        }
 
         //public bool Update(Partner partner)
         //{

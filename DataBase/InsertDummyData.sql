@@ -40,20 +40,6 @@ EXEC insert_partner 'partner6','PartnerPass6',3,1,67890123, 'Eve', 'Davis', 'Fem
 
 
 
--- -- Asociar Partners con Trainers
--- INSERT INTO PartnersByTrainer (IdTrainer, IdPartner)
--- VALUES
--- ((SELECT IdTrainer FROM Trainers WHERE IdUser = (SELECT IdUser FROM Users WHERE UserNickName = 'trainer1')),
---  (SELECT IdPartner FROM Partners WHERE IdUser = (SELECT IdUser FROM Users WHERE UserNickName = 'partner1'))),
--- ((SELECT IdTrainer FROM Trainers WHERE IdUser = (SELECT IdUser FROM Users WHERE UserNickName = 'trainer1')),
---  (SELECT IdPartner FROM Partners WHERE IdUser = (SELECT IdUser FROM Users WHERE UserNickName = 'partner2'))),
--- ((SELECT IdTrainer FROM Trainers WHERE IdUser = (SELECT IdUser FROM Users WHERE UserNickName = 'trainer2')),
---  (SELECT IdPartner FROM Partners WHERE IdUser = (SELECT IdUser FROM Users WHERE UserNickName = 'partner3'))),
--- ((SELECT IdTrainer FROM Trainers WHERE IdUser = (SELECT IdUser FROM Users WHERE UserNickName = 'trainer2')),
---  (SELECT IdPartner FROM Partners WHERE IdUser = (SELECT IdUser FROM Users WHERE UserNickName = 'partner4'))),
--- ((SELECT IdTrainer FROM Trainers WHERE IdUser = (SELECT IdUser FROM Users WHERE UserNickName = 'trainer2')),
---  (SELECT IdPartner FROM Partners WHERE IdUser = (SELECT IdUser FROM Users WHERE UserNickName = 'partner5')));
-
 
 select * from Users
 SELECT * from Trainers

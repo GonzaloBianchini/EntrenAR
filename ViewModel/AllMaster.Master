@@ -28,16 +28,37 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <asp:Label Text="Cambios guardados!" ID="txtModalBodyGuardarCambios" runat="server" />
+                        <asp:Label Text="Cambios guardados!" ID="lblModalBodyGuardarCambios" runat="server" />
                         <%--<asp:TextBox ID="txtEditarNombre" runat="server" CssClass="form-control" placeholder="Nuevo Nombre"></asp:TextBox>--%>
                     </div>
                     <div class="modal-footer">
-                        <%--<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>--%>
                         <asp:Button ID="btnOk" CssClass="btn btn-primary" Text="Ok" runat="server" OnClick="btnOk_Click" />
+                        <%--<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>--%>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Modal Para NEW TRAINING,DAILY ROUTINE Y EXERCISES IN ROUTINE -->
+        <div class="modal fade" id="modalGestionTraining" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalGestionTrainingLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalGestionTrainingTitleLabel">Gestion Entrenamiento</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <asp:Label Text="Cambios guardados en el plan!" ID="lblModalBodyGuardarCambiosTraining" runat="server" />
+                        <%--<asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" placeholder="Nombre"></asp:TextBox>--%>
+                    </div>
+                    <div class="modal-footer">
+                        <asp:Button ID="btnTraining" CssClass="btn btn-primary" Text="Guardar" runat="server" OnClick="btnTraining_Click"   />
+                        <%--<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>--%>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
         <!-- Modal Generico, desde el back cambio todo para reutilizarlo -->
         <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
@@ -60,24 +81,6 @@
             </div>
         </div>
 
-        <!-- Modal Agregar -->
-        <div class="modal fade" id="modalAgregar" tabindex="-1" aria-labelledby="modalAgregarLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modalAgregarLabel">Agregar Usuario</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" placeholder="Nombre"></asp:TextBox>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <asp:Button ID="btnGuardarUsuario" runat="server" CssClass="btn btn-primary" Text="Guardar" />
-                    </div>
-                </div>
-            </div>
-        </div>
         <%--aca finalizamos modal--%>
 
         <div class="container-fluid">
@@ -129,10 +132,15 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="NewTrainer.aspx">
-                                    <asp:Label Text="Nuevo Trainer" ID="Label1" class="bi bi-list-check" runat="server" />
+                                    <asp:Label Text="Nuevo Trainer" ID="lblNewTrainer" class="bi bi-list-check" runat="server" />
                                     <%--<span class="bi bi-list-check"></span>Nuevo Partner--%>
                                 </a>
                             </li>
+                            <%--<li class="nav-item">
+                                <a class="nav-link" href="NewTraining.aspx">
+                                    <asp:Label Text="Nuevo Plan de Entrenamiento " ID="lblNewTraining" class="bi bi-list-check" runat="server" />
+                                </a>
+                            </li>--%>
                         </ul>
                     </div>
                 </nav>
