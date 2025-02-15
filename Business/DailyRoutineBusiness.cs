@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Business
 {
-    public class DaiyRoutineBusiness
+    public class DailyRoutineBusiness
     {
         private DataAccess data;
         private DailyRoutine auxDailyRoutine;
@@ -39,6 +39,40 @@ namespace Business
             return true;
         }
 
+        public DailyRoutine Read(int idDailyRoutine)
+        {
+            data = new DataAccess();
+
+            DailyRoutine dailyRoutine = new DailyRoutine();
+            ExerciseBusiness exerciseBusiness = new ExerciseBusiness();
+
+            try
+            {
+                data.SetQuery("SELECT * FROM DailyRoutines WHERE IdDailyRoutine = @IdDailyRoutine");
+                data.SetParameter("@IdDailyRoutine", idDailyRoutine);
+                data.ExecuteRead();
+
+                if (data.Reader.Read())
+                {
+                    dailyRoutine.idDailyRoutine = idDailyRoutine;
+                    dailyRoutine.idTraining = int.Parse(data.Reader["IdTraining"].ToString());
+                    dailyRoutine.dailyRoutineDate= DateTime.Parse(data.Reader["DailyRoutineDate"].ToString());
+
+                    dailyRoutine.exercisesList = exerciseBusiness.ListByDailyRoutine(idDailyRoutine);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                data.CloseConnection();
+            }
+            return dailyRoutine;
+        }
+
         public List<DailyRoutine> ListByTraining(int idTraining)
         {
             data = new DataAccess();
@@ -56,10 +90,10 @@ namespace Business
                     auxDailyRoutine = new DailyRoutine();
 
                     auxDailyRoutine.idDailyRoutine = int.Parse(data.Reader["IdDailyRoutine"].ToString());
-                    auxDailyRoutine.idTraining = idTraining;
+                    auxDailyRoutine.idTraining = int.Parse(data.Reader["IdTraining"].ToString());
                     auxDailyRoutine.dailyRoutineDate = DateTime.Parse(data.Reader["DailyRoutineDate"].ToString());
                     auxDailyRoutine.exercisesList = exerciseBusiness.ListByDailyRoutine(auxDailyRoutine.idDailyRoutine);
-                    
+
                     dailyRoutinesList.Add(auxDailyRoutine);
                 }
             }

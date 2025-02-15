@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Services.Description;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -14,56 +15,148 @@ namespace ViewModel
         private TrainingBusiness trainingBusiness;
         private TrainingTypeBusiness trainingTypeBusiness;
         private List<TrainingType> trainingTypeList;
-        private ExerciseBusiness exerciseBusiness;
         private Training training;
         private PartnerBusiness partnerBusiness;
         private Partner partner;
-        private DaiyRoutineBusiness daiyRoutineBusiness;
+        private DailyRoutineBusiness dailyRoutineBusiness;
         private DailyRoutine dailyRoutine;
-
+        private ExerciseBusiness exerciseBusiness;
+        private ExerciseInDailyRoutineBusiness exerciseInDailyRoutineBusiness;
+        private Exercise exercise;
         protected void Page_Load(object sender, EventArgs e)
         {
-            //VALIDACION!! SI NO TIENE TRAINER, NO DEBE PODER AGREGAR TRAINING, ARROJAR MENSAJE DE ERROR,
-            //LE PARTNER DEBE SOLICITAR TRAINER Y LA REQUEST DEBE SER ACEPTADA ANTES DE PONER UN TRAINING!!
-            //cleanForm();
-
             if (!IsPostBack)
             {
-                partnerBusiness = new PartnerBusiness();
-                partner = new Partner();
-                int idPartner = Request.QueryString["idPartner"].ToString() == null ? int.Parse(lblIdPartner.Text) : int.Parse(Request.QueryString["idPartner"].ToString());
-                //int idPartner = int.Parse(Request.QueryString["idPartner"].ToString());
-
-                lblIdPartner.Text = idPartner.ToString();
-
-                partner = partnerBusiness.Read(idPartner);
-
-                lblPartnerName.Text = lblPartnerName.Text + partner.firstName + " " + partner.lastName;
-
-                trainingTypeBusiness = new TrainingTypeBusiness();
-                trainingTypeList = trainingTypeBusiness.List();
-                ddlTrainingTypes.DataSource = trainingTypeList;
-                ddlTrainingTypes.DataBind();
-
-                exerciseBusiness = new ExerciseBusiness();
-                ddlExercises.DataSource = exerciseBusiness.List();
-                ddlExercises.DataBind();
-
-                List<int> series = new List<int>();
-                List<int> reps = new List<int>();
-                series = Enumerable.Range(1, 10).ToList();
-                reps = Enumerable.Range(1, 30).ToList();
-
-                ddlSeries.DataSource = series;
-                ddlSeries.DataBind();
-                ddlReps.DataSource = reps;
-                ddlReps.DataBind();
+                loadInitialData();
             }
-            loadDdlTrainings();
-            
+        }
+
+        //SEGUIR PORACAAAA!!!! REFRESCAR TRAININGS Y RUTINAS EN VISUALIZER MIENTRAS VOY AGREGAAAANDOOO!
+        //    PORACAAAA!!!! REFRESCAR TRAININGS Y RUTINAS EN VISUALIZER MIENTRAS VOY AGREGAAAANDOOO!
+        //    PORACAAAA!!!! REFRESCAR TRAININGS Y RUTINAS EN VISUALIZER MIENTRAS VOY AGREGAAAANDOOO!
+        //    PORACAAAA!!!! REFRESCAR TRAININGS Y RUTINAS EN VISUALIZER MIENTRAS VOY AGREGAAAANDOOO!
+        //    PORACAAAA!!!! REFRESCAR TRAININGS Y RUTINAS EN VISUALIZER MIENTRAS VOY AGREGAAAANDOOO!
+
+
+        protected void loadInitialData()
+        {
+            int idPartner = /*Request.QueryString["idPartner"].ToString() == null ? int.Parse(lblIdPartner.Text) :*/ int.Parse(Request.QueryString["idPartner"].ToString());
+
+            partnerBusiness = new PartnerBusiness();
+            partner = new Partner();
+
+            partner = partnerBusiness.Read(idPartner);
+
+            lblIdPartner.Text = idPartner.ToString();
+            lblPartnerName.Text = lblPartnerName.Text + partner.firstName + " " + partner.lastName;
+
+            trainingTypeBusiness = new TrainingTypeBusiness();
+            trainingTypeList = trainingTypeBusiness.List();
+            ddlTrainingTypes.DataSource = trainingTypeList;
+            ddlTrainingTypes.DataBind();
+
+            exerciseBusiness = new ExerciseBusiness();
+            ddlExercises.DataSource = exerciseBusiness.List();
+            ddlExercises.DataBind();
+
+            List<int> series = new List<int>();
+            List<int> reps = new List<int>();
+            series = Enumerable.Range(1, 10).ToList();
+            reps = Enumerable.Range(1, 30).ToList();
+
+            ddlSeries.DataSource = series;
+            ddlSeries.DataBind();
+            ddlReps.DataSource = reps;
+            ddlReps.DataBind();
+
+            loadTrainings();
+            loadVisualizer();
+        }
+
+        protected void loadTrainings()
+        {
+            Partner partner = new Partner();
+            partnerBusiness = new PartnerBusiness();
+            partner = partnerBusiness.Read(int.Parse(lblIdPartner.Text));
+
+            ddlTrainings.DataSource = partner.trainingList;
+            ddlTrainings.DataBind();
+
+            if (ddlTrainings.Items.Count == 1)
+            {
+                ddlTrainings.SelectedIndex = 0;
+            }
+            if(ddlTrainings.Items.Count > 0)
+                loadRoutines();
+        }
+
+        protected void loadVisualizer()
+        {
+            //CARGO EL VISUALIZADOR...
+
+            loadTrainingsVisualizer();
+            if(ddlTrainingPrograms.Items.Count > 0)
+                loadRoutinesVisualizer();
+        }
+
+        protected void loadTrainingsVisualizer()
+        {
+            Partner partner = new Partner();
+            partnerBusiness = new PartnerBusiness();
+            partner = partnerBusiness.Read(int.Parse(lblIdPartner.Text));
+
+            ddlTrainingPrograms.DataSource = partner.trainingList;
+            ddlTrainingPrograms.DataBind();
+
+            if (ddlTrainingPrograms.Items.Count == 1)
+            {
+                ddlTrainingPrograms.SelectedIndex = 0;
+            }
+        }
+
+        protected void loadRoutinesVisualizer()
+        {
+            dailyRoutineBusiness = new DailyRoutineBusiness();
+            int idTraining = int.Parse(ddlTrainingPrograms.SelectedValue);
+
+            ddlRoutines.DataSource = dailyRoutineBusiness.ListByTraining(idTraining);
+            ddlRoutines.DataBind();
+
+            if (ddlRoutines.Items.Count == 1)
+            {
+                ddlRoutines.SelectedIndex = 0;
+            }
+
+            if(ddlRoutines.SelectedValue != "")
+                showRoutine();
+        }
+
+        protected void ddlTrainings_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            loadRoutines();
+        }
+
+        protected void loadRoutines()
+        {
+            //Si hay un solo elemento Training en la lista de Trainings, cargo este unico Training y vengo aca a cargar las rutinas
+            dailyRoutineBusiness = new DailyRoutineBusiness();
+            ddlDailyRoutines.DataSource = dailyRoutineBusiness.ListByTraining(int.Parse(ddlTrainings.SelectedValue));
+            ddlDailyRoutines.DataBind();
+
+            if (ddlDailyRoutines.Items.Count == 1)
+            {
+                ddlDailyRoutines.SelectedIndex = 0;
+            }
         }
 
         protected void btnCreateTraining_Click(object sender, EventArgs e)
+        {
+            createTraining();
+            loadTrainings();
+        }
+
+
+        protected void createTraining()
         {
             //TODO: IMPORTANTE! VALIDAR SI EL IdPartner QUE SE PASA EXISTE...SINO TIRAR EL ERROR CORRESPONDIENTE...
             //TODO: IMPORTANTE! VALIDAR SI EL IdPartner QUE SE PASA EXISTE...SINO TIRAR EL ERROR CORRESPONDIENTE...
@@ -71,7 +164,6 @@ namespace ViewModel
 
             //TAMBIEN DEBO VALIDAR QUE LE PARTNER EN CUESTION TENGA TRAINER, SINO NO PUEDO CREAR UN TRAINING
 
-            //int idPartner = int.Parse(Request.QueryString["idPartner"].ToString());
             int idPartner = int.Parse(lblIdPartner.Text);       // si es distinto de null, va bien...
 
             trainingBusiness = new TrainingBusiness();
@@ -87,49 +179,62 @@ namespace ViewModel
 
             trainingBusiness.Create(training);
         }
+
+
         protected void btnAddDailyRoutine_Click(object sender, EventArgs e)
         {
-            DaiyRoutineBusiness daiyRoutineBusiness = new DaiyRoutineBusiness();
+            createDailyRoutine();
+            loadRoutines();
+        }
+
+        protected void createDailyRoutine()
+        {
+            dailyRoutineBusiness = new DailyRoutineBusiness();
             dailyRoutine = new DailyRoutine();
+            dailyRoutine.idTraining = int.Parse(ddlTrainings.SelectedValue);
+            dailyRoutine.dailyRoutineDate = DateTime.Parse(txtDailyRoutineDate.Text);
 
-            dailyRoutine.idTraining = int.Parse(ddlTrainingPrograms.SelectedValue);
-            dailyRoutine.dailyRoutineDate = DateTime.Parse(txtDailyRoutineDate.ToString());
-
-            daiyRoutineBusiness.Create(dailyRoutine);
+            dailyRoutineBusiness.Create(dailyRoutine);
         }
 
         protected void btnAddExercise_Click(object sender, EventArgs e)
         {
-
+            addExerciseToDailyRoutine();
         }
 
-        private void cleanForm()
+        protected void addExerciseToDailyRoutine()
         {
-            txtTrainingName.Text = string.Empty;
-            txtTrainingDescription.Text = string.Empty;
-            txtStartDate.Text = string.Empty;
-            txtEndDate.Text = string.Empty;
+            exerciseInDailyRoutineBusiness = new ExerciseInDailyRoutineBusiness();
+            exercise = new Exercise();
+            int idDailyRoutine = int.Parse(ddlDailyRoutines.SelectedValue);
+
+            exercise.IdExercise = int.Parse(ddlExercises.SelectedValue);
+            exercise.Sets = int.Parse(ddlSeries.SelectedValue);
+            exercise.Reps = int.Parse(ddlReps.SelectedValue);
+            exercise.Weight = decimal.Parse(txtWeight.Text);
+            exercise.RestTime = int.Parse(txtRestTime.Text);
+
+            exerciseInDailyRoutineBusiness.Create(idDailyRoutine, exercise);
         }
 
-        protected void ddlTrainings_SelectedIndexChanged(object sender, EventArgs e)
+        protected void ddlTrainingPrograms_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //Si hay un solo elemento Trainingn en la lista de Trainings, cargo este unico Training y vengo aca a cargar las rutinas
-            daiyRoutineBusiness = new DaiyRoutineBusiness();
-            ddlDailyRoutines.DataSource = daiyRoutineBusiness.ListByTraining(int.Parse(ddlTrainings.SelectedValue));
+            loadRoutinesVisualizer();
         }
 
-        protected void loadDdlTrainings()
+        protected void ddlRoutines_SelectedIndexChanged(object sender, EventArgs e)
         {
-            partner = new Partner();
-            partnerBusiness = new PartnerBusiness();
-            partner = partnerBusiness.Read(int.Parse(lblIdPartner.Text));
-            ddlTrainings.DataSource = partner.trainingList;
-            ddlTrainings.DataBind();
+            showRoutine();
+        }
 
-            if (ddlTrainings.Items.Count == 1)
-            {
-                ddlTrainings_SelectedIndexChanged(ddlTrainings, EventArgs.Empty);
-            }
+        protected void showRoutine()
+        {
+            dailyRoutineBusiness = new DailyRoutineBusiness();
+            DailyRoutine dailyRoutineVisualizer = new DailyRoutine();
+            dailyRoutineVisualizer = dailyRoutineBusiness.Read(int.Parse(ddlRoutines.SelectedValue));
+
+            gvRoutineExercises.DataSource = dailyRoutineVisualizer.exercisesList;
+            gvRoutineExercises.DataBind();
         }
     }
 }

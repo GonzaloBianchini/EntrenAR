@@ -69,7 +69,7 @@ namespace Business
                     trainingTypeBusiness = new TrainingTypeBusiness();
                     Training auxTraining = new Training();
 
-                    auxTraining.idTraining = id;
+                    auxTraining.idTraining = int.Parse(data.Reader["IdTraining"].ToString());
                     auxTraining.Name = data.Reader["TrainingName"].ToString();
                     auxTraining.Description = data.Reader["TrainingDescription"].ToString();
                     auxTraining.Type = trainingTypeBusiness.Read(int.Parse(data.Reader["IdType"].ToString()));

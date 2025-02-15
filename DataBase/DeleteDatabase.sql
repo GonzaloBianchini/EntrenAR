@@ -42,4 +42,6 @@ DROP TABLE Trainings;
 
 -- DROP PROCEDURE insert_daily_routine;
 
+drop PROCEDURE insert_exercise_in_daily_routine;
+
 

@@ -181,14 +181,16 @@ CREATE PROCEDURE insert_exercise_in_daily_routine
     @IdDailyRoutine INT,
     @IdExercise INT,
     @ExerciseSets INT,
+    @ExerciseReps INT,
     @ExerciseWeight DECIMAL,
     @ExerciseRestTime INT
 AS
 BEGIN
-    INSERT INTO ExercisesInDailyRoutine(IdDailyRoutine, IdExercise, ExerciseSets, ExerciseWeight, ExerciseRestTime)
-    VALUES(@IdDailyRoutine, @IdExercise, @ExerciseSets, @ExerciseWeight, @ExerciseRestTime)
+    INSERT INTO ExercisesInDailyRoutine(IdDailyRoutine, IdExercise, ExerciseSets, ExerciseReps, ExerciseWeight, ExerciseRestTime)
+    VALUES(@IdDailyRoutine, @IdExercise, @ExerciseSets, @ExerciseReps, @ExerciseWeight, @ExerciseRestTime)
 END;
 GO
+
 
 
 -- select * from Addresses
@@ -207,6 +209,9 @@ EXEC insert_training 12,'John-Fuerza-FEB2025','Entrenamiento de fuerza para John
 EXEC insert_daily_routine '1','2025-03-01'
 EXEC insert_daily_routine '1','2025-03-02'
 EXEC insert_daily_routine '1','2025-03-03'
+
+EXEC insert_exercise_in_daily_routine 1,2,4,10,60,120
+
 
 INSERT INTO PartnersByTrainer(IdPartner,IdTrainer) 
 VALUES

@@ -113,9 +113,10 @@ namespace Business
             {
                 data.CloseConnection();
             }
-
             return true;
         }
+
+
 
         public Exercise Read(int id)
         {

@@ -42,9 +42,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddressBusiness.cs" />
-    <Compile Include="DaiyRoutineBusiness.cs" />
+    <Compile Include="DailyRoutineBusiness.cs" />
     <Compile Include="DataAccess.cs" />
     <Compile Include="ExerciseBusiness.cs" />
+    <Compile Include="ExerciseInDailyRoutineBusiness.cs" />
     <Compile Include="PartnerBusiness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProvinceBusiness.cs" />

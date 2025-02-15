@@ -126,6 +126,7 @@ CREATE TABLE ExercisesInDailyRoutine (
     IdExercise INT NOT NULL,
     IdDailyRoutine INT NOT NULL,
     ExerciseSets INT NOT NULL,
+    ExerciseReps INT NOT NULL,
     ExerciseWeight DECIMAL NOT NULL,
     ExerciseRestTime INT NOT NULL,  -- TIEMPO DE DESCANSO EN SEGUNDOS
     FOREIGN KEY (IdDailyRoutine) REFERENCES DailyRoutines(IdDailyRoutine),
@@ -133,7 +134,9 @@ CREATE TABLE ExercisesInDailyRoutine (
 );
 
 
-select ED.IdExercise, E.ExerciseName, E.ExerciseDescription, ED.ExerciseSets, ED.ExerciseWeight, ED.ExerciseWeight, ED.ExerciseRestTime, E.UrlExercise from Exercises E
+select ED.IdExercise, E.ExerciseName, E.ExerciseDescription, ED.ExerciseSets, ED.ExerciseReps , ED.ExerciseWeight, ED.ExerciseRestTime, E.UrlExercise from Exercises E
 INNER JOIN ExercisesInDailyRoutine ED ON E.IdExercise = ED.IdExercise
 WHERE ED.IdDailyRoutine = 1
 
+
+select * from DailyRoutines WHERE IdTraining = @IdTraining
