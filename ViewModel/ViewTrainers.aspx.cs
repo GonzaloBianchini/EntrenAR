@@ -23,5 +23,19 @@ namespace ViewModel
             dgvTrainersList.DataSource = trainersList;
             dgvTrainersList.DataBind();
         }
+
+        protected void btnViewTrainer_Command(object sender, CommandEventArgs e)
+        {
+            if (e.CommandName == "Ver")
+            {
+                string idTrainer = e.CommandArgument.ToString();
+                Response.Redirect("ViewTrainer.aspx?idTrainer=" + idTrainer);
+            }
+        }
+
+        protected void btnEditTrainer_Command(object sender, CommandEventArgs e)
+        {
+
+        }
     }
 }

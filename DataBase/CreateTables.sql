@@ -95,7 +95,7 @@ CREATE TABLE Trainings (
     FOREIGN KEY (IdType) REFERENCES TrainingTypes(IdType)
 );
 
--- CREO QUE NO ES NECESARIA AL PONER EL IdPartner E TRAINING..
+-- CREO QUE NO ES NECESARIA AL PONER EL IdPartner En TRAINING..
 -- CREATE TABLE TrainingsByPartner (
 --     IdTraining INT NOT NULL,
 --     IdPartner INT NOT NULL,
@@ -131,6 +131,21 @@ CREATE TABLE ExercisesInDailyRoutine (
     ExerciseRestTime INT NOT NULL,  -- TIEMPO DE DESCANSO EN SEGUNDOS
     FOREIGN KEY (IdDailyRoutine) REFERENCES DailyRoutines(IdDailyRoutine),
     FOREIGN KEY (IdExercise) REFERENCES Exercises(IdExercise)
+);
+
+CREATE TABLE RequestStatuses (
+    IdRequestStatus INT PRIMARY KEY IDENTITY(1,1),
+    RequestStatusName VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Requests (
+    IdRequest INT PRIMARY KEY IDENTITY(1,1),
+    IdRequestStatus INT NOT NULL,
+    IdTrainer INT NOT NULL,
+    IdPartner INT NOT NULL,
+    CreationDate DATE,
+    FOREIGN KEY (IdTrainer) REFERENCES Trainers(IdTrainer),
+    FOREIGN KEY (IdPartner) REFERENCES Partners(IdPartner)
 );
 
 

@@ -54,5 +54,10 @@ VALUES
     ('Dominadas', 'Ejercicio básico/compuesto de espalda', 'www.entrenar.com/pull-ups'),
     ('Curl de bíceps', 'Ejercicio básico/localizado de bíceps', 'www.entrenar.com/curl-biceps');
 
-select * from Exercises
+INSERT INTO RequestStatuses (RequestStatusName)
+VALUES
+    ('En Revision'),
+    ('Aceptada'),
+    ('Rechazada');
 
+select * from RequestStatuses

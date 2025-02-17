@@ -8,7 +8,13 @@
             <asp:BoundField DataField="idTrainer" HeaderText="ID TRAINER" />
             <asp:BoundField DataField="firstName" HeaderText="NOMBRE" />
             <asp:BoundField DataField="lastName" HeaderText="APELLIDO" />
-            <asp:CommandField HeaderText="ACCION" ShowEditButton="true" EditText="Editar" ShowDeleteButton="true" DeleteText="Borrar" ControlStyle-CssClass="btn btn-sm btn-primary" />
+            <asp:TemplateField HeaderText="Accion">
+                <ItemTemplate>
+                    <asp:LinkButton ID="btnViewTrainer" runat="server" CommandName="Ver" OnCommand="btnViewTrainer_Command" CommandArgument='<%# Eval("idTrainer") %>' CssClass="btn btn-sm btn-warning">Ver</asp:LinkButton>
+                    <asp:LinkButton ID="btnEditTrainer" runat="server" CommandName="Editar" OnCommand="btnEditTrainer_Command" CommandArgument='<%# Eval("idTrainer") %>' CssClass="btn btn-sm btn-warning">Editar</asp:LinkButton>
+                    <%--<asp:LinkButton ID="btnManageTrainings" runat="server" CommandName="Gestionar" OnCommand="btnManageTrainings_Command" CommandArgument='<%# Eval("idPartner") %>' CssClass="btn btn-sm btn-warning">Gestionar</asp:LinkButton>--%>
+                </ItemTemplate>
+            </asp:TemplateField>
         </Columns>
     </asp:GridView>
 </asp:Content>

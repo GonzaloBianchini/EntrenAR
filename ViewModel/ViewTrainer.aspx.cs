@@ -13,5 +13,15 @@ namespace ViewModel
         {
 
         }
+
+        protected void btnAceptar_Command(object sender, CommandEventArgs e)
+        {
+
+        }
+
+        protected void btnRechazar_Command(object sender, CommandEventArgs e)
+        {
+
+        }
     }
 }

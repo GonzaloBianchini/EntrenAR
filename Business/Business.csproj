@@ -49,6 +49,8 @@
     <Compile Include="PartnerBusiness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProvinceBusiness.cs" />
+    <Compile Include="RequestBusiness.cs" />
+    <Compile Include="RequestStatusesBusiness.cs" />
     <Compile Include="RoleBusiness.cs" />
     <Compile Include="StatusPartnerBusiness.cs" />
     <Compile Include="TrainerBusiness.cs" />

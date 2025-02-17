@@ -191,6 +191,17 @@ BEGIN
 END;
 GO
 
+CREATE PROCEDURE insert_request
+    @IdRequestStatus INT,
+    @IdTrainer INT,
+    @IdPartner INT,
+    @CreationDate DATE
+AS
+BEGIN
+    INSERT INTO Requests(IdRequestStatus, IdTrainer, IdPartner, CreationDate)
+    VALUES(@IdRequestStatus, @IdTrainer, @IdPartner, @CreationDate)
+END;
+GO
 
 
 -- select * from Addresses
@@ -204,6 +215,8 @@ GO
 -- select * from DailyRoutines
 -- select * from PartnersByTrainer
 -- select * from ExercisesInDailyRoutine
+-- SELECT * from PartnersByTrainer
+-- select * from Requests
 
 EXEC insert_training 12,'John-Fuerza-FEB2025','Entrenamiento de fuerza para John bla bla bla',1,'2025-02-01','2025-05-01'
 EXEC insert_daily_routine '1','2025-03-01'
@@ -226,3 +239,5 @@ INNER join PartnersByTrainer P ON T.IdTrainer = P.IdTrainer
 WHERE P.IdPartner = 12
 
 INSERT INTO DailyRoutines(IdTraining,DailyRoutineDate) VALUES(2,'2025-02-10')
+
+SELECT * from PartnersByTrainer where IdTrainer = 3

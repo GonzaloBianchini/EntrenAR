@@ -31,6 +31,9 @@ DROP TABLE ExercisesInDailyRoutine;
 
 DROP TABLE Trainings;
 
+DROP TABLE RequestStatuses;
+
+DROP TABLE Requests;
 
 -- DROP PROCEDURE insert_partner;
 
@@ -42,6 +45,6 @@ DROP TABLE Trainings;
 
 -- DROP PROCEDURE insert_daily_routine;
 
-drop PROCEDURE insert_exercise_in_daily_routine;
+-- drop PROCEDURE insert_exercise_in_daily_routine;
 
 

@@ -11,10 +11,9 @@ namespace Business
     {
         private DataAccess data;
         private Trainer auxTrainer;
+        private PartnerBusiness partnerBusiness;
         private UserBusiness userBusiness;
         private User auxUser;
-        //private Role role;
-        //private RoleBusiness roleBusiness;
 
         public TrainerBusiness()
         {
@@ -51,58 +50,51 @@ namespace Business
             return lastIndex;
         }
 
-        //public Partner Read(int id)
-        //{
-        //    data = new DataAccess();
-        //    auxPartner = new Partner();
-        //    statusPartnerBusiness = new StatusPartnerBusiness();
-        //    userBusiness = new UserBusiness();
-        //    auxUser = new User();
-        //    addressBusiness = new AddressBusiness();
+        public Trainer Read(int idTrainer)
+        {
+            data = new DataAccess();
+            auxTrainer = new Trainer();
+            
+            userBusiness = new UserBusiness();
+            auxUser = new User();
 
-        //    try
-        //    {
-        //        data.SetQuery("select * from Partners Where IdPartner=@IdPartner");
-        //        data.SetParameter("@IdPartner", id);
-        //        data.ExecuteRead();
+            partnerBusiness = new PartnerBusiness();
 
-        //        if (data.Reader.Read())
-        //        {
-        //            auxPartner.idPartner = id;
+            try
+            {
+                data.SetQuery("select * from Trainers Where IdTrainer = @IdTrainer");
+                data.SetParameter("@IdTrainer", idTrainer);
+                data.ExecuteRead();
 
-        //            auxPartner.idUser = int.Parse(data.Reader["IdUser"].ToString());
-        //            auxUser = userBusiness.Read(auxPartner.idUser);
-        //            auxPartner.userName = auxUser.userName;
-        //            auxPartner.userPassword = auxUser.userPassword;
-        //            auxPartner.role = auxUser.role;
+                if (data.Reader.Read())
+                {
+                    auxTrainer.idTrainer = idTrainer;
 
-        //            auxPartner.status = statusPartnerBusiness.Read(int.Parse(data.Reader["IdStatus"].ToString()));
-        //            auxPartner.activeStatus = bool.Parse(data.Reader["ActiveStatus"].ToString());
-        //            auxPartner.dni = int.Parse(data.Reader["Dni"].ToString());
-        //            auxPartner.firstName = data.Reader["FirstName"].ToString();
-        //            auxPartner.lastName = data.Reader["LastName"].ToString();
-        //            auxPartner.gender = data.Reader["Gender"].ToString();
-        //            auxPartner.email = data.Reader["Email"].ToString();
-        //            auxPartner.phone = data.Reader["Phone"].ToString();
-        //            auxPartner.birthDate = DateTime.Parse(data.Reader["Phone"].ToString());
+                    auxTrainer.idUser = int.Parse(data.Reader["IdUser"].ToString());
+                    auxUser = userBusiness.Read(auxTrainer.idUser);
+                    auxTrainer.userName = auxUser.userName;
+                    auxTrainer.userPassword = auxUser.userPassword;
+                    auxTrainer.role = auxUser.role;
 
-        //            auxPartner.address = addressBusiness.Read(int.Parse(data.Reader["IdAddress"].ToString()));
+                    auxTrainer.firstName = data.Reader["FirstName"].ToString();
+                    auxTrainer.lastName = data.Reader["LastName"].ToString();
 
-        //            //TODO: LEER TrainingList!!
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
+                    auxTrainer.partnersList = partnerBusiness.ListByTrainerId(idTrainer);
+                }
+            }
+            catch (Exception ex)
+            {
 
-        //        throw ex;
-        //    }
-        //    finally
-        //    {
-        //        data.CloseConnection();
-        //    }
+                throw ex;
+            }
+            finally
+            {
+                data.CloseConnection();
+            }
 
-        //    return auxPartner;
-        //}
+            return auxTrainer;
+        }
+
         public Trainer GetTrainerByParterId(int idPartner)
         {
             data = new DataAccess();
@@ -179,42 +171,6 @@ namespace Business
         //    return true;
         //}
 
-
-        /*
-        public List<Partner> List()
-        {
-            Data = new DataAccess();
-            List<Partner> partnerList = new List<Partner>();
-
-            try
-            {
-                Data.SetQuery("select * from Users where IdRole = 3 and IsActive = 1 ");
-                Data.ExecuteRead();
-
-                while (Data.Reader.Read())
-                {
-                    Partner auxPartner = new Partner();
-                    auxPartner.IdPartner = Data.Reader[""]
-                        auxPartner.IdUser
-
-                //TODO: LEER TrainingList!!
-                }
-                
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-            finally
-            {
-                Data.CloseConnection();
-            }
-
-            
-            return partnerList;
-        }
-        */
         public List<Trainer> List()
         {
 

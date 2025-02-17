@@ -199,8 +199,39 @@ namespace Business
             {
                 data.CloseConnection();
             }
+            return partnersList;
+        }
 
-            
+        public List<Partner> ListByTrainerId(int idTrainer)
+        {
+            data = new DataAccess();
+
+            List<Partner> partnersList = new List<Partner>();
+
+            try
+            {
+                data.SetQuery("SELECT * from PartnersByTrainer where IdTrainer = @IdTrainer");
+                data.SetParameter("@IdTrainer", idTrainer);
+                data.ExecuteRead();
+
+                while (data.Reader.Read())
+                {
+                    auxPartner = new Partner();
+                    auxPartner = Read(int.Parse(data.Reader["IdPartner"].ToString()));
+
+                    partnersList.Add(auxPartner);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                data.CloseConnection();
+            }
+
             return partnersList;
         }
 

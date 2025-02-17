@@ -153,6 +153,7 @@ namespace ViewModel
         {
             createTraining();
             loadTrainings();
+            loadVisualizer();
         }
 
 
@@ -185,6 +186,7 @@ namespace ViewModel
         {
             createDailyRoutine();
             loadRoutines();
+            loadVisualizer();
         }
 
         protected void createDailyRoutine()
@@ -200,6 +202,7 @@ namespace ViewModel
         protected void btnAddExercise_Click(object sender, EventArgs e)
         {
             addExerciseToDailyRoutine();
+            loadVisualizer();
         }
 
         protected void addExerciseToDailyRoutine()

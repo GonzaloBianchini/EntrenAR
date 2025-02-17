@@ -53,6 +53,7 @@ namespace Business
         {
             data = new DataAccess();
             List<Exercise> listExercises = new List<Exercise>();
+
             try
             {
                 data.SetQuery("select ED.IdExercise, E.ExerciseName, E.ExerciseDescription, ED.ExerciseSets, ED.ExerciseReps , ED.ExerciseWeight, ED.ExerciseRestTime, E.UrlExercise from Exercises E INNER JOIN ExercisesInDailyRoutine ED ON E.IdExercise = ED.IdExercise WHERE ED.IdDailyRoutine = @IdDailyRoutine");
