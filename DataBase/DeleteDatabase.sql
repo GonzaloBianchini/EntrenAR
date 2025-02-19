@@ -45,6 +45,8 @@ DROP TABLE Requests;
 
 -- DROP PROCEDURE insert_daily_routine;
 
--- drop PROCEDURE insert_exercise_in_daily_routine;
+-- DROP PROCEDURE insert_exercise_in_daily_routine;
+
+-- DROP PROCEDURE update_request;
 
 

@@ -84,12 +84,9 @@
                     <asp:GridView runat="server" ID="dgvRequests" AutoGenerateColumns="false" DataKeyNames="idRequest" class="table mt-2">
                         <Columns>
                             <asp:BoundField DataField="idRequest" HeaderText="ID SOLICITUD" />
-                            <%--ACA VAN LOS DATOS DE PARTNER QUE SOLICITA TRAINER...
-                            ACA VAN LOS DATOS DE PARTNER QUE SOLICITA TRAINER...
-                            ACA VAN LOS DATOS DE PARTNER QUE SOLICITA TRAINER...--%>
-                            <%--<asp:BoundField DataField="firstName" HeaderText="NOMBRE" />
-                            <asp:BoundField DataField="lastName" HeaderText="APELLIDO" />
-                            <asp:BoundField DataField="userName" HeaderText="USUARIO" />--%>
+                            <asp:BoundField DataField="partner.firstName" HeaderText="NOMBRE" />
+                            <asp:BoundField DataField="partner.lastName" HeaderText="APELLIDO" />
+                            <asp:BoundField DataField="creationDate" HeaderText="FECHA DE CREACION" />
                             <asp:TemplateField HeaderText="Accion">
                                 <ItemTemplate>
                                     <asp:LinkButton ID="btnAceptar" runat="server" CommandName="Aceptar" OnCommand="btnAceptar_Command" CommandArgument='<%# Eval("idRequest") %>' CssClass="btn btn-sm btn-warning">Aceptar</asp:LinkButton>

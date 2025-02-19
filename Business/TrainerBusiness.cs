@@ -210,7 +210,6 @@ namespace Business
                 data.CloseConnection();
             }
 
-
             return trainersList;
         }
     }

@@ -191,18 +191,70 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE insert_request
+-- CREATE PROCEDURE insert_request
+--     @IdRequestStatus INT,
+--     @IdTrainer INT,
+--     @IdPartner INT,
+--     @CreationDate DATE
+-- AS
+-- BEGIN
+--     INSERT INTO Requests(IdRequestStatus, IdTrainer, IdPartner, CreationDate)
+--     VALUES(@IdRequestStatus, @IdTrainer, @IdPartner, @CreationDate)
+-- END;
+-- GO
+
+-- CREATE PROCEDURE update_request
+--     @IdRequestStatus INT,
+--     @IdTrainer INT,
+--     @IdPartner INT
+-- AS
+-- BEGIN
+--     UPDATE Requests SET IdRequestStatus = @IdRequestStatus WHERE IdTrainer = @IdTrainer AND IdPartner = @IdPartner;
+-- END;
+-- GO
+
+CREATE OR ALTER PROCEDURE update_request
     @IdRequestStatus INT,
     @IdTrainer INT,
-    @IdPartner INT,
-    @CreationDate DATE
+    @IdPartner INT
 AS
 BEGIN
-    INSERT INTO Requests(IdRequestStatus, IdTrainer, IdPartner, CreationDate)
-    VALUES(@IdRequestStatus, @IdTrainer, @IdPartner, @CreationDate)
-END;
-GO
+    SET NOCOUNT ON;
 
+    -- Verificar si existe la request antes de actualizar
+    IF EXISTS (SELECT 1 FROM Requests WHERE IdTrainer = @IdTrainer AND IdPartner = @IdPartner)
+    BEGIN
+        BEGIN TRANSACTION;
+        -- Actualizar el estado de la request
+        UPDATE Requests 
+        SET IdRequestStatus = @IdRequestStatus 
+        WHERE IdTrainer = @IdTrainer AND IdPartner = @IdPartner;
+
+        -- Si el estado es 2, insertar en PartnersByTrainer si no existe
+        IF @IdRequestStatus = 2
+        BEGIN
+            IF NOT EXISTS (SELECT 1 FROM PartnersByTrainer WHERE IdTrainer = @IdTrainer AND IdPartner = @IdPartner)
+            BEGIN
+                INSERT INTO PartnersByTrainer (IdTrainer, IdPartner) 
+                VALUES (@IdTrainer, @IdPartner);
+            END
+        END
+        -- Si el estado es 3, eliminar de PartnersByTrainer
+        ELSE IF @IdRequestStatus = 3
+        BEGIN
+            DELETE FROM PartnersByTrainer 
+            WHERE IdTrainer = @IdTrainer AND IdPartner = @IdPartner;
+        END
+        COMMIT TRANSACTION;
+    END
+END;
+
+
+
+
+
+EXEC insert_request 1,4,15,'2025-02-17'
+EXEC update_request 2,3,7
 
 -- select * from Addresses
 -- select * from Users
@@ -215,8 +267,11 @@ GO
 -- select * from DailyRoutines
 -- select * from PartnersByTrainer
 -- select * from ExercisesInDailyRoutine
--- SELECT * from PartnersByTrainer
+-- select * from PartnersByTrainer
+-- select * from RequestStatuses
 -- select * from Requests
+
+
 
 EXEC insert_training 12,'John-Fuerza-FEB2025','Entrenamiento de fuerza para John bla bla bla',1,'2025-02-01','2025-05-01'
 EXEC insert_daily_routine '1','2025-03-01'
@@ -241,3 +296,20 @@ WHERE P.IdPartner = 12
 INSERT INTO DailyRoutines(IdTraining,DailyRoutineDate) VALUES(2,'2025-02-10')
 
 SELECT * from PartnersByTrainer where IdTrainer = 3
+
+SELECT * from PartnersByTrainer where IdTrainer = @IdTrainer
+
+SELECT P.IdPartner, P.IdUser, P.IdStatus, P.ActiveStatus, P.Dni, P.FirstName, P.LastName, P.Gender, P.Email, P.Phone, P.BirthDate, P.IdAddress from PartnersByTrainer PBT
+INNER JOIN Partners P ON PBT.IdPartner = P.IdPartner
+WHERE IdTrainer = 3
+
+
+EXEC insert_request 1,10,14,'2025-02-18'
+EXEC update_request 3,10,15
+
+SELECT * from Requests
+select * from PartnersByTrainer
+select * from Partners
+
+
+

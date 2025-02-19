@@ -210,17 +210,33 @@ namespace Business
 
             try
             {
-                data.SetQuery("SELECT * from PartnersByTrainer where IdTrainer = @IdTrainer");
+                //data.SetQuery("SELECT * from PartnersByTrainer where IdTrainer = @IdTrainer");
+                data.SetQuery("SELECT P.IdPartner, P.IdUser, P.IdStatus, P.ActiveStatus, P.Dni, P.FirstName, P.LastName, P.Gender, P.Email, P.Phone, P.BirthDate from PartnersByTrainer PBT INNER JOIN Partners P ON PBT.IdPartner = P.IdPartner WHERE IdTrainer = @IdTrainer");
                 data.SetParameter("@IdTrainer", idTrainer);
                 data.ExecuteRead();
 
                 while (data.Reader.Read())
                 {
-                    auxPartner = new Partner();
-                    auxPartner = Read(int.Parse(data.Reader["IdPartner"].ToString()));
+                    statusPartnerBusiness = new StatusPartnerBusiness();
+
+                    Partner auxPartner = new Partner();
+                    auxPartner.idPartner = int.Parse(data.Reader["IdPartner"].ToString());
+                    auxPartner.idUser = int.Parse(data.Reader["IdUser"].ToString());
+                    auxPartner.status = statusPartnerBusiness.Read(int.Parse(data.Reader["IdStatus"].ToString()));
+
+                    auxPartner.dni = int.Parse(data.Reader["Dni"].ToString());
+                    auxPartner.firstName = data.Reader["FirstName"].ToString();
+                    auxPartner.lastName = data.Reader["LastName"].ToString();
+                    auxPartner.gender = data.Reader["Gender"].ToString();
+                    auxPartner.email = data.Reader["Email"].ToString();
+                    auxPartner.phone = data.Reader["Phone"].ToString();
+                    auxPartner.birthDate = DateTime.Parse(data.Reader["BirthDate"].ToString());
+                    //no leo Address
+                    //no leo training list
 
                     partnersList.Add(auxPartner);
                 }
+                //RVISAR POR ACAAA
             }
             catch (Exception ex)
             {

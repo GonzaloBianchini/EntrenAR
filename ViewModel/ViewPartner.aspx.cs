@@ -72,10 +72,7 @@ namespace ViewModel
                     dgvTrainer.DataSource = new List<Trainer> { trainer };
                     dgvTrainer.DataBind();
                 }
-
             }
-
-
         }
     }
 }
