@@ -11,88 +11,70 @@ namespace ViewModel
 {
 
 
-    public partial class ViewTrainer
+    public partial class ViewTrainings
     {
 
         /// <summary>
-        /// udpTrainer control.
+        /// udpTrainings control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel udpTrainer;
+        protected global::System.Web.UI.UpdatePanel udpTrainings;
 
         /// <summary>
-        /// lblIdTrainer control.
+        /// lblIdPartner control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblIdTrainer;
+        protected global::System.Web.UI.WebControls.Label lblIdPartner;
 
         /// <summary>
-        /// lblFirstName control.
+        /// pnlSelectTrainers control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblFirstName;
+        protected global::System.Web.UI.WebControls.Panel pnlSelectTrainers;
 
         /// <summary>
-        /// lblLastName control.
+        /// ddlTrainers control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblLastName;
+        protected global::System.Web.UI.WebControls.DropDownList ddlTrainers;
 
         /// <summary>
-        /// lblUser control.
+        /// btnSendRequest control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblUser;
+        protected global::System.Web.UI.WebControls.Button btnSendRequest;
 
         /// <summary>
-        /// lblNoPartners control.
+        /// pnlRequestSent control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNoPartners;
+        protected global::System.Web.UI.WebControls.Panel pnlRequestSent;
 
         /// <summary>
-        /// dgvPartners control.
+        /// lblTrainerRequested control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView dgvPartners;
-
-        /// <summary>
-        /// lblNoRequests control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNoRequests;
-
-        /// <summary>
-        /// dgvRequests control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView dgvRequests;
+        protected global::System.Web.UI.WebControls.Label lblTrainerRequested;
     }
 }

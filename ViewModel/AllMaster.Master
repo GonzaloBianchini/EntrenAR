@@ -52,7 +52,7 @@
                         <%--<asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" placeholder="Nombre"></asp:TextBox>--%>
                     </div>
                     <div class="modal-footer">
-                        <asp:Button ID="btnTraining" CssClass="btn btn-primary" Text="Guardar" runat="server" OnClick="btnTraining_Click"   />
+                        <asp:Button ID="btnTraining" CssClass="btn btn-primary" Text="Aceptar" runat="server" OnClick="btnTraining_Click"   />
                         <%--<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>--%>
                     </div>
                 </div>
@@ -60,22 +60,22 @@
         </div>
 
 
-        <!-- Modal Generico, desde el back cambio todo para reutilizarlo -->
-        <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+        <!-- Modal para request -->
+        <div class="modal fade" id="modalRequest" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <asp:Label Text="Titulo Modal" ID="txtModalTitle" CssClass="modal-title" runat="server" />
+                        <asp:Label Text="Gestion de Solicitudes" ID="txtModalTitle" CssClass="modal-title" runat="server" />
                         <%--<h5 class="modal-title" id="modalTitle">Agregar Usuario</h5>--%>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <asp:Label Text="Texto principal modal" ID="txtModalBody" runat="server" />
+                        <asp:Label Text="Solicitud gestionada" ID="txtModalBody" runat="server" />
                         <%--<asp:TextBox ID="TextBox1" runat="server" CssClass="form-control" placeholder="Nombre"></asp:TextBox>--%>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <asp:Button Text="Aceptar" ID="btnAceptar" CssClass="btn btn-primary" OnClick="btnAceptar_Click" runat="server" />
+                        <asp:Button Text="Aceptar" ID="btnRequest" CssClass="btn btn-primary" OnClick="btnRequest_Click"  runat="server" />
+                        <%--<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>--%>
                     </div>
                 </div>
             </div>
@@ -136,11 +136,11 @@
                                     <%--<span class="bi bi-list-check"></span>Nuevo Partner--%>
                                 </a>
                             </li>
-                            <%--<li class="nav-item">
-                                <a class="nav-link" href="NewTraining.aspx">
-                                    <asp:Label Text="Nuevo Plan de Entrenamiento " ID="lblNewTraining" class="bi bi-list-check" runat="server" />
+                            <li class="nav-item">
+                                <a class="nav-link" href="ViewTrainings.aspx">
+                                    <asp:Label Text="PRUEBA PROGRAMAS ENTRENAMIENTOS " ID="lblViewTrainings" class="bi bi-list-check" runat="server" />
                                 </a>
-                            </li>--%>
+                            </li>
                         </ul>
                     </div>
                 </nav>

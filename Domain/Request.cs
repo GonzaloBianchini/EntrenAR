@@ -17,6 +17,8 @@ namespace Domain
         public Request()
         {
             requestStatus = new RequestStatus();
+            trainer = new Trainer();
+            partner = new Partner();
         }
     }
 }

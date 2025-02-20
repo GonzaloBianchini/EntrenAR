@@ -90,6 +90,10 @@
                             <%--<asp:BoundField DataField="userName" HeaderText="USUARIO" />--%>
                         </Columns>
                     </asp:GridView>
+
+                    <div class="col-md-12">
+                        <asp:Button ID="btnLetsGoTraining" Text="A ENTRENAR!" class="btn btn-warning" OnClick="btnLetsGoTraining_Click" runat="server" />
+                    </div>
                 </div>
 
                 <div class="card p-3 mt-4">

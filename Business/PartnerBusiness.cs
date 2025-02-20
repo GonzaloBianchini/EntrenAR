@@ -251,5 +251,19 @@ namespace Business
             return partnersList;
         }
 
+        public bool hasAnyRequest(int idPartner)
+        {
+            data = new DataAccess();
+
+            data.SetQuery("SELECT * from Requests where IdPartner = @IdPartner And (IdRequestStatus = 1 OR IdRequestStatus = 2)");
+            data.SetParameter("@IdPartner", idPartner);
+            data.ExecuteRead();
+
+            if (data.Reader.Read())
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

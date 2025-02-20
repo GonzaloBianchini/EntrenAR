@@ -81,7 +81,7 @@
     <Content Include="ViewPartner.aspx" />
     <Content Include="ViewTrainer.aspx" />
     <Content Include="Content\MyStyles.css" />
-    <Content Include="ViewPrograms.aspx" />
+    <Content Include="ViewTrainings.aspx" />
     <Content Include="ViewRoutine.aspx" />
     <Content Include="NewExercise.aspx" />
     <Content Include="ViewExercises.aspx" />
@@ -183,12 +183,12 @@
     <Compile Include="ViewTrainer.aspx.designer.cs">
       <DependentUpon>ViewTrainer.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewPrograms.aspx.cs">
-      <DependentUpon>ViewPrograms.aspx</DependentUpon>
+    <Compile Include="ViewTrainings.aspx.cs">
+      <DependentUpon>ViewTrainings.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewPrograms.aspx.designer.cs">
-      <DependentUpon>ViewPrograms.aspx</DependentUpon>
+    <Compile Include="ViewTrainings.aspx.designer.cs">
+      <DependentUpon>ViewTrainings.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewRoutine.aspx.cs">
       <DependentUpon>ViewRoutine.aspx</DependentUpon>

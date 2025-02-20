@@ -87,13 +87,13 @@ namespace ViewModel
         protected global::System.Web.UI.WebControls.Label txtModalBody;
 
         /// <summary>
-        /// btnAceptar control.
+        /// btnRequest control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAceptar;
+        protected global::System.Web.UI.WebControls.Button btnRequest;
 
         /// <summary>
         /// lblInicio control.
@@ -166,6 +166,15 @@ namespace ViewModel
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblNewTrainer;
+
+        /// <summary>
+        /// lblViewTrainings control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblViewTrainings;
 
         /// <summary>
         /// ContentPlaceHolder1 control.

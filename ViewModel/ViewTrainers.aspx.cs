@@ -29,7 +29,7 @@ namespace ViewModel
             if (e.CommandName == "Ver")
             {
                 string idTrainer = e.CommandArgument.ToString();
-                Response.Redirect("ViewTrainer.aspx?idTrainer=" + idTrainer);
+                Response.Redirect("ViewTrainer.aspx?idTrainer=" + idTrainer,false);
             }
         }
 

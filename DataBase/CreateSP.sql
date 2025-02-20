@@ -250,9 +250,6 @@ BEGIN
 END;
 
 
-
-
-
 EXEC insert_request 1,4,15,'2025-02-17'
 EXEC update_request 2,3,7
 
@@ -303,13 +300,13 @@ SELECT P.IdPartner, P.IdUser, P.IdStatus, P.ActiveStatus, P.Dni, P.FirstName, P.
 INNER JOIN Partners P ON PBT.IdPartner = P.IdPartner
 WHERE IdTrainer = 3
 
-
-EXEC insert_request 1,10,14,'2025-02-18'
+EXEC insert_request 1,10,16,'2025-02-12'
 EXEC update_request 3,10,15
 
 SELECT * from Requests
 select * from PartnersByTrainer
 select * from Partners
+select * from Trainers
 
-
+SELECT * from Requests where IdPartner = 16 And (IdRequestStatus = 1 OR IdRequestStatus = 2)
 

@@ -30,7 +30,7 @@ namespace ViewModel
             if (e.CommandName == "Ver")
             {
                 string idPartner = e.CommandArgument.ToString();
-                Response.Redirect("ViewPartner.aspx?idPartner=" + idPartner);
+                Response.Redirect("ViewPartner.aspx?idPartner=" + idPartner,false);
             }
         }
 
@@ -44,7 +44,7 @@ namespace ViewModel
             if (e.CommandName == "Gestionar")
             {
                 string idPartner = e.CommandArgument.ToString();
-                Response.Redirect("NewTraining.aspx?idPartner=" + idPartner);
+                Response.Redirect("NewTraining.aspx?idPartner=" + idPartner,false);
             }
         }
     }

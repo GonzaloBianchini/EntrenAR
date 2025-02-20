@@ -74,5 +74,11 @@ namespace ViewModel
                 }
             }
         }
+
+        protected void btnLetsGoTraining_Click(object sender, EventArgs e)
+        {
+            int idPartner = int.Parse(lblIdPartner.Text);
+            Response.Redirect("ViewTrainings.aspx?idPartner=" + idPartner, false);
+        }
     }
 }
