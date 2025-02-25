@@ -2,7 +2,7 @@
 use ENTRENAR_DB
 GO
 
-CREATE PROCEDURE insert_user
+CREATE OR ALTER PROCEDURE insert_user
     @Username VARCHAR(50), -- Nombre de usuario
     @UserPassword VARCHAR(50), -- Contraseña del usuario
     @IdRole INT --Role
@@ -20,7 +20,7 @@ END;
 GO
 
 
-CREATE PROCEDURE insert_partner
+CREATE OR ALTER PROCEDURE insert_partner
     @Username VARCHAR(50),
     @UserPassword VARCHAR(50),
     @IdRole INT,
@@ -88,7 +88,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE insert_trainer
+CREATE OR ALTER PROCEDURE insert_trainer
     @Username VARCHAR(50),
     @UserPassword VARCHAR(50),
     @IdRole INT,
@@ -127,7 +127,7 @@ END;
 GO
 
 
-CREATE PROCEDURE insert_address
+CREATE OR ALTER PROCEDURE insert_address
     @IdProvince INT, -- ID de la provincia
     @StreetName VARCHAR(50), -- Nombre de la calle
     @StreetNumber VARCHAR(50), -- Número de la calle
@@ -147,7 +147,7 @@ END;
 GO
 
 
-CREATE PROCEDURE insert_training
+CREATE OR ALTER PROCEDURE insert_training
     @IdPartner INT,
     @TrainingName VARCHAR(50), 
     @TrainingDescription VARCHAR(150), 
@@ -165,7 +165,7 @@ END;
 GO
 
 
-CREATE PROCEDURE insert_daily_routine
+CREATE OR ALTER PROCEDURE insert_daily_routine
     @IdTraining INT,
     @DailyRoutineDate DATETIME
 AS
@@ -177,7 +177,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE insert_exercise_in_daily_routine
+CREATE OR ALTER PROCEDURE insert_exercise_in_daily_routine
     @IdDailyRoutine INT,
     @IdExercise INT,
     @ExerciseSets INT,
@@ -191,27 +191,17 @@ BEGIN
 END;
 GO
 
--- CREATE PROCEDURE insert_request
---     @IdRequestStatus INT,
---     @IdTrainer INT,
---     @IdPartner INT,
---     @CreationDate DATE
--- AS
--- BEGIN
---     INSERT INTO Requests(IdRequestStatus, IdTrainer, IdPartner, CreationDate)
---     VALUES(@IdRequestStatus, @IdTrainer, @IdPartner, @CreationDate)
--- END;
--- GO
-
--- CREATE PROCEDURE update_request
---     @IdRequestStatus INT,
---     @IdTrainer INT,
---     @IdPartner INT
--- AS
--- BEGIN
---     UPDATE Requests SET IdRequestStatus = @IdRequestStatus WHERE IdTrainer = @IdTrainer AND IdPartner = @IdPartner;
--- END;
--- GO
+CREATE OR ALTER PROCEDURE insert_request
+    @IdRequestStatus INT,
+    @IdTrainer INT,
+    @IdPartner INT,
+    @CreationDate DATE
+AS
+BEGIN
+    INSERT INTO Requests(IdRequestStatus, IdTrainer, IdPartner, CreationDate)
+    VALUES(@IdRequestStatus, @IdTrainer, @IdPartner, @CreationDate)
+END;
+GO
 
 CREATE OR ALTER PROCEDURE update_request
     @IdRequestStatus INT,
@@ -250,9 +240,6 @@ BEGIN
 END;
 
 
-EXEC insert_request 1,4,15,'2025-02-17'
-EXEC update_request 2,3,7
-
 -- select * from Addresses
 -- select * from Users
 -- select * from Partners
@@ -269,44 +256,4 @@ EXEC update_request 2,3,7
 -- select * from Requests
 
 
-
-EXEC insert_training 12,'John-Fuerza-FEB2025','Entrenamiento de fuerza para John bla bla bla',1,'2025-02-01','2025-05-01'
-EXEC insert_daily_routine '1','2025-03-01'
-EXEC insert_daily_routine '1','2025-03-02'
-EXEC insert_daily_routine '1','2025-03-03'
-
-EXEC insert_exercise_in_daily_routine 1,2,4,10,60,120
-
-
-INSERT INTO PartnersByTrainer(IdPartner,IdTrainer) 
-VALUES
-(13,3),
-(12,3),
-(7,6),
-(9,7)
-
-
-select * from Trainers T
-INNER join PartnersByTrainer P ON T.IdTrainer = P.IdTrainer
-WHERE P.IdPartner = 12
-
-INSERT INTO DailyRoutines(IdTraining,DailyRoutineDate) VALUES(2,'2025-02-10')
-
-SELECT * from PartnersByTrainer where IdTrainer = 3
-
-SELECT * from PartnersByTrainer where IdTrainer = @IdTrainer
-
-SELECT P.IdPartner, P.IdUser, P.IdStatus, P.ActiveStatus, P.Dni, P.FirstName, P.LastName, P.Gender, P.Email, P.Phone, P.BirthDate, P.IdAddress from PartnersByTrainer PBT
-INNER JOIN Partners P ON PBT.IdPartner = P.IdPartner
-WHERE IdTrainer = 3
-
-EXEC insert_request 1,10,16,'2025-02-12'
-EXEC update_request 3,10,15
-
-SELECT * from Requests
-select * from PartnersByTrainer
-select * from Partners
-select * from Trainers
-
-SELECT * from Requests where IdPartner = 16 And (IdRequestStatus = 1 OR IdRequestStatus = 2)
 

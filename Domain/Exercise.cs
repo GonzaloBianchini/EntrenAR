@@ -17,6 +17,7 @@ namespace Domain
         public int Reps { get; set; }
         public decimal Weight { get; set; }
         public int RestTime { get; set; }
+        public string ImageUrl { get; set; }
         public string UrlExercise { get; set; }
     }
 }

@@ -95,15 +95,6 @@ CREATE TABLE Trainings (
     FOREIGN KEY (IdType) REFERENCES TrainingTypes(IdType)
 );
 
--- CREO QUE NO ES NECESARIA AL PONER EL IdPartner En TRAINING..
--- CREATE TABLE TrainingsByPartner (
---     IdTraining INT NOT NULL,
---     IdPartner INT NOT NULL,
---     PRIMARY KEY (IdTraining, IdPartner),
---     FOREIGN KEY (IdTraining) REFERENCES Trainings(IdTraining),
---     FOREIGN KEY (IdPartner) REFERENCES Partners(IdPartner)
--- )
-
 -- Tabla: DailyRoutine
 CREATE TABLE DailyRoutines (
     IdDailyRoutine INT PRIMARY KEY IDENTITY(1,1),
@@ -117,8 +108,8 @@ CREATE TABLE Exercises (
     -- ActiveStatus BIT DEFAULT 1 NOT NULL,
     ExerciseName VARCHAR(50) NOT NULL,
     ExerciseDescription VARCHAR(150),
-    UrlExercise VARCHAR(150),
-    -- FOREIGN KEY (IdDailyRoutine) REFERENCES DailyRoutines(IdDailyRoutine)
+    ImageUrl VARCHAR (150),
+    UrlExercise VARCHAR(200),
 );
 
 CREATE TABLE ExercisesInDailyRoutine (
@@ -148,10 +139,5 @@ CREATE TABLE Requests (
     FOREIGN KEY (IdPartner) REFERENCES Partners(IdPartner)
 );
 
+select * from Exercises
 
-select ED.IdExercise, E.ExerciseName, E.ExerciseDescription, ED.ExerciseSets, ED.ExerciseReps , ED.ExerciseWeight, ED.ExerciseRestTime, E.UrlExercise from Exercises E
-INNER JOIN ExercisesInDailyRoutine ED ON E.IdExercise = ED.IdExercise
-WHERE ED.IdDailyRoutine = 1
-
-
-select * from DailyRoutines WHERE IdTraining = @IdTraining

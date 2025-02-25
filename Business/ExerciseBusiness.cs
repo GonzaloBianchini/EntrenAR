@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,6 +32,7 @@ namespace Business
                     //auxExercise.ActiveStatus = bool.Parse(data.Reader["ActiveStatus"].ToString());
                     auxExercise.Name = data.Reader["ExerciseName"].ToString();
                     auxExercise.Description = data.Reader["ExerciseDescription"].ToString();
+                    auxExercise.ImageUrl = data.Reader["ImageUrl"].ToString();
                     auxExercise.UrlExercise = data.Reader["UrlExercise"].ToString();
 
                     listExercises.Add(auxExercise);
@@ -56,7 +58,7 @@ namespace Business
 
             try
             {
-                data.SetQuery("select ED.IdExercise, E.ExerciseName, E.ExerciseDescription, ED.ExerciseSets, ED.ExerciseReps , ED.ExerciseWeight, ED.ExerciseRestTime, E.UrlExercise from Exercises E INNER JOIN ExercisesInDailyRoutine ED ON E.IdExercise = ED.IdExercise WHERE ED.IdDailyRoutine = @IdDailyRoutine");
+                data.SetQuery("select ED.IdExercise, E.ExerciseName, E.ExerciseDescription, ED.ExerciseSets, ED.ExerciseReps , ED.ExerciseWeight, ED.ExerciseRestTime, E.ImageUrl, E.UrlExercise from Exercises E INNER JOIN ExercisesInDailyRoutine ED ON E.IdExercise = ED.IdExercise WHERE ED.IdDailyRoutine = @IdDailyRoutine");
                 data.SetParameter("@IdDailyRoutine",idDailyRoutine);
                 data.ExecuteRead();
 
@@ -70,6 +72,7 @@ namespace Business
                     auxExercise.Reps = int.Parse(data.Reader["ExerciseReps"].ToString());
                     auxExercise.Weight = decimal.Parse(data.Reader["ExerciseWeight"].ToString());
                     auxExercise.RestTime= int.Parse(data.Reader["ExerciseRestTime"].ToString());
+                    auxExercise.ImageUrl = data.Reader["ImageUrl"].ToString();
                     auxExercise.UrlExercise = data.Reader["UrlExercise"].ToString();
 
                     listExercises.Add(auxExercise);
@@ -97,13 +100,13 @@ namespace Business
             data = new DataAccess();
             try
             {
-                data.SetQuery("INSERT INTO Exercises (ExerciseName, ExerciseDescription, UrlExercise) VALUES (@ExerciseName, @ExerciseDescription, @UrlExercise)");
+                data.SetQuery("INSERT INTO Exercises (ExerciseName, ExerciseDescription, ImageUrl, UrlExercise) VALUES (@ExerciseName, @ExerciseDescription, @ImageUrl, @UrlExercise)");
                 data.SetParameter("@ExerciseName", exercise.Name);
-                data.SetParameter("@ExerciseDescription", exercise.Description);
-                data.SetParameter("@UrlExercise", exercise.UrlExercise);
+                data.SetParameter("@ExerciseDescription", (exercise.Description == string.Empty) || (exercise.Description is null) ? (object)DBNull.Value : exercise.Description);
+                data.SetParameter("@ImageUrl", (exercise.ImageUrl == string.Empty) || (exercise.ImageUrl is null) ? (object)DBNull.Value : exercise.ImageUrl);
+                data.SetParameter("@UrlExercise", (exercise.UrlExercise == string.Empty) || (exercise.UrlExercise is null) ? (object)DBNull.Value : exercise.UrlExercise);
 
                 data.ExecuteAction();
-
             }
             catch (Exception ex)
             {
@@ -135,6 +138,7 @@ namespace Business
                     auxExercise.IdExercise = id;
                     auxExercise.Name = data.Reader["ExerciseName"].ToString();
                     auxExercise.Description = data.Reader["ExerciseDescription"].ToString();
+                    auxExercise.ImageUrl = data.Reader["ImageUrl"].ToString();
                     auxExercise.UrlExercise = data.Reader["UrlExercise"].ToString();
                     //auxExercise.ActiveStatus = bool.Parse(data.Reader["ActiveStatus"].ToString());
                 }
@@ -159,13 +163,12 @@ namespace Business
 
             try
             {
-                data.SetQuery("UPDATE Exercises SET ExerciseName =@ExerciseName, ExerciseDescription = @ExerciseDescription, UrlExercise = @UrlExercise WHERE IdExercise =@IdExercise;");
+                data.SetQuery("UPDATE Exercises SET ExerciseName =@ExerciseName, ExerciseDescription = @ExerciseDescription,ImageUrl = @ImageUrl UrlExercise = @UrlExercise WHERE IdExercise =@IdExercise;");
                 data.SetParameter("@IdExercise", exercise.IdExercise);
                 data.SetParameter("@ExerciseName", exercise.Name);
-                data.SetParameter("@ExerciseDescription", exercise.Description);
-                data.SetParameter("@UrlExercise", exercise.UrlExercise);
-                data.SetParameter("@IdExercise", exercise.IdExercise);
-                //data.SetParameter("@ActiveStatus", exercise.ActiveStatus);
+                data.SetParameter("@ExerciseDescription", exercise.Description == string.Empty ? (object)DBNull.Value : exercise.Description);
+                data.SetParameter("@ImageUrl", exercise.ImageUrl == string.Empty ? (object)DBNull.Value : exercise.ImageUrl);
+                data.SetParameter("@UrlExercise", exercise.UrlExercise == string.Empty ? (object)DBNull.Value : exercise.UrlExercise);
 
                 rows = data.ExecuteAction();
             }
@@ -182,28 +185,69 @@ namespace Business
             return (rows > 0);
         }
 
-        //TODO: ver si el delete debe tomar por parametro ID en vez de el propio EXERCISE...
-        //public bool Delete(Exercise exercise)
-        //{
-        //    //TODO: verificar return
-        //    data = new DataAccess();
-        //    bool flag;
+        public Exercise ReadByName(string exerciseName)
+        {
+            data = new DataAccess();
+            Exercise auxExercise = new Exercise();
 
-        //    try
-        //    {
-        //        exercise.ActiveStatus = false;
-        //        flag = Update(exercise);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        flag = false;
-        //        throw ex;
-        //    }
-        //    finally
-        //    {
-        //        data.CloseConnection();
-        //    }
-        //    return flag;
-        //}
+            try
+            {
+                data.SetQuery("SELECT * FROM Exercises WHERE ExerciseName = @exerciseName");
+                data.SetParameter("@exerciseName", exerciseName);
+                data.ExecuteRead();
+
+                if (data.Reader.Read())
+                {
+                    auxExercise.IdExercise = int.Parse(data.Reader["IdExercise"].ToString());
+                    auxExercise.Name = exerciseName;
+                    auxExercise.Description = data.Reader["ExerciseDescription"].ToString();
+                    auxExercise.ImageUrl = data.Reader["ImageUrl"].ToString();
+                    auxExercise.UrlExercise = data.Reader["UrlExercise"].ToString();
+                    //auxExercise.ActiveStatus = bool.Parse(data.Reader["ActiveStatus"].ToString());
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                data.CloseConnection();
+            }
+
+            return auxExercise;
+        }
+
+        public bool ValidateExerciseName(String exerciseName)
+        {
+            Exercise exercise = new Exercise();
+
+            bool isValid;
+
+            try
+            {
+                exercise = ReadByName(exerciseName);
+                if (exercise == null)
+                {
+                    isValid = true;
+                }
+                else
+                {
+                    isValid = false;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                data.CloseConnection();
+            }
+
+            return isValid;
+        }
     }
 }

@@ -16,6 +16,8 @@ namespace ViewModel
 
             if (!IsPostBack)
             {
+                ucToast.ShowToast("Log in", "LOGIN EXITOSO", "bi-check-circle-fill", "text-success");
+                
                 user = (User)(Session["user"]);
                 //TODO: PONER MACROS EN EL ID ROLE
                 AdminPanel.Visible = user.role.IdRole == 1 ;

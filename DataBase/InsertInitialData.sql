@@ -49,15 +49,14 @@ VALUES
 
 INSERT INTO Exercises (ExerciseName, ExerciseDescription, UrlExercise)
 VALUES
-    ('Sentadillas', 'Ejercicio básico/compuesto de piernas', 'www.entrenar.com/squats'),
-    ('Pecho plano', 'Ejercicio básico/compuesto de pecho', 'www.entrenar.com/bench-press'),
-    ('Dominadas', 'Ejercicio básico/compuesto de espalda', 'www.entrenar.com/pull-ups'),
-    ('Curl de bíceps', 'Ejercicio básico/localizado de bíceps', 'www.entrenar.com/curl-biceps');
+    ('Sentadillas', 'Ejercicio básico/compuesto de piernas', 'https://www.youtube.com/shorts/MLoZuAkIyZI?feature=share'),
+    ('Pecho plano', 'Ejercicio básico/compuesto de pecho', 'https://www.youtube.com/shorts/hWbUlkb5Ms4?feature=share'),
+    ('Dominadas', 'Ejercicio básico/compuesto de espalda', 'https://www.youtube.com/shorts/l6-aIZTbAR0?feature=share'),
+    ('Curl de bíceps', 'Ejercicio básico/localizado de bíceps', 'https://www.youtube.com/shorts/2jpteC44QKg?feature=share');
+
 
 INSERT INTO RequestStatuses (RequestStatusName)
 VALUES
     ('En Revision'),
     ('Aceptada'),
     ('Rechazada');
-
-select * from RequestStatuses

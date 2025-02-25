@@ -208,7 +208,7 @@ namespace Business
                 auxUser = Read(userName);
                 if (auxUser != null && !(auxUser.userPassword.Equals(password)))
                 {
-                    //aca avisamos que la contraseña no es correcta... se puede tirar una exception para esto
+                    
                     auxUser = null;
                 }
             }

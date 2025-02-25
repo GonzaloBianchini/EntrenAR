@@ -72,9 +72,15 @@
     <Content Include="EditPartner.aspx" />
     <Content Include="EditProgram.aspx" />
     <Content Include="EditTrainer.aspx" />
+    <Content Include="Error.aspx" />
+    <Content Include="Images\error.jpg" />
+    <Content Include="Images\imageNotFound.jpg" />
+    <Content Include="Images\notfound.jpg" />
+    <Content Include="LabelControl.ascx" />
     <Content Include="NewTraining.aspx" />
     <Content Include="NewTrainer.aspx" />
     <Content Include="AdminPanel.aspx" />
+    <Content Include="Toast.ascx" />
     <Content Include="ViewPartners.aspx" />
     <Content Include="PartnerRequest.aspx" />
     <Content Include="ViewTrainers.aspx" />
@@ -127,6 +133,20 @@
     <Compile Include="EditTrainer.aspx.designer.cs">
       <DependentUpon>EditTrainer.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Error.aspx.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Error.aspx.designer.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="LabelControl.ascx.cs">
+      <DependentUpon>LabelControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LabelControl.ascx.designer.cs">
+      <DependentUpon>LabelControl.ascx</DependentUpon>
+    </Compile>
     <Compile Include="NewTraining.aspx.cs">
       <DependentUpon>NewTraining.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -147,6 +167,13 @@
     </Compile>
     <Compile Include="AdminPanel.aspx.designer.cs">
       <DependentUpon>AdminPanel.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Toast.ascx.cs">
+      <DependentUpon>Toast.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Toast.ascx.designer.cs">
+      <DependentUpon>Toast.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewPartners.aspx.cs">
       <DependentUpon>ViewPartners.aspx</DependentUpon>

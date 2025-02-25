@@ -1,9 +1,9 @@
 
 USE ENTRENAR_DB;
 
-DROP TABLE Exercises;
-
 DROP TABLE ExercisesInDailyRoutine;
+
+DROP TABLE Exercises;
 
 DROP TABLE DailyRoutines;
 
@@ -27,13 +27,11 @@ DROP TABLE Addresses;
 
 DROP TABLE Provinces;
 
-DROP TABLE ExercisesInDailyRoutine;
-
-DROP TABLE Trainings;
-
 DROP TABLE RequestStatuses;
 
 DROP TABLE Requests;
+
+-- DROP PROCEDURE insert_address;
 
 -- DROP PROCEDURE insert_partner;
 
@@ -46,6 +44,8 @@ DROP TABLE Requests;
 -- DROP PROCEDURE insert_daily_routine;
 
 -- DROP PROCEDURE insert_exercise_in_daily_routine;
+
+-- DROP PROCEDURE insert_request;
 
 -- DROP PROCEDURE update_request;
 

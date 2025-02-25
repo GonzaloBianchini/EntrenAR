@@ -25,6 +25,11 @@ VALUES
 INSERT INTO Users (IdRole, UserNickName, UserPassword)
 VALUES (1, 'admin_user', 'AdminPass'); -- Admin tiene IdRole = 1
 
+INSERT INTO Users (IdRole, UserNickName, UserPassword)
+VALUES (2, 'trainer_user', 'trainer'); -- trainer tiene IdRole = 2
+
+select * from Users
+
 
 EXEC insert_trainer 'gonzoo','holaqueTal123',2,'Gonzalo','Bianchini'
 EXEC insert_trainer 'trainer1','TrainerPass1',2,'Entrenador 1','Apellido 1'

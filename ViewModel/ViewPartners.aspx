@@ -12,7 +12,6 @@
                         <asp:BoundField DataField="lastName" HeaderText="APELLIDO" />
                         <asp:BoundField DataField="email" HeaderText="EMAIL" />
                         <asp:BoundField DataField="status.Name" HeaderText="ESTADO" />
-                        <%--<asp:CommandField HeaderText="ACCION" ShowEditButton="true" EditText="Editar" ShowDeleteButton="true" DeleteText="Borrar" ControlStyle-CssClass="btn btn-sm btn-primary" />--%>
                         <asp:TemplateField HeaderText="Accion">
                             <ItemTemplate>
                                 <asp:LinkButton ID="btnViewPartner" runat="server" CommandName="Ver" OnCommand="btnViewPartner_Command" CommandArgument='<%# Eval("idPartner") %>' CssClass="btn btn-sm btn-warning">Ver</asp:LinkButton>

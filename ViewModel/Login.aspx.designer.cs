@@ -60,6 +60,15 @@ namespace ViewModel
         protected global::System.Web.UI.WebControls.TextBox txtUserName;
 
         /// <summary>
+        /// cvUserName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator cvUserName;
+
+        /// <summary>
         /// txtUserPassword control.
         /// </summary>
         /// <remarks>
@@ -69,6 +78,15 @@ namespace ViewModel
         protected global::System.Web.UI.WebControls.TextBox txtUserPassword;
 
         /// <summary>
+        /// cvUserPassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator cvUserPassword;
+
+        /// <summary>
         /// btnIngresar control.
         /// </summary>
         /// <remarks>
@@ -76,5 +94,14 @@ namespace ViewModel
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnIngresar;
+
+        /// <summary>
+        /// ucToast control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::ViewModel.Toast ucToast;
     }
 }

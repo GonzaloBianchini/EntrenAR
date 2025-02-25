@@ -15,6 +15,15 @@ namespace ViewModel
     {
 
         /// <summary>
+        /// ucToast control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::ViewModel.Toast ucToast;
+
+        /// <summary>
         /// AdminPanel control.
         /// </summary>
         /// <remarks>

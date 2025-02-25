@@ -30,29 +30,64 @@ namespace ViewModel
 
         protected void btnIngresar_Click(object sender, EventArgs e)
         {
-            userBusiness = new UserBusiness();
-            user = new User();
-
-            string username = txtUserName.Text;
-            string userPassword = txtUserPassword.Text;
-
-            user = userBusiness.ValidateCredential(username, userPassword);
-
-            if (user != null)
+            if (Page.IsValid)
             {
-                lblMessage.CssClass = "text-success";
-                lblMessage.Visible = true;
-                lblMessage.Text = "LOGIN COOORREEEECCCTOOO";
-                //TODO: AGREGAR A SESSION EL USER, esta bien?
-                Session.Add("user", user);
-                Response.Redirect("~/Dashboard.aspx",false);
+                Response.Redirect("~/Dashboard.aspx", false);
             }
             else
             {
-                lblMessage.CssClass = "text-danger";
-                lblMessage.Visible = true;
-                lblMessage.Text = "LOGIN MAL MAL MAL";
+                ucToast.ShowToast("LOG IN","LOG IN INCORRECTO", "bi-x-circle-fill", "text-danger");
             }
         }
+
+        protected void cvUserName_ServerValidate(object source, ServerValidateEventArgs e)
+        {
+            userBusiness = new UserBusiness();
+            List<string> userNamesAlreadyUsed = new List<string>();
+
+            userNamesAlreadyUsed = userBusiness.List().Select(u => u.userName).ToList();    //me quedo con los userName...
+
+            if (userNamesAlreadyUsed.Contains(e.Value))
+            {
+                e.IsValid = true;
+            }
+            else
+            {
+                e.IsValid = false;
+            }
+
+        }
+
+        protected void cvUserPassword_ServerValidate(object source, ServerValidateEventArgs e)
+        {
+            userBusiness = new UserBusiness();
+            user = new User();
+
+            try
+            {
+                user = userBusiness.ValidateCredential(txtUserName.Text, e.Value);
+
+                if (user != null)
+                {
+                    e.IsValid = true;
+                    Session.Add("user", user);
+                }
+                else
+                {
+                    e.IsValid = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.Redirect("~/Error.aspx", false); // Redirige a la página de error
+                //throw ex;
+
+            }
+        }
+
+        //protected void btnControlUC_Click(object sender, EventArgs e)
+        //{
+        //    ucToast.ShowToast("PRUEBA", "Cambios Guardados Exitosamente!", "bi-exclamation-triangle-fill", "text-warning");
+        //}
     }
 }

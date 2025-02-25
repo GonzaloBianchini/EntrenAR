@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
 
 namespace ViewModel
 {
@@ -12,7 +13,7 @@ namespace ViewModel
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         //protected void btnAceptar_Click(object sender, EventArgs e)
@@ -35,5 +36,21 @@ namespace ViewModel
         {
             //Response.Redirect("~/ViewTrainer.aspx", false);
         }
+
+        //public void cleanForm()
+        //{
+        //    foreach (Control c in Parent.Controls)
+        //    {
+        //        if (c is TextBox txt)
+        //        {
+        //            txt.Text = string.Empty; // Borra el texto
+        //        }
+        //        else if (c is DropDownList ddl)
+        //        {
+        //            ddl.SelectedIndex = -1; // Deselecciona el DropDownList
+        //        }
+                
+        //    }
+        //}
     }
 }

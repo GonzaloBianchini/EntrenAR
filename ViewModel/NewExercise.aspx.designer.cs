@@ -15,13 +15,13 @@ namespace ViewModel
     {
 
         /// <summary>
-        /// txtIdExercise control.
+        /// ucToast control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtIdExercise;
+        protected global::ViewModel.Toast ucToast;
 
         /// <summary>
         /// txtExerciceName control.
@@ -31,6 +31,15 @@ namespace ViewModel
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtExerciceName;
+
+        /// <summary>
+        /// cvExerciseName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator cvExerciseName;
 
         /// <summary>
         /// txtExerciseDescription control.
@@ -51,6 +60,15 @@ namespace ViewModel
         protected global::System.Web.UI.WebControls.TextBox txtUrlExercise;
 
         /// <summary>
+        /// revUrlExercise control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator revUrlExercise;
+
+        /// <summary>
         /// btnCreateExercise control.
         /// </summary>
         /// <remarks>
@@ -58,5 +76,14 @@ namespace ViewModel
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCreateExercise;
+
+        /// <summary>
+        /// txtImagen control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload txtImagen;
     }
 }

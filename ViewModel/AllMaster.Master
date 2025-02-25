@@ -1,5 +1,6 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="AllMaster.Master.cs" Inherits="ViewModel.AllMaster" %>
 
+
 <!DOCTYPE html>
 
 <html>
@@ -17,10 +18,11 @@
 </head>
 <body>
     <form id="form1" runat="server">
+
         <%--aca ponemos modal--%>
 
         <!-- Modal Cambios guardados!! -->
-        <div class="modal fade" id="modalGuardarCambios" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalGuardarCambiosLabel" aria-hidden="true">
+       <%-- <div class="modal fade" id="modalGuardarCambios" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalGuardarCambiosLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -29,18 +31,18 @@
                     </div>
                     <div class="modal-body">
                         <asp:Label Text="Cambios guardados!" ID="lblModalBodyGuardarCambios" runat="server" />
-                        <%--<asp:TextBox ID="txtEditarNombre" runat="server" CssClass="form-control" placeholder="Nuevo Nombre"></asp:TextBox>--%>
+                        
                     </div>
                     <div class="modal-footer">
                         <asp:Button ID="btnOk" CssClass="btn btn-primary" Text="Ok" runat="server" OnClick="btnOk_Click" />
-                        <%--<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>--%>
+                        
                     </div>
                 </div>
             </div>
-        </div>
+        </div>--%>
 
         <!-- Modal Para NEW TRAINING,DAILY ROUTINE Y EXERCISES IN ROUTINE -->
-        <div class="modal fade" id="modalGestionTraining" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalGestionTrainingLabel" aria-hidden="true">
+        <%--<div class="modal fade" id="modalGestionTraining" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalGestionTrainingLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -49,38 +51,37 @@
                     </div>
                     <div class="modal-body">
                         <asp:Label Text="Cambios guardados en el plan!" ID="lblModalBodyGuardarCambiosTraining" runat="server" />
-                        <%--<asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" placeholder="Nombre"></asp:TextBox>--%>
+                       
                     </div>
                     <div class="modal-footer">
-                        <asp:Button ID="btnTraining" CssClass="btn btn-primary" Text="Aceptar" runat="server" OnClick="btnTraining_Click"   />
-                        <%--<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>--%>
+                        <asp:Button ID="btnTraining" CssClass="btn btn-primary" Text="Aceptar" runat="server" OnClick="btnTraining_Click" />
+                       
                     </div>
                 </div>
             </div>
-        </div>
+        </div>--%>
 
 
         <!-- Modal para request -->
-        <div class="modal fade" id="modalRequest" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+       <%-- <div class="modal fade" id="modalRequest" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <asp:Label Text="Gestion de Solicitudes" ID="txtModalTitle" CssClass="modal-title" runat="server" />
-                        <%--<h5 class="modal-title" id="modalTitle">Agregar Usuario</h5>--%>
+                        
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <asp:Label Text="Solicitud gestionada" ID="txtModalBody" runat="server" />
-                        <%--<asp:TextBox ID="TextBox1" runat="server" CssClass="form-control" placeholder="Nombre"></asp:TextBox>--%>
+                        
                     </div>
                     <div class="modal-footer">
-                        <asp:Button Text="Aceptar" ID="btnRequest" CssClass="btn btn-primary" OnClick="btnRequest_Click"  runat="server" />
-                        <%--<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>--%>
+                        <asp:Button Text="Aceptar" ID="btnRequest" CssClass="btn btn-primary" OnClick="btnRequest_Click" runat="server" />
+                        
                     </div>
                 </div>
             </div>
-        </div>
-
+        </div>--%>
         <%--aca finalizamos modal--%>
 
         <div class="container-fluid">
@@ -92,19 +93,16 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="DashBoard.aspx">
                                     <asp:Label Text="Inicio" ID="lblInicio" class="bi bi-house" runat="server" />
-                                    <%--<span class="bi bi-house"></span>Inicio--%>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="ViewExercises.aspx">
                                     <asp:Label Text="Lista de Ejercicios" ID="lblEjercicios" class="bi bi-list-check" runat="server" />
-                                    <%--<span class="bi bi-list-check"></span>Lista de ejercicios--%>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="ViewPartners.aspx">
                                     <asp:Label Text="Partners" ID="lblPartners" class="bi bi-people" runat="server" />
-                                    <%--<span class="bi bi-people"></span>Clientes--%>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -115,25 +113,21 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="TrainerRequests.aspx">
                                     <asp:Label Text="Requests" ID="lblRequests" class="bi bi-list-check" runat="server" />
-                                    <%--<span class="bi bi-list-check"></span>Solicitudes--%>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="NewExercise.aspx">
                                     <asp:Label Text="Nuevo Ejercicio" ID="lblNewExercise" class="bi bi-list-check" runat="server" />
-                                    <%--<span class="bi bi-list-check"></span>Nuevo Ejercicio--%>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="NewPartner.aspx">
                                     <asp:Label Text="Nuevo Partner" ID="lblNewPartner" class="bi bi-list-check" runat="server" />
-                                    <%--<span class="bi bi-list-check"></span>Nuevo Partner--%>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="NewTrainer.aspx">
                                     <asp:Label Text="Nuevo Trainer" ID="lblNewTrainer" class="bi bi-list-check" runat="server" />
-                                    <%--<span class="bi bi-list-check"></span>Nuevo Partner--%>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -168,6 +162,7 @@
             </div>
         </div>
     </form>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

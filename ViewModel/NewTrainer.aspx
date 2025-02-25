@@ -13,7 +13,7 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <asp:Label Text="User" ID="lblUser" runat="server" class="form-label" />
-                        <asp:TextBox runat="server" ID="txtUserName" class="form-control" placeholder="Nombre Usuari@ Trainer" REQUERID/>
+                        <asp:TextBox runat="server" ID="txtUserName" class="form-control" placeholder="Nombre Usuari@ Trainer" />
                     </div>
                     <div class="col-md-6">
                         <asp:Label Text="Password" ID="lblPassword" runat="server" class="form-label" />
