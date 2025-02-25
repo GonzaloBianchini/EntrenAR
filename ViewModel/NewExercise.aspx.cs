@@ -37,11 +37,14 @@ namespace ViewModel
                         txtImagen.PostedFile.SaveAs(path + auxExercise.Name + ".jpg");
                         auxExercise.ImageUrl = auxExercise.Name + ".jpg";
                     }
+                    else
+                    {
+                        auxExercise.ImageUrl = string.Empty;
+                    }
 
                     if (exerciseBusiness.Create(auxExercise))
                     {
                         cleanForm();
-
                         ucToast.ShowToast("Alta Ejercicio", "Ejercicio Guardado!", "bi-check-circle-fill", "text-success");
                     }
                     else

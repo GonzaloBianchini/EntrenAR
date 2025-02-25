@@ -6,15 +6,14 @@
     <asp:ScriptManager runat="server" />
     <asp:UpdatePanel ID="udpExercises" runat="server">
         <ContentTemplate>
-            <h1>Lista de ejercicios</h1>
 
+            <h1>Lista de ejercicios</h1>
 
             <asp:GridView runat="server" ID="dgvExerciseList" AutoGenerateColumns="false" DataKeyNames="IdExercise" class="table table-striped table-bordered mt-3">
                 <Columns>
                     <asp:BoundField DataField="IdExercise" HeaderText="ID EJERCICIO" />
                     <asp:BoundField DataField="Name" HeaderText="NOMBRE EJERCICIO" />
                     <asp:BoundField DataField="Description" HeaderText="DESCRIPCION" />
-
                     <asp:BoundField DataField="UrlExercise" HeaderText="URL" />
                     <asp:TemplateField HeaderText="Accion">
                         <ItemTemplate>
@@ -26,6 +25,7 @@
             </asp:GridView>
 
             <!-- Sección de Detalles del Ejercicio -->
+            <%--MUESTRO U ESCONDO EL PANEL EN CASO QUE NO SE HAYA SELECCIONADO NINGUN EJERCICIO--%>
             <asp:Panel ID="pnlExerciseDetails" runat="server" CssClass="mt-4 p-4 border rounded shadow-sm bg-light" Visible="false">
                 <h3 class="mb-3 text-center">Detalles del Ejercicio</h3>
 

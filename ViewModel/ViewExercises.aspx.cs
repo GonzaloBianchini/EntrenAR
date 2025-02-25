@@ -45,7 +45,6 @@ namespace ViewModel
                     lnkExerciseUrl.NavigateUrl = exercise.UrlExercise;
 
                     pnlExerciseDetails.Visible = true;
-
                 }
 
             }
@@ -53,7 +52,11 @@ namespace ViewModel
 
         protected void btnEditExercise_Command(object sender, CommandEventArgs e)
         {
-
+            if(e.CommandName == "Editar")
+            {
+                string idExercise = e.CommandArgument.ToString();
+                Response.Redirect("EditExercise.aspx?idExercise=" + idExercise, false);
+            }
         }
     }
 }

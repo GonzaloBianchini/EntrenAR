@@ -10,7 +10,6 @@
     <asp:UpdatePanel runat="server">
         <ContentTemplate>
 
-
             <%--TOAST--%>
             <uc:Toast ID="ucToast" runat="server" />
 
@@ -59,16 +58,14 @@
                     </div>
                 </div>
 
+                <!--Imagen: fileupload y previsualizacion-->
                 <div class="col-md-4">
                     <div class="mb-3">
                         <label class="form-label">Imagen Ejercicio</label>
-                        <%--<input type="file" id="txtImagen" runat="server" class="form-control" />--%>
-
                         <asp:FileUpload ID="txtImagen" CssClass="form-control" onchange="previewImage(this)" runat="server" />
-
                     </div>
                     <img id="imgPreview" src="~\Images\notfound.jpg" class="mt-3 border rounded" style="max-width: 300px; display: none;" />
-                    <%--<asp:Image ID="imageExercise" ImageUrl="~\Images\notfound.jpg" CssClass="img-fluid mb-3" runat="server" />--%>
+                    <%--<asp:Image ID="imgPreview" ImageUrl="~\Images\notfound.jpg" OnLoad="imgPreview_Load" CssClass="img-fluid mb-3" runat="server" />--%>
                 </div>
 
 

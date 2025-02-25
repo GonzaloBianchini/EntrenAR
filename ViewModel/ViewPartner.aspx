@@ -12,8 +12,8 @@
                     <div class="d-flex justify-content-between">
                         <h5><i class="bi bi-person"></i>Información Personal</h5>
                         <div>
-                            <button class="btn btn-secondary">Editar</button>
-                            <button class="btn btn-danger">Gestionar</button>
+                            <button class="btn btn-warning">Editar</button>
+                            <button class="btn btn-warning">Gestionar</button>
                         </div>
                     </div>
                     <div class="row mt-3">

@@ -98,6 +98,8 @@ namespace Business
             //TODO: HACER SP
             //TODO: grabar null en db donde corresponda
             data = new DataAccess();
+            int rows;
+
             try
             {
                 data.SetQuery("INSERT INTO Exercises (ExerciseName, ExerciseDescription, ImageUrl, UrlExercise) VALUES (@ExerciseName, @ExerciseDescription, @ImageUrl, @UrlExercise)");
@@ -106,18 +108,18 @@ namespace Business
                 data.SetParameter("@ImageUrl", (exercise.ImageUrl == string.Empty) || (exercise.ImageUrl is null) ? (object)DBNull.Value : exercise.ImageUrl);
                 data.SetParameter("@UrlExercise", (exercise.UrlExercise == string.Empty) || (exercise.UrlExercise is null) ? (object)DBNull.Value : exercise.UrlExercise);
 
-                data.ExecuteAction();
+                rows = data.ExecuteAction();
             }
             catch (Exception ex)
             {
-
+                rows = 0;
                 throw ex;
             }
             finally
             {
                 data.CloseConnection();
             }
-            return true;
+            return (rows > 0);
         }
 
 
@@ -140,7 +142,6 @@ namespace Business
                     auxExercise.Description = data.Reader["ExerciseDescription"].ToString();
                     auxExercise.ImageUrl = data.Reader["ImageUrl"].ToString();
                     auxExercise.UrlExercise = data.Reader["UrlExercise"].ToString();
-                    //auxExercise.ActiveStatus = bool.Parse(data.Reader["ActiveStatus"].ToString());
                 }
             }
             catch (Exception)
@@ -163,12 +164,12 @@ namespace Business
 
             try
             {
-                data.SetQuery("UPDATE Exercises SET ExerciseName =@ExerciseName, ExerciseDescription = @ExerciseDescription,ImageUrl = @ImageUrl UrlExercise = @UrlExercise WHERE IdExercise =@IdExercise;");
+                data.SetQuery("UPDATE Exercises SET ExerciseName =@ExerciseName, ExerciseDescription = @ExerciseDescription,ImageUrl = @ImageUrl, UrlExercise = @UrlExercise WHERE IdExercise =@IdExercise;");
                 data.SetParameter("@IdExercise", exercise.IdExercise);
                 data.SetParameter("@ExerciseName", exercise.Name);
-                data.SetParameter("@ExerciseDescription", exercise.Description == string.Empty ? (object)DBNull.Value : exercise.Description);
-                data.SetParameter("@ImageUrl", exercise.ImageUrl == string.Empty ? (object)DBNull.Value : exercise.ImageUrl);
-                data.SetParameter("@UrlExercise", exercise.UrlExercise == string.Empty ? (object)DBNull.Value : exercise.UrlExercise);
+                data.SetParameter("@ExerciseDescription", (exercise.Description == string.Empty) || (exercise.Description is null) ? (object)DBNull.Value : exercise.Description);
+                data.SetParameter("@ImageUrl", (exercise.ImageUrl == string.Empty) || (exercise.ImageUrl is null) ? (object)DBNull.Value : exercise.ImageUrl);
+                data.SetParameter("@UrlExercise", (exercise.UrlExercise == string.Empty) || (exercise.UrlExercise is null) ? (object)DBNull.Value : exercise.UrlExercise);
 
                 rows = data.ExecuteAction();
             }
