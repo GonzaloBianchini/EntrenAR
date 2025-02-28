@@ -29,10 +29,10 @@ namespace ViewModel
                     
                     txtIdExercise.Text = idExercise.ToString();
                     txtExerciceName.Text = auxExercise.Name;
-                    txtExerciseDescription.Text = (auxExercise.Description == string.Empty) || (auxExercise.Description is null) ? string.Empty : auxExercise.Description;
+                    txtExerciseDescription.Text = ((auxExercise.Description == string.Empty) || (auxExercise.Description is null)) ? string.Empty : auxExercise.Description;
                     txtUrlExercise.Text = (auxExercise.UrlExercise == string.Empty) || (auxExercise.UrlExercise is null) ? string.Empty : auxExercise.UrlExercise;
 
-                    imgPreview.Src = (auxExercise.ImageUrl == (object)DBNull.Value) || (auxExercise.ImageUrl == string.Empty) ? "~/Images/notfound.jpg" : "~/Images/" + auxExercise.ImageUrl;
+                    imgPreview.Src = ((auxExercise.ImageUrl == (object)DBNull.Value) || (auxExercise.ImageUrl == string.Empty)) ? "~/Images/notfound.jpg" : "~/Images/" + auxExercise.ImageUrl;
                     imgPreview.Style["display"] = "block";
                 }
                 catch (Exception ex)
@@ -49,11 +49,11 @@ namespace ViewModel
 
             if (Page.IsValid)
             {
-
                 try
                 {
+                    //Preseteo el ejercicio en cuestion...
+                    auxExercise = exerciseBusiness.Read(int.Parse(txtIdExercise.Text));
 
-                    auxExercise.IdExercise = int.Parse(txtIdExercise.Text);
                     auxExercise.Name = txtExerciceName.Text;
                     auxExercise.Description = txtExerciseDescription.Text;
                     auxExercise.UrlExercise = txtUrlExercise.Text;
@@ -61,17 +61,16 @@ namespace ViewModel
                     string path = Server.MapPath("./Images/");
                     if (txtImagen.HasFile)
                     {
-                        txtImagen.PostedFile.SaveAs(path + auxExercise.Name + ".jpg");
-                        auxExercise.ImageUrl = auxExercise.Name + ".jpg";
+                        string pictureName = auxExercise.Name + DateTime.Now.Ticks.ToString() + ".jpg";
+                        txtImagen.PostedFile.SaveAs(path + pictureName);
+                        auxExercise.ImageUrl = pictureName;
                     }
-                    else
-                    {
-                        auxExercise.ImageUrl = string.Empty;
-                    }
+
 
                     if (exerciseBusiness.Update(auxExercise))
                     {
-                        ucToast.ShowToast("Actualizar Ejercicio", "Ejercicio Actualizado!", "bi-check-circle-fill", "text-success");
+                        Session.Add("edited",true);
+                        Response.Redirect("ViewExercises.aspx",false);
                     }
                     else
                     {
@@ -84,7 +83,7 @@ namespace ViewModel
                 }
             }
         }
-
+        
         protected void cvExerciseName_ServerValidate(object source, ServerValidateEventArgs e)
         {
             exerciseBusiness = new ExerciseBusiness();

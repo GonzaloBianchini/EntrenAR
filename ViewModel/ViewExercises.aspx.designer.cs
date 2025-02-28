@@ -24,6 +24,24 @@ namespace ViewModel
         protected global::System.Web.UI.UpdatePanel udpExercises;
 
         /// <summary>
+        /// ucToast control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::ViewModel.Toast ucToast;
+
+        /// <summary>
+        /// btnCreateExercise control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCreateExercise;
+
+        /// <summary>
         /// dgvExerciseList control.
         /// </summary>
         /// <remarks>

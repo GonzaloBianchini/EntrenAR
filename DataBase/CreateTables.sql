@@ -139,5 +139,4 @@ CREATE TABLE Requests (
     FOREIGN KEY (IdPartner) REFERENCES Partners(IdPartner)
 );
 
-select * from Exercises
-
+select * from Partners

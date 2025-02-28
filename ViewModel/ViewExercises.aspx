@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/AllMaster.Master" AutoEventWireup="true" CodeBehind="ViewExercises.aspx.cs" Inherits="ViewModel.ViewExercises" %>
 
+<%@ Register Src="~/Toast.ascx" TagPrefix="uc" TagName="Toast" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -7,7 +9,19 @@
     <asp:UpdatePanel ID="udpExercises" runat="server">
         <ContentTemplate>
 
-            <h1>Lista de ejercicios</h1>
+            <%--TOAST--%>
+            <uc:Toast ID="ucToast" runat="server" />
+
+            <div class="row justify-content-between">
+                <div class="col-md-3">
+                    <h1>Ejercicios</h1>
+                </div>
+                <div class="col-md-3">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <asp:Button ID="btnCreateExercise" OnClick="btnCreateExercise_Click" Text="Crear" CssClass="btn btn-lg fw-bold btn-outline-warning" runat="server" />
+                    </div>
+                </div>
+            </div>
 
             <asp:GridView runat="server" ID="dgvExerciseList" AutoGenerateColumns="false" DataKeyNames="IdExercise" class="table table-striped table-bordered mt-3">
                 <Columns>
@@ -17,8 +31,8 @@
                     <asp:BoundField DataField="UrlExercise" HeaderText="URL" />
                     <asp:TemplateField HeaderText="Accion">
                         <ItemTemplate>
-                            <asp:LinkButton ID="btnViewExercise" OnCommand="btnViewExercise_Command" runat="server" CommandName="Ver" CommandArgument='<%# Eval("idExercise") %>' CssClass="btn btn-sm btn-warning">Ver</asp:LinkButton>
-                            <asp:LinkButton ID="btnEditExercise" OnCommand="btnEditExercise_Command" runat="server" CommandName="Editar" CommandArgument='<%# Eval("idExercise") %>' CssClass="btn btn-sm btn-warning">Editar</asp:LinkButton>
+                            <asp:LinkButton ID="btnViewExercise" OnCommand="btnViewExercise_Command" runat="server" CommandName="Ver" CommandArgument='<%# Eval("idExercise") %>' CssClass="btn btn-sm fw-bold btn-outline-warning">Ver</asp:LinkButton>
+                            <asp:LinkButton ID="btnEditExercise" OnCommand="btnEditExercise_Command" runat="server" CommandName="Editar" CommandArgument='<%# Eval("idExercise") %>' CssClass="btn btn-sm fw-bold btn-outline-warning">Editar</asp:LinkButton>
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
