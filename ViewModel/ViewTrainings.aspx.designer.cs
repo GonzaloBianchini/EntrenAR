@@ -24,6 +24,15 @@ namespace ViewModel
         protected global::System.Web.UI.UpdatePanel udpTrainings;
 
         /// <summary>
+        /// lblPartnerName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPartnerName;
+
+        /// <summary>
         /// lblIdPartner control.
         /// </summary>
         /// <remarks>
@@ -76,5 +85,41 @@ namespace ViewModel
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblTrainerRequested;
+
+        /// <summary>
+        /// pnlTrainings control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlTrainings;
+
+        /// <summary>
+        /// lblTrainings control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTrainings;
+
+        /// <summary>
+        /// lblNoTrainings control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNoTrainings;
+
+        /// <summary>
+        /// dgvTrainings control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView dgvTrainings;
     }
 }

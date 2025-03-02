@@ -9,7 +9,9 @@
 
             <div class="container text-center">
                 <div class="row justify-content-md-center">
-                    <h4 class="mb-3"><i class="bi bi-list"></i>Planes de Entrenamiento</h4>
+                    <h2 class="mb-3"><i class="bi bi-list"></i>Planes de Entrenamiento</h2>
+
+                    <asp:Label ID="lblPartnerName" Text="Bienvenid@ " CssClass="mb-3 h3" runat="server" />
 
                     <%--ETIQUETA INVISIBLE PARA GUARDAR EL ID PARTNER--%>
                     <asp:Label ID="lblIdPartner" Text="text" Visible="false" runat="server" />
@@ -27,44 +29,33 @@
                         <asp:Panel ID="pnlRequestSent" Visible="false" runat="server">
                             <asp:Label ID="lblTrainerRequested" Text="Solicitud en revision..." runat="server" />
                         </asp:Panel>
-                    </div>
 
-                    <!-- Tabla de Planes de Entrenamiento -->
-                    <%--<div class="card p-3 mt-4">
-                            <h5><i class="bi bi-bar-chart"></i>Planes y Rutinas</h5>
-                            <asp:GridView runat="server" ID="gvTrainingPlans" AutoGenerateColumns="false" DataKeyNames="IdPlan" CssClass="table mt-2">
+                        <!-- Entrenamientos -->
+                        <asp:Panel ID="pnlTrainings" Visible="false" runat="server">
+                            <asp:Label ID="lblTrainings" Text="Entrenamientos" runat="server" />
+
+                            <%--ESTA ETIQUETA JUEGA CUANDO NO HAY TRAININGS--%>
+                            <asp:Label ID="lblNoTrainings" Visible="false" Text="NO HAY ENTRENAMIENOS ASIGNADOS" runat="server" />
+
+                            <asp:GridView ID="dgvTrainings" Visible="false" AutoGenerateColumns="false" DataKeyNames="idTraining" class="table table-striped table-bordered mt-3" runat="server">
                                 <Columns>
-                                    <asp:BoundField DataField="PlanName" HeaderText="Plan" />
-                                    <asp:BoundField DataField="RoutineName" HeaderText="Rutina" />
-                                    <asp:TemplateField HeaderText="Ejercicios">
+                                    <asp:BoundField DataField="idTraining" HeaderText="ID TRAINING" />
+                                    <asp:BoundField DataField="Name" HeaderText="NOMBRE ENTRENAMIENTO" />
+                                    <asp:BoundField DataField="Type.Name" HeaderText="TIPO ENTRENAMIENTO" />
+                                    <asp:BoundField DataField="StartDate" HeaderText="FECHA INICIO" />
+                                    <asp:BoundField DataField="EndDate" HeaderText="FECHA FIN" />
+                                    <asp:BoundField DataField="dailyRoutinesList.Count()" HeaderText="CANT RUTINAS" />
+                                    <asp:TemplateField HeaderText="Accion">
                                         <ItemTemplate>
-                                            <asp:Button runat="server" Text="VER" CssClass="btn btn-info" CommandName="ViewExercises" CommandArgument='<%# Eval("IdRoutine") %>' />
+                                            <asp:LinkButton ID="btnViewTraining" OnClick="btnViewTraining_Click" runat="server" CommandName="Ver" CommandArgument='<%# Eval("idTraining") %>' CssClass="btn btn-sm fw-bold btn-outline-warning">Ver</asp:LinkButton>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>
                             </asp:GridView>
-                        </div>--%>
+                        </asp:Panel>
 
-                    <!-- Modal para mostrar ejercicios -->
-                    <%--<div class="modal fade" id="exerciseModal" tabindex="-1" aria-labelledby="exerciseModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exerciseModalLabel">Ejercicios de la Rutina</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <asp:GridView runat="server" ID="gvExercises" AutoGenerateColumns="false" CssClass="table">
-                                            <Columns>
-                                                <asp:BoundField DataField="ExerciseName" HeaderText="Ejercicio" />
-                                                <asp:BoundField DataField="Reps" HeaderText="Repeticiones" />
-                                                <asp:BoundField DataField="Sets" HeaderText="Series" />
-                                            </Columns>
-                                        </asp:GridView>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>--%>
+                    </div>
+
                 </div>
             </div>
         </ContentTemplate>

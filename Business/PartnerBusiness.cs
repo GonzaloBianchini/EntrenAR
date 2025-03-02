@@ -13,6 +13,7 @@ namespace Business
         private Partner auxPartner;
         private StatusPartnerBusiness statusPartnerBusiness;
         private AddressBusiness addressBusiness;
+        private Address auxAddress;
         private UserBusiness userBusiness;
         private User auxUser;
         private TrainingBusiness trainingBusiness;
@@ -21,11 +22,13 @@ namespace Business
 
         }
 
-        public int Create(Partner partner)
+        public bool Create(Partner partner)
         {
             data = new DataAccess();
             int lastIndex;
             int addressIndex;
+            bool success;
+
             addressBusiness = new AddressBusiness();
             try
             {
@@ -49,18 +52,27 @@ namespace Business
 
                 data.Reader.Read();
                 lastIndex = int.Parse(data.Reader["LastId"].ToString());
+                if(lastIndex != 0)
+                {
+                    success = true;
+                }
+                else
+                {
+                    success = false;
+                }
             }
             catch (Exception ex)
             {
                 lastIndex = 0;
                 addressIndex = 0;
+                success = false;
                 throw ex;
             }
             finally
             {
                 data.CloseConnection();
             }
-            return lastIndex;
+            return success;
         }
 
         public Partner Read(int id)
@@ -117,34 +129,57 @@ namespace Business
             return auxPartner;
         }
 
-        //public bool Update(Partner partner)
-        //{
-        //    //TODO: verificar return
-        //    data = new DataAccess();
-        //    int rows;
-        //    //roleBusiness = new RoleBusiness();
-        //    try
-        //    {
-        //        data.SetQuery("UPDATE Users SET IdUser = @IdRole, UserNickName = @UserNickName, UserPassword = @UserPassword WHERE IdUser =@IdUser;");
-        //        data.SetParameter("@IdRole", roleBusiness.Read(user.role.IdRole));
-        //        data.SetParameter("@UserNickName", user.userName);
-        //        data.SetParameter("@UserPassword", user.userPassword);
-        //        data.SetParameter("@IdUser", user.idUser);
+        public bool Update(Partner partner)
+        {
+            data = new DataAccess();
+            int rows = 0;
+            userBusiness = new UserBusiness();
+            addressBusiness = new AddressBusiness();
+            
+            try
+            {
+                auxUser.idUser = partner.idUser;
+                auxUser.userName = partner.userName;
+                auxUser.userPassword = partner.userPassword;
+                auxUser.role = partner.role;
 
-        //        rows = data.ExecuteAction();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        rows = 0;
-        //        throw ex;
-        //    }
-        //    finally
-        //    {
-        //        data.CloseConnection();
-        //    }
+                if(userBusiness.Update(auxUser))
+                {
+                    rows = 1;   //si actualiza User, lo detecto...
+                }
 
-        //    return (rows > 0);
-        //}
+                auxAddress = partner.address;
+
+                if(addressBusiness.Update(auxAddress))
+                {
+                    rows = rows + 1;   //si actualiza Address, lo detecto...
+                }
+
+                data.SetQuery("UPDATE Partners SET ActiveStatus = @ActiveStatus, Dni = @Dni, FirstName = @FirstName, LastName = @LastName, Gender = @Gender, Email = @Email, Phone = @Phone, BirthDate = @Birthdate WHERE IdPartner =@IdPartner;");
+                data.SetParameter("@ActiveStatus", partner.activeStatus);
+                data.SetParameter("@Dni", partner.dni);
+                data.SetParameter("@FirstName", partner.firstName);
+                data.SetParameter("@LastName", partner.lastName);
+                data.SetParameter("@Gender", partner.gender);
+                data.SetParameter("@Email", partner.email);
+                data.SetParameter("@Phone", partner.phone);
+                data.SetParameter("@BirthDate", partner.birthDate);
+                data.SetParameter("@IdPartner", partner.idPartner);
+
+                rows = rows + data.ExecuteAction();     //si actualiza Partner, lo detecto...
+            }
+            catch (Exception ex)
+            {
+                rows = 0;
+                throw ex;
+            }
+            finally
+            {
+                data.CloseConnection();
+            }
+
+            return (rows > 0);
+        }
 
         public bool Delete(int id)
         {
@@ -152,7 +187,6 @@ namespace Business
         }
 
 
-        
         public List<Partner> List()
         {
             data = new DataAccess();
@@ -170,12 +204,12 @@ namespace Business
                 while (data.Reader.Read())
                 {
                     statusPartnerBusiness = new StatusPartnerBusiness();
-                    
+
                     Partner auxPartner = new Partner();
                     auxPartner.idPartner = int.Parse(data.Reader["IdPartner"].ToString());
                     auxPartner.idUser = int.Parse(data.Reader["IdUser"].ToString());
                     auxPartner.status = statusPartnerBusiness.Read(int.Parse(data.Reader["IdStatus"].ToString()));
-                    
+
                     auxPartner.dni = int.Parse(data.Reader["Dni"].ToString());
                     auxPartner.firstName = data.Reader["FirstName"].ToString();
                     auxPartner.lastName = data.Reader["LastName"].ToString();
@@ -185,10 +219,9 @@ namespace Business
                     auxPartner.birthDate = DateTime.Parse(data.Reader["BirthDate"].ToString());
                     //no leo Address
                     //no leo training list
-                    
                     partnersList.Add(auxPartner);
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -236,7 +269,6 @@ namespace Business
 
                     partnersList.Add(auxPartner);
                 }
-                //RVISAR POR ACAAA
             }
             catch (Exception ex)
             {
@@ -250,20 +282,71 @@ namespace Business
 
             return partnersList;
         }
-
-        public bool hasAnyRequest(int idPartner)
+        //TODO PONER TRY CATCH Y PONER LOS RETURN LUEGO DEL DATACLOSECONECCTION
+        public bool hasAnyRequestSent(int idPartner)
         {
             data = new DataAccess();
-
-            data.SetQuery("SELECT * from Requests where IdPartner = @IdPartner And (IdRequestStatus = 1 OR IdRequestStatus = 2)");
-            data.SetParameter("@IdPartner", idPartner);
-            data.ExecuteRead();
-
-            if (data.Reader.Read())
+            bool flag;
+            try
             {
-                return true;
+                data.SetQuery("SELECT * from Requests where IdPartner = @IdPartner And (IdRequestStatus = 1)");
+                data.SetParameter("@IdPartner", idPartner);
+                data.ExecuteRead();
+
+                if (data.Reader.Read())
+                {
+                    flag = true;
+                }
+                else
+                {
+                    flag = false;
+                }
             }
-            return false;
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                data.CloseConnection();
+            }
+
+            return flag;
+        }
+
+        public bool canSendRequest(int idPartner)
+        {
+            data = new DataAccess();
+            bool flag;
+
+            try
+            {
+                data.SetQuery("SELECT * from Requests where IdPartner = @IdPartner And (IdRequestStatus = 1 or IdRequestStatus = 2)");
+                data.SetParameter("@IdPartner", idPartner);
+                data.ExecuteRead();
+
+                if (data.Reader.Read())
+                {
+                    //si leo algo aca, es porque NO puede mandar una REQUEST, es decir, me sirve el estado 3(cancelada) o ningun registro generado =)
+                    flag = false;
+                }
+                else
+                {
+                    flag = true;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                data.CloseConnection();
+            }
+
+            return flag;
         }
     }
 }

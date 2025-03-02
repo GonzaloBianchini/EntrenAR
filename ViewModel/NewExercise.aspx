@@ -48,6 +48,7 @@
 
                         <label for="txtUrlExercise" class="form-label">URL del Ejercicio</label>
                         <asp:TextBox ID="txtUrlExercise" runat="server" class="form-control" />
+                        
                         <asp:RegularExpressionValidator ID="revUrlExercise" ErrorMessage="Formato invalido en URL..." ControlToValidate="txtUrlExercise" Display="Dynamic" ForeColor="Red" runat="server" ValidationExpression="^https?:\/\/[\w\-]+(\.[\w\-]+)+(\/.*)?$" />
                     </div>
 

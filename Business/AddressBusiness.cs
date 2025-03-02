@@ -32,7 +32,7 @@ namespace Business
                     Address auxAddress = new Address();
                     auxAddress.idAddress = int.Parse(data.Reader["IdAddress"].ToString());
                     auxAddress.streetName = data.Reader["StreetName"].ToString();
-                    auxAddress.streetNumber = int.Parse(data.Reader["StreetNumber"].ToString());
+                    auxAddress.streetNumber = data.Reader["StreetNumber"].ToString();
                     //auxAddress.Flat = Data.Reader["Flat"] == null ? "" : Data.Reader["Flat"].ToString();
                     auxAddress.flat = data.Reader["Flat"].ToString();
                     //auxAddress.Details = Data.Reader["Details"] == null ? "" : Data.Reader["Details"].ToString();
@@ -64,7 +64,7 @@ namespace Business
 
                 data.SetParameter("@IdProvince", address.province.idProvince);
                 data.SetParameter("@StreetName", address.streetName);
-                data.SetParameter("@StreetNumber", address.streetNumber.ToString());
+                data.SetParameter("@StreetNumber", address.streetNumber);
                 //data.SetParameter("@Flat", address.flat ?? (object)DBNull.Value);
                 data.SetParameter("@Flat", address.flat == string.Empty ? (object)DBNull.Value : address.flat );
                 //data.SetParameter("@Details", address.details ?? (object)DBNull.Value);
@@ -108,7 +108,7 @@ namespace Business
                 {
                     auxAddress.idAddress = id;
                     auxAddress.streetName = data.Reader["StreetName"].ToString();
-                    auxAddress.streetNumber= int.Parse(data.Reader["StreetNumber"].ToString());
+                    auxAddress.streetNumber= data.Reader["StreetNumber"].ToString();
                     auxAddress.flat = data.Reader["Flat"].ToString();
                     auxAddress.details = data.Reader["Details"].ToString();
                     auxAddress.city = data.Reader["City"].ToString();
@@ -129,29 +129,28 @@ namespace Business
 
             return auxAddress;
         }
-
+        
         public bool Update(Address address)
         {
-            //TODO: verificar return
             data = new DataAccess();
-            int rows = 0;
+            int rows;
             try
             {
-                data.SetQuery("UPDATE Addresses SET StreetName =@StreetName, StreetNumber = @StreetNumber, Flat = @Flat, Details = @Details, City = @City, Province = @Province, Country = @Country WHERE IdAddress =@IdAddress;");
+                data.SetQuery("UPDATE Addresses SET IdProvince = @IdProvince, StreetName =@StreetName, StreetNumber = @StreetNumber, Flat = @Flat, Details = @Details, City = @City, Country = @Country WHERE IdAddress =@IdAddress;");
                 data.SetParameter("@IdAddress", address.idAddress);
+                data.SetParameter("@IdProvince", address.province.idProvince);
                 data.SetParameter("@StreetName", address.streetName);
-                data.SetParameter("@StreetNumber", address.streetNumber.ToString());
-                data.SetParameter("@Flat", address.flat);
-                data.SetParameter("@Details", address.details);
+                data.SetParameter("@StreetNumber", address.streetNumber); 
+                data.SetParameter("@Flat", string.IsNullOrEmpty(address.flat) ? (object) DBNull.Value : address.flat); 
+                data.SetParameter("@Details", string.IsNullOrEmpty(address.details) ? (object)DBNull.Value : address.details);
                 data.SetParameter("@City", address.city);
-                data.SetParameter("@Province", address.province);
-                data.SetParameter("@Country", address.country);
+                data.SetParameter("@Country", address.country); 
 
-                data.ExecuteAction();
+                rows = data.ExecuteAction();
             }
             catch (Exception ex)
             {
-
+                rows = 0;
                 throw ex;
             }
             finally

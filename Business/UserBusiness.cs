@@ -132,14 +132,13 @@ namespace Business
 
         public bool Update(User user)
         {
-            //TODO: verificar return
             data = new DataAccess();
             int rows;
-            roleBusiness = new RoleBusiness();
+            //roleBusiness = new RoleBusiness();
             try
             {
-                data.SetQuery("UPDATE Users SET IdRole =@IdRole, UserNickName = @UserNickName, UserPassword = @UserPassword WHERE IdUser =@IdUser;");
-                data.SetParameter("@IdRole", roleBusiness.Read(user.role.IdRole));
+                data.SetQuery("UPDATE Users SET IdRole = @IdRole, UserNickName = @UserNickName, UserPassword = @UserPassword WHERE IdUser =@IdUser;");
+                data.SetParameter("@IdRole", user.role.IdRole);
                 data.SetParameter("@UserNickName", user.userName);
                 data.SetParameter("@UserPassword", user.userPassword);
                 data.SetParameter("@IdUser", user.idUser);
@@ -208,7 +207,6 @@ namespace Business
                 auxUser = Read(userName);
                 if (auxUser != null && !(auxUser.userPassword.Equals(password)))
                 {
-                    
                     auxUser = null;
                 }
             }
@@ -223,6 +221,41 @@ namespace Business
             }
 
             return auxUser;
+        }
+
+        //No creo que use este metodo....
+        public bool userNameAvailable(string userName)
+        {
+            data = new DataAccess();
+            User auxUser = new User();
+
+            bool flag;
+
+            try
+            {
+                data.SetQuery("select * from Users where UserNickName = @UserName");
+                data.SetParameter("@UserName", userName);
+                data.ExecuteRead();
+
+                if (data.Reader.Read())
+                {
+                    flag = false;   //Si leo alguno, esta ocupado ese UserName
+                }
+                else
+                {
+                    flag = true;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                data.CloseConnection();
+            }
+
+            return flag;
         }
     }
 }

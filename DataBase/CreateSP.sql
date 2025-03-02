@@ -198,8 +198,23 @@ CREATE OR ALTER PROCEDURE insert_request
     @CreationDate DATE
 AS
 BEGIN
+
+BEGIN TRANSACTION;
+
+-- Insertar la nueva request
     INSERT INTO Requests(IdRequestStatus, IdTrainer, IdPartner, CreationDate)
     VALUES(@IdRequestStatus, @IdTrainer, @IdPartner, @CreationDate)
+
+    -- Si la inserción fue exitosa, actualizar IdStatus en Partners
+    IF @@ROWCOUNT > 0
+    BEGIN
+        UPDATE Partners 
+        SET IdStatus = 2 
+        WHERE IdPartner = @IdPartner;
+    END
+    
+COMMIT TRANSACTION;
+
 END;
 GO
 
@@ -220,20 +235,30 @@ BEGIN
         SET IdRequestStatus = @IdRequestStatus 
         WHERE IdTrainer = @IdTrainer AND IdPartner = @IdPartner;
 
-        -- Si el estado es 2, insertar en PartnersByTrainer si no existe
+        -- Si el estado es 2, insertar en PartnersByTrainer si no existe y actualizar IdStatus en Partners
         IF @IdRequestStatus = 2
         BEGIN
+        -- Insertar en PartnersByTrainer si no existe
             IF NOT EXISTS (SELECT 1 FROM PartnersByTrainer WHERE IdTrainer = @IdTrainer AND IdPartner = @IdPartner)
             BEGIN
                 INSERT INTO PartnersByTrainer (IdTrainer, IdPartner) 
                 VALUES (@IdTrainer, @IdPartner);
             END
+            -- Actualizar el IdStatus en la tabla Partners
+            UPDATE Partners 
+            SET IdStatus = 3 
+            WHERE IdPartner = @IdPartner;
         END
-        -- Si el estado es 3, eliminar de PartnersByTrainer
+        -- Si el estado es 3, eliminar de PartnersByTrainer y actualizar IdStatus en Partners
         ELSE IF @IdRequestStatus = 3
         BEGIN
+        -- Eliminar de PartnersByTrainer
             DELETE FROM PartnersByTrainer 
             WHERE IdTrainer = @IdTrainer AND IdPartner = @IdPartner;
+            -- Actualizar el IdStatus en la tabla Partners
+            UPDATE Partners 
+            SET IdStatus = 1 
+            WHERE IdPartner = @IdPartner;
         END
         COMMIT TRANSACTION;
     END

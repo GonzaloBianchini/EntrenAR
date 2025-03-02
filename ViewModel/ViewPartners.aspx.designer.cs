@@ -141,6 +141,15 @@ namespace ViewModel
         protected global::System.Web.UI.WebControls.Label lblCountry;
 
         /// <summary>
+        /// lblUserName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblUserName;
+
+        /// <summary>
         /// lblAddress control.
         /// </summary>
         /// <remarks>
@@ -213,6 +222,15 @@ namespace ViewModel
         protected global::System.Web.UI.WebControls.GridView dgvTrainings;
 
         /// <summary>
+        /// lblNoTrainer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNoTrainer;
+
+        /// <summary>
         /// btnLetsGoTraining control.
         /// </summary>
         /// <remarks>
@@ -222,13 +240,13 @@ namespace ViewModel
         protected global::System.Web.UI.WebControls.Button btnLetsGoTraining;
 
         /// <summary>
-        /// lblNoTrainer control.
+        /// lblRequestSent control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNoTrainer;
+        protected global::System.Web.UI.WebControls.Label lblRequestSent;
 
         /// <summary>
         /// dgvTrainer control.

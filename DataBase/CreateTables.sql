@@ -43,7 +43,7 @@ CREATE TABLE StatusesPartner (
     StatusDescription VARCHAR(150)
 );
 
-CREATE TABLE Partners (
+CREATE  TABLE Partners (
     IdPartner INT PRIMARY KEY IDENTITY(1,1),
     IdUser INT NOT NULL,  
     IdStatus INT NOT NULL,
@@ -52,7 +52,7 @@ CREATE TABLE Partners (
     FirstName VARCHAR(50) NOT NULL,
     LastName VARCHAR(50) NOT NULL,
     Gender VARCHAR(50) NULL,
-    Email VARCHAR(50) UNIQUE,
+    Email VARCHAR(50) NOT NULL UNIQUE,
     Phone VARCHAR(50) NOT NULL,
     BirthDate DATE NOT NULL,
     IdAddress INT NOT NULL,

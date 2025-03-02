@@ -44,6 +44,7 @@ EXEC insert_trainer 'trainer3','TrainerPass3',2,'Entrenador 3','Apellido 3'
 
 
 
+
 -- select * from Users
 -- SELECT * from Trainers
 -- SELECT * from Partners
@@ -52,3 +53,6 @@ EXEC insert_trainer 'trainer3','TrainerPass3',2,'Entrenador 3','Apellido 3'
 -- SELECT * FROM Provinces
 -- SELECT * FROM Exercises
 -- Select * from ROLES
+-- select * from Requests
+
+

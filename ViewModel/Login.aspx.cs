@@ -77,10 +77,10 @@ namespace ViewModel
                     e.IsValid = false;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Response.Redirect("~/Error.aspx", false); // Redirige a la página de error
-                //throw ex;
+                //throw;
 
             }
         }
