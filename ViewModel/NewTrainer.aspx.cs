@@ -17,21 +17,6 @@ namespace ViewModel
         Role auxRole;
         protected void Page_Load(object sender, EventArgs e)
         {
-            //TrainerBusiness trainerBusiness = new TrainerBusiness();
-            //Trainer auxTrainer = new Trainer();
-            //RoleBusiness roleBusiness = new RoleBusiness();
-            //Role auxRole = new Role();
-            //auxRole = roleBusiness.Read(2);
-
-            //auxTrainer.userName = "gonzofonzo1";
-            //auxTrainer.userPassword = "paSsHarD12";
-            //auxTrainer.role = auxRole;
-            //auxTrainer.firstName = "Andres";
-            //auxTrainer.lastName = "Bianchini";
-
-            //trainerBusiness.Create(auxTrainer);
-
-
 
         }
 
@@ -41,23 +26,82 @@ namespace ViewModel
             auxTrainer = new Trainer();
             roleBusiness = new RoleBusiness();
             auxRole = new Role();
-            auxRole = roleBusiness.Read(2);
-
-            auxTrainer.userName = txtUserName.Text;
-            auxTrainer.userPassword = txtUserPassword.Text;
-            auxTrainer.firstName = txtFirstName.Text;
-            auxTrainer.lastName = txtLastName.Text;
-
-            try
+            if (Page.IsValid)
             {
-                trainerBusiness.Create(auxTrainer);
-            }
-            catch (Exception ex)
-            {
+                try
+                {
+                    auxRole = roleBusiness.Read(2);
 
-                throw ex;
+                    auxTrainer.userName = txtUserName.Text;
+                    auxTrainer.userPassword = txtUserPassword.Text;
+                    auxTrainer.firstName = txtFirstName.Text;
+                    auxTrainer.lastName = txtLastName.Text;
+                    auxTrainer.dni = int.Parse(txtDni.Text);
+                    auxTrainer.email = txtEmail.Text;
+                    auxTrainer.phone = txtPhone.Text;
+
+                    if(trainerBusiness.Create(auxTrainer))
+                    {
+                        Session.Add("created", true);
+                        Response.Redirect("ViewTrainers.aspx", false);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
             }
-            
+        }
+
+        protected void cvUserName_ServerValidate(object source, ServerValidateEventArgs e)
+        {
+            UserBusiness userBusiness = new UserBusiness();
+            List<string> userNamesAlreadyUsed = new List<string>();
+
+            userNamesAlreadyUsed = userBusiness.List().Select(u => u.userName).ToList();    //me quedo con los userName...
+
+            if (userNamesAlreadyUsed.Contains(e.Value))
+            {
+                e.IsValid = false;
+            }
+            else
+            {
+                e.IsValid = true;
+            }
+        }
+
+        protected void cvDni_ServerValidate(object source, ServerValidateEventArgs e)
+        {
+            trainerBusiness = new TrainerBusiness();
+            List<int> dniNumbersAlreadyUsed = new List<int>();
+
+            dniNumbersAlreadyUsed = trainerBusiness.List().Select(u => u.dni).ToList();
+
+            if (dniNumbersAlreadyUsed.Contains(int.Parse(e.Value)))
+            {
+                e.IsValid = false;
+            }
+            else
+            {
+                e.IsValid = true;
+            }
+        }
+
+        protected void cvEmail_ServerValidate(object source, ServerValidateEventArgs e)
+        {
+            trainerBusiness = new TrainerBusiness();
+            List<string> emailNamesAlreadyUsed = new List<string>();
+
+            emailNamesAlreadyUsed = trainerBusiness.List().Select(u => u.email).ToList();
+
+            if (emailNamesAlreadyUsed.Contains(e.Value))
+            {
+                e.IsValid = false;
+            }
+            else
+            {
+                e.IsValid = true;
+            }
         }
     }
 }

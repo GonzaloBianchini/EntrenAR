@@ -49,26 +49,33 @@ namespace ViewModel
         {
             if (e.CommandName == "Ver")
             {
-                int idPartner = int.Parse(e.CommandArgument.ToString());
-                //Response.Redirect("ViewPartner.aspx?idPartner=" + idPartner, false);
-
-                partnerBusiness = new PartnerBusiness();
-                partner = partnerBusiness.Read(idPartner);
-
-                trainer = new Trainer();
-                trainerBusiness = new TrainerBusiness();
-
-                if (partner != null)
+                try
                 {
-                    loadPersonalInformation(partner);
+                    int idPartner = int.Parse(e.CommandArgument.ToString());
+                    //Response.Redirect("ViewPartner.aspx?idPartner=" + idPartner, false);
 
-                    loadTrainingList(partner);
+                    partnerBusiness = new PartnerBusiness();
+                    partner = partnerBusiness.Read(idPartner);
 
-                    trainer = trainerBusiness.GetTrainerByParterId(partner.idPartner);
+                    trainer = new Trainer();
+                    trainerBusiness = new TrainerBusiness();
 
-                    loadTrainerAndControls(partner, trainer);
+                    if (partner != null)
+                    {
+                        loadPersonalInformation(partner);
 
-                    pnlPartnerDetails.Visible = true;
+                        loadTrainingList(partner);
+
+                        trainer = trainerBusiness.GetTrainerByParterId(partner.idPartner);
+
+                        loadTrainerAndControls(partner, trainer);
+
+                        pnlPartnerDetails.Visible = true;
+                    }
+                }
+                catch (Exception)
+                {
+                    throw;
                 }
             }
         }
@@ -167,7 +174,7 @@ namespace ViewModel
             return partnerBusiness.canSendRequest(idPartner);
         }
 
-   
+
         protected void btnLetsGoTraining_Click(object sender, EventArgs e)
         {
             int idPartner = int.Parse(lblIdPartner.Text);

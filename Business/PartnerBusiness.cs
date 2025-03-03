@@ -135,7 +135,8 @@ namespace Business
             int rows = 0;
             userBusiness = new UserBusiness();
             addressBusiness = new AddressBusiness();
-            
+            auxUser = new User();
+
             try
             {
                 auxUser.idUser = partner.idUser;

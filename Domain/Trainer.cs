@@ -12,6 +12,9 @@ namespace Domain
         public int idTrainer { get; set; }
         public string firstName { get; set; }
         public string lastName { get; set; }
+        public int dni { get; set; }
+        public string email { get; set; }
+        public string phone { get; set; }
         public List<Partner> partnersList { get; set; }
 
         public Trainer() 

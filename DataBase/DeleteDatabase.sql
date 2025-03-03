@@ -11,6 +11,10 @@ DROP TABLE Trainings;
 
 DROP TABLE TrainingTypes;
 
+DROP TABLE RequestStatuses;
+
+DROP TABLE Requests;
+
 DROP TABLE PartnersByTrainer;
 
 DROP TABLE Trainers;
@@ -27,9 +31,7 @@ DROP TABLE Addresses;
 
 DROP TABLE Provinces;
 
-DROP TABLE RequestStatuses;
 
-DROP TABLE Requests;
 
 -- DROP PROCEDURE insert_address;
 

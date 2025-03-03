@@ -93,7 +93,10 @@ CREATE OR ALTER PROCEDURE insert_trainer
     @UserPassword VARCHAR(50),
     @IdRole INT,
     @FirstName VARCHAR(50),
-    @LastName VARCHAR(50)
+    @LastName VARCHAR(50),
+    @Dni INT,
+    @Email VARCHAR(50),
+    @Phone VARCHAR(50)
 AS
 BEGIN
     -- Comienza una transacción explícita
@@ -111,8 +114,8 @@ BEGIN
         SET @NewUserId = SCOPE_IDENTITY();
 
         -- Inserta el nuevo Partner usando el ID del usuario creado
-        INSERT INTO Trainers (IdUser, FirstName, LastName)
-        VALUES (@NewUserId,@FirstName,@LastName);
+        INSERT INTO Trainers (IdUser, FirstName, LastName, Dni, Email, Phone)
+        VALUES (@NewUserId,@FirstName,@LastName,@Dni,@Email,@Phone);
 
         SELECT SCOPE_IDENTITY() AS LastId
         -- Si ambas operaciones fueron exitosas, confirma la transacción
@@ -212,7 +215,7 @@ BEGIN TRANSACTION;
         SET IdStatus = 2 
         WHERE IdPartner = @IdPartner;
     END
-    
+
 COMMIT TRANSACTION;
 
 END;

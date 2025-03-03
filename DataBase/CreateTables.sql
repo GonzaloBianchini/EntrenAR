@@ -65,6 +65,9 @@ CREATE TABLE Trainers (
     IdUser INT NOT NULL,
     FirstName VARCHAR(50) NOT NULL,
     LastName VARCHAR(50) NOT NULL,
+    Dni INT NOT NULL UNIQUE,
+    Email VARCHAR(50) NOT NULL UNIQUE,
+    Phone VARCHAR(50) NOT NULL,
     FOREIGN KEY (IdUser) REFERENCES Users(IdUser)
 );
 
@@ -139,4 +142,3 @@ CREATE TABLE Requests (
     FOREIGN KEY (IdPartner) REFERENCES Partners(IdPartner)
 );
 
-select * from Partners

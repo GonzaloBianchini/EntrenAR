@@ -1,4 +1,6 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/AllMaster.Master" AutoEventWireup="true" CodeBehind="ViewPartner.aspx.cs" Inherits="ViewModel.ViewPartner" %>
+﻿<!--
+
+<%@ Page Title="" Language="C#" MasterPageFile="~/AllMaster.Master" AutoEventWireup="true" CodeBehind="ViewPartner.aspx.cs" Inherits="ViewModel.ViewPartner" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -113,3 +115,5 @@
         </div>
     </div>
 </asp:Content>
+
+-->

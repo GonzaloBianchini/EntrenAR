@@ -37,12 +37,10 @@ EXEC insert_partner 'partner4','PartnerPass4',3,1,45678901, 'Bob', 'Brown', 'Mal
 EXEC insert_partner 'partner5','PartnerPass5',3,1,56789012, 'Charlie', 'Johnson', 'Male', 'charlie.johnson@example.com', '345678901', '1994-05-05', 5
 EXEC insert_partner 'partner6','PartnerPass6',3,1,67890123, 'Eve', 'Davis', 'Female', 'eve.davis@example.com', '123890456', '1995-06-06', 6;
 
-EXEC insert_trainer 'gonzoo','holaqueTal123',2,'Gonzalo','Bianchini'
-EXEC insert_trainer 'trainer1','TrainerPass1',2,'Entrenador 1','Apellido 1'
-EXEC insert_trainer 'trainer2','TrainerPass2',2,'Entrenador 2','Apellido 2'
-EXEC insert_trainer 'trainer3','TrainerPass3',2,'Entrenador 3','Apellido 3'
-
-
+EXEC insert_trainer 'trainer1','TrainerPass1',2,'Entrenador 1','Apellido 1',78901234,'trainer1@example.com','123666456'
+EXEC insert_trainer 'trainer2','TrainerPass2',2,'Entrenador 2','Apellido 2',89012345,'trainer2@example.com','123777456'
+EXEC insert_trainer 'trainer3','TrainerPass3',2,'Entrenador 3','Apellido 3',90123456,'trainer3@example.com','123888456'
+EXEC insert_trainer 'gonzoo','holaqueTal123',2,'Gonzalo','Bianchini',99012345,'gonzoo@example.com','123999456'
 
 
 -- select * from Users

@@ -23,6 +23,7 @@
                 </div>
             </div>
 
+            <%--LISTA PARTNERS--%>
             <div class="container text-center">
                 <div class="row justify-content-md-center">
                     <asp:GridView runat="server" ID="dgvPartnersList" AutoGenerateColumns="false" DataKeyNames="idPartner" class="table table-striped table-bordered table-hover mt-3">
