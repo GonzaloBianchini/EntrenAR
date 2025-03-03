@@ -10,7 +10,7 @@
             <div class="container my-2">
                 <h2 class="mb-4">Alta de Trainer</h2>
 
-                <!-- Usuario y  -->
+                <!-- Usuario -->
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <asp:Label Text="User" ID="lblUser" runat="server" class="form-label" />

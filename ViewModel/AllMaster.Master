@@ -98,48 +98,30 @@
                                     <asp:Label Text="Inicio" ID="lblInicio" class="bi bi-house" runat="server" />
                                 </a>
                             </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="ViewExercises.aspx">
-                                    <asp:Label Text="Ejercicios" ID="lblEjercicios" class="bi bi-list-check" runat="server" />
-                                </a>
-                            </li>
-
-                            <%--<li class="nav-item">
-                                <a class="nav-link" href="NewExercise.aspx">
-                                    <asp:Label Text="Nuevo Ejercicio" ID="lblNewExercise" class="bi bi-list-check" runat="server" />
-                                </a>
-                            </li>--%>
-
+                            <!-- Partners -->
                             <li class="nav-item">
                                 <a class="nav-link" href="ViewPartners.aspx">
                                     <asp:Label Text="Partners" ID="lblPartners" class="bi bi-people" runat="server" />
                                 </a>
                             </li>
-
+                            <!-- Trainers -->
                             <li class="nav-item">
                                 <a class="nav-link" href="ViewTrainers.aspx">
                                     <asp:Label Text="Trainers" ID="lblTrainers" class="bi bi-people" runat="server" />
                                 </a>
                             </li>
-
+                            <!-- Ejercicios -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="ViewExercises.aspx">
+                                    <asp:Label Text="Ejercicios" ID="lblEjercicios" class="bi bi-list-check" runat="server" />
+                                </a>
+                            </li>
+                            <!-- Requests -->
                             <li class="nav-item">
                                 <a class="nav-link" href="TrainerRequests.aspx">
                                     <asp:Label Text="Requests" ID="lblRequests" class="bi bi-list-check" runat="server" />
                                 </a>
                             </li>
-
-                            <%--<li class="nav-item">
-                                <a class="nav-link" href="NewPartner.aspx">
-                                    <asp:Label Text="Nuevo Partner" ID="lblNewPartner" class="bi bi-list-check" runat="server" />
-                                </a>
-                            </li>--%>
-
-                           <%-- <li class="nav-item">
-                                <a class="nav-link" href="NewTrainer.aspx">
-                                    <asp:Label Text="Nuevo Trainer" ID="lblNewTrainer" class="bi bi-list-check" runat="server" />
-                                </a>
-                            </li>--%>
 
                             <li class="nav-item">
                                 <a class="nav-link" href="ViewTrainings.aspx">

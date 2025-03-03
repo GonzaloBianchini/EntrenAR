@@ -42,15 +42,6 @@ namespace ViewModel
         protected global::System.Web.UI.WebControls.Label lblInicio;
 
         /// <summary>
-        /// lblEjercicios control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEjercicios;
-
-        /// <summary>
         /// lblPartners control.
         /// </summary>
         /// <remarks>
@@ -67,6 +58,15 @@ namespace ViewModel
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblTrainers;
+
+        /// <summary>
+        /// lblEjercicios control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEjercicios;
 
         /// <summary>
         /// lblRequests control.

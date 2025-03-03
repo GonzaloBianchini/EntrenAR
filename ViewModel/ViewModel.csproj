@@ -85,7 +85,7 @@
     <Content Include="PartnerRequest.aspx" />
     <Content Include="ViewTrainers.aspx" />
     <Content Include="zSuperadoViewPartner.aspx" />
-    <Content Include="ViewTrainer.aspx" />
+    <Content Include="zSuperadoViewTrainer.aspx" />
     <Content Include="Content\MyStyles.css" />
     <Content Include="ViewTrainings.aspx" />
     <Content Include="ViewRoutine.aspx" />
@@ -203,12 +203,12 @@
     <Compile Include="zSuperadoViewPartner.aspx.designer.cs">
       <DependentUpon>zSuperadoViewPartner.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewTrainer.aspx.cs">
-      <DependentUpon>ViewTrainer.aspx</DependentUpon>
+    <Compile Include="zSuperadoViewTrainer.aspx.cs">
+      <DependentUpon>zSuperadoViewTrainer.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewTrainer.aspx.designer.cs">
-      <DependentUpon>ViewTrainer.aspx</DependentUpon>
+    <Compile Include="zSuperadoViewTrainer.aspx.designer.cs">
+      <DependentUpon>zSuperadoViewTrainer.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewTrainings.aspx.cs">
       <DependentUpon>ViewTrainings.aspx</DependentUpon>

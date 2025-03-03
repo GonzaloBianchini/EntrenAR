@@ -37,7 +37,7 @@ namespace ViewModel
                     lblTxtOldUserName.Text = partner.userName;
                     lblTxtOldDni.Text = partner.dni.ToString();
                     lblTxtOldEmail.Text = partner.email;
-                        
+
                     preLoadPartner(partner);
                 }
                 catch (Exception)
@@ -49,41 +49,48 @@ namespace ViewModel
 
         protected void preLoadPartner(Partner partner)
         {
-            txtIdPartner.Text = partner.idPartner.ToString();
-
-            txtUserName.Text = partner.userName;
-            txtPassWord.Text = partner.userPassword;
-
-            txtFirstName.Text = partner.firstName;
-            txtLastName.Text = partner.lastName;
-
-            txtDni.Text = partner.dni.ToString();
-            txtBirthDate.Text= partner.birthDate.ToString();
-
-            if(!string.IsNullOrEmpty(partner.gender))
+            try
             {
-                ddlGender.SelectedValue = partner.gender;
+                txtIdPartner.Text = partner.idPartner.ToString();
+
+                txtUserName.Text = partner.userName;
+                txtPassWord.Text = partner.userPassword;
+
+                txtFirstName.Text = partner.firstName;
+                txtLastName.Text = partner.lastName;
+
+                txtDni.Text = partner.dni.ToString();
+                txtBirthDate.Text = partner.birthDate.ToString();
+
+                if (!string.IsNullOrEmpty(partner.gender))
+                {
+                    ddlGender.SelectedValue = partner.gender;
+                }
+
+                txtPhone.Text = partner.phone;
+                txtCountry.Text = partner.address.country;
+                txtEmail.Text = partner.email;
+
+                txtStreetName.Text = partner.address.streetName;
+                txtStreetNumber.Text = partner.address.streetNumber.ToString();
+
+                if (!string.IsNullOrEmpty(partner.address.flat))
+                {
+                    txtFlat.Text = partner.address.flat;
+                }
+
+                if (!string.IsNullOrEmpty(partner.address.details))
+                {
+                    txtDetails.Text = partner.address.details;
+                }
+
+                txtCity.Text = partner.address.city;
+                ddlProvince.SelectedValue = partner.address.province.idProvince.ToString();
             }
-
-            txtPhone.Text = partner.phone;
-            txtCountry.Text = partner.address.country;
-            txtEmail.Text = partner.email;
-
-            txtStreetName.Text = partner.address.streetName;
-            txtStreetNumber.Text = partner.address.streetNumber.ToString();
-
-            if(!string.IsNullOrEmpty(partner.address.flat))
+            catch (Exception)
             {
-                txtFlat.Text = partner.address.flat;
+                throw;
             }
-
-            if(!string.IsNullOrEmpty(partner.address.details))
-            {
-                txtDetails.Text = partner.address.details;
-            }
-
-            txtCity.Text = partner.address.city;
-            ddlProvince.SelectedValue = partner.address.province.idProvince.ToString();
         }
 
         protected void btnEditPartner_Click(object sender, EventArgs e)
@@ -99,11 +106,10 @@ namespace ViewModel
                     //statusPartnerBusiness = new StatusPartnerBusiness();
 
                     partner = partnerBusiness.Read(int.Parse(txtIdPartner.Text));   //pre-cargo le Partner
-                    
+
                     partner.userName = txtUserName.Text;
                     partner.userPassword = txtPassWord.Text;
                     //partner.role = roleBusiness.Read(3);
-
                     //partner.status = statusPartnerBusiness.Read(1);
 
                     partner.firstName = txtFirstName.Text;
