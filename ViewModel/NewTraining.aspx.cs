@@ -34,7 +34,7 @@ namespace ViewModel
 
         protected void loadInitialData()
         {
-            int idPartner = /*Request.QueryString["idPartner"].ToString() == null ? int.Parse(lblIdPartner.Text) :*/ int.Parse(Request.QueryString["idPartner"].ToString());
+            int idPartner = int.Parse(Request.QueryString["idPartner"].ToString());
 
             partnerBusiness = new PartnerBusiness();
             partner = new Partner();
@@ -80,16 +80,82 @@ namespace ViewModel
             {
                 ddlTrainings.SelectedIndex = 0;
             }
-            if(ddlTrainings.Items.Count > 0)
-                loadRoutines();
+            if (ddlTrainings.Items.Count > 0)
+            {
+                enablePanelNewRoutine(true);
+            }
+            else
+            {
+                enablePanelNewRoutine(false);
+            }
+
         }
 
+        protected void enablePanelNewRoutine(bool flag)
+        {
+            if (flag)
+            {
+                loadLabelsDatesLimit();
+                loadRoutines();
+                pnlNewDailyRoutine.Visible = true;
+            }
+            else
+            {
+                pnlNewDailyRoutine.Visible = false;
+            }
+        }
+
+        protected void loadRoutines()
+        {
+            //Si hay un solo elemento Training en la lista de Trainings, cargo este unico Training y vengo aca a cargar las rutinas
+            dailyRoutineBusiness = new DailyRoutineBusiness();
+            ddlDailyRoutines.DataSource = dailyRoutineBusiness.ListByTraining(int.Parse(ddlTrainings.SelectedValue));
+            ddlDailyRoutines.DataBind();
+
+            if (ddlDailyRoutines.Items.Count == 1)
+            {
+                ddlDailyRoutines.SelectedIndex = 0;
+            }
+            if (ddlDailyRoutines.Items.Count > 0)
+            {
+                enablePanelNewExercise(true);
+            }
+            else
+            {
+                enablePanelNewExercise(false);
+            }
+        }
+
+        protected void enablePanelNewExercise(bool flag)
+        {
+            if (flag)
+            {
+                pnlNewExercise.Visible = true;
+            }
+            else
+            {
+                pnlNewExercise.Visible = false;
+            }
+        }
+
+        protected void loadLabelsDatesLimit()
+        {
+            trainingBusiness = new TrainingBusiness();
+            training = new Training();
+
+            training = trainingBusiness.Read(int.Parse(ddlTrainings.SelectedValue));
+
+            lblStartDateLimit.Text = "Fecha inicio: " + training.StartDate.ToShortDateString();
+            lblEndDateLimit.Text = "Fecha fin: " + training.EndDate.ToShortDateString();
+        }
+
+        //METODOS DEL VISUALIZADOR
         protected void loadVisualizer()
         {
             //CARGO EL VISUALIZADOR...
 
             loadTrainingsVisualizer();
-            if(ddlTrainingPrograms.Items.Count > 0)
+            if (ddlTrainings.Items.Count > 0)
                 loadRoutinesVisualizer();
         }
 
@@ -113,74 +179,127 @@ namespace ViewModel
             dailyRoutineBusiness = new DailyRoutineBusiness();
             int idTraining = int.Parse(ddlTrainingPrograms.SelectedValue);
 
-            ddlRoutines.DataSource = dailyRoutineBusiness.ListByTraining(idTraining);
-            ddlRoutines.DataBind();
+            trainingBusiness = new TrainingBusiness();
+            training = new Training();
+            training = trainingBusiness.Read(idTraining);
 
-            if (ddlRoutines.Items.Count == 1)
+            if (training.dailyRoutinesList.Count > 0)
             {
-                ddlRoutines.SelectedIndex = 0;
-            }
+                ddlRoutines.DataSource = dailyRoutineBusiness.ListByTraining(idTraining);
+                ddlRoutines.DataBind();
 
-            if(ddlRoutines.SelectedValue != "")
-                showRoutine();
+                if (ddlRoutines.Items.Count == 1)
+                {
+                    ddlRoutines.SelectedIndex = 0;
+                }
+
+                if (ddlRoutines.SelectedValue != "")
+                    showRoutine();
+            }
+            else
+            {
+                ddlRoutines.Items.Clear();
+                ddlRoutines.ClearSelection();
+                //ddlRoutines.DataBind();
+                gvRoutineExercises.Visible = false;
+            }
         }
 
+        protected void showRoutine()
+        {
+            gvRoutineExercises.Visible = true;
+            dailyRoutineBusiness = new DailyRoutineBusiness();
+            DailyRoutine dailyRoutineVisualizer = new DailyRoutine();
+            dailyRoutineVisualizer = dailyRoutineBusiness.Read(int.Parse(ddlRoutines.SelectedValue));
+
+            gvRoutineExercises.DataSource = dailyRoutineVisualizer.exercisesList;
+            gvRoutineExercises.DataBind();
+        }
+
+        //EVENTOS DDL
         protected void ddlTrainings_SelectedIndexChanged(object sender, EventArgs e)
         {
+            loadLabelsDatesLimit();
             loadRoutines();
         }
 
-        protected void loadRoutines()
+        protected void ddlTrainingPrograms_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //Si hay un solo elemento Training en la lista de Trainings, cargo este unico Training y vengo aca a cargar las rutinas
-            dailyRoutineBusiness = new DailyRoutineBusiness();
-            ddlDailyRoutines.DataSource = dailyRoutineBusiness.ListByTraining(int.Parse(ddlTrainings.SelectedValue));
-            ddlDailyRoutines.DataBind();
-
-            if (ddlDailyRoutines.Items.Count == 1)
-            {
-                ddlDailyRoutines.SelectedIndex = 0;
-            }
+            loadRoutinesVisualizer();
         }
 
+        protected void ddlRoutines_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            showRoutine();
+        }
+
+        //EVENTOS BOTONES
         protected void btnCreateTraining_Click(object sender, EventArgs e)
         {
-            createTraining();
-            loadTrainings();
-            loadVisualizer();
+            if (Page.IsValid)
+            {
+                createTraining();
+                loadTrainings();
+                loadVisualizer();
+            }
         }
-
 
         protected void createTraining()
         {
             //TODO: IMPORTANTE! VALIDAR SI EL IdPartner QUE SE PASA EXISTE...SINO TIRAR EL ERROR CORRESPONDIENTE...
-            //TODO: IMPORTANTE! VALIDAR SI EL IdPartner QUE SE PASA EXISTE...SINO TIRAR EL ERROR CORRESPONDIENTE...
-            //TODO: IMPORTANTE! VALIDAR SI EL IdPartner QUE SE PASA EXISTE...SINO TIRAR EL ERROR CORRESPONDIENTE...
+            //DONE: PARA LLEGAR ACA, SI O SI PASE POR EL PARTNER EN CUESTION....
 
-            //TAMBIEN DEBO VALIDAR QUE LE PARTNER EN CUESTION TENGA TRAINER, SINO NO PUEDO CREAR UN TRAINING
+            //TODO: TAMBIEN DEBO VALIDAR QUE LE PARTNER EN CUESTION TENGA TRAINER, SINO NO PUEDO CREAR UN TRAINING
+            //DONE: SIN TRAINER ASIGNAD@ NO PUEDO GESTIONAR TRAININGS....
 
             int idPartner = int.Parse(lblIdPartner.Text);       // si es distinto de null, va bien...
 
-            trainingBusiness = new TrainingBusiness();
-            trainingTypeBusiness = new TrainingTypeBusiness();
-            training = new Training();
+            //if (Page.IsValid)
+            //{
+            try
+            {
+                trainingBusiness = new TrainingBusiness();
+                trainingTypeBusiness = new TrainingTypeBusiness();
+                training = new Training();
 
-            training.idPartner = idPartner;
-            training.Name = txtTrainingName.Text;
-            training.Description = txtTrainingDescription.Text;
-            training.Type = trainingTypeBusiness.Read(int.Parse(ddlTrainingTypes.SelectedValue));
-            training.StartDate = DateTime.Parse(txtStartDate.Text);
-            training.EndDate = DateTime.Parse(txtEndDate.Text);
+                training.idPartner = idPartner;
+                training.Name = txtTrainingName.Text;
+                training.Description = txtTrainingDescription.Text;
+                training.Type = trainingTypeBusiness.Read(int.Parse(ddlTrainingTypes.SelectedValue));
+                training.StartDate = DateTime.Parse(txtStartDate.Text);
+                training.EndDate = DateTime.Parse(txtEndDate.Text);
 
-            trainingBusiness.Create(training);
+                if (trainingBusiness.Create(training))
+                {
+                    clearFormNewTraining();
+                    ucToast.ShowToast("Nuevo Entrenamiento", "Entrenamiento creado!", "bi-check-circle-fill", "text-success");
+                    //enablePanelNewRoutine(true);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            //}
+        }
+
+        protected void clearFormNewTraining()
+        {
+            txtTrainingName.Text = string.Empty;
+            txtTrainingDescription.Text = string.Empty;
+            txtStartDate.Text = string.Empty;
+            txtEndDate.Text = string.Empty;
         }
 
 
         protected void btnAddDailyRoutine_Click(object sender, EventArgs e)
         {
-            createDailyRoutine();
-            loadRoutines();
-            loadVisualizer();
+            if (Page.IsValid)
+            {
+                createDailyRoutine();
+                loadRoutines();
+                loadVisualizer();
+            }
         }
 
         protected void createDailyRoutine()
@@ -190,13 +309,21 @@ namespace ViewModel
             dailyRoutine.idTraining = int.Parse(ddlTrainings.SelectedValue);
             dailyRoutine.dailyRoutineDate = DateTime.Parse(txtDailyRoutineDate.Text);
 
-            dailyRoutineBusiness.Create(dailyRoutine);
+            //ACA VA UN IF WEY...
+            if(dailyRoutineBusiness.Create(dailyRoutine))
+            {
+                ucToast.ShowToast("Nueva Rutina", "Rutina creada!", "bi-check-circle-fill", "text-success");
+                //enablePanelNewExercise(true);
+            }
         }
 
         protected void btnAddExercise_Click(object sender, EventArgs e)
         {
-            addExerciseToDailyRoutine();
-            loadVisualizer();
+            if (Page.IsValid)
+            {
+                addExerciseToDailyRoutine();
+                loadVisualizer();
+            }
         }
 
         protected void addExerciseToDailyRoutine()
@@ -212,26 +339,77 @@ namespace ViewModel
             exercise.RestTime = int.Parse(txtRestTime.Text);
 
             exerciseInDailyRoutineBusiness.Create(idDailyRoutine, exercise);
+            ucToast.ShowToast("Nuevo Ejercicio", "Ejercicio creado!", "bi-check-circle-fill", "text-success");
         }
 
-        protected void ddlTrainingPrograms_SelectedIndexChanged(object sender, EventArgs e)
+        //CUSTOM VALIDATIONS
+        protected void cvTrainingName_ServerValidate(object source, ServerValidateEventArgs e)
         {
-            loadRoutinesVisualizer();
+            trainingBusiness = new TrainingBusiness();
+
+            try
+            {
+                List<string> trainingNamesAlreadyUsed = new List<string>();
+                trainingNamesAlreadyUsed = trainingBusiness.ListByPartner(int.Parse(lblIdPartner.Text)).Select(u => u.Name).ToList();
+                //Me quedo con los nombres de entrenamiento de PARTNER en cuestion...es decir, no se puede repetir nombre para mism@ PArtner
+
+                if (trainingNamesAlreadyUsed.Contains(e.Value))
+                {
+                    e.IsValid = false;
+                }
+                else
+                {
+                    e.IsValid = true;
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
-        protected void ddlRoutines_SelectedIndexChanged(object sender, EventArgs e)
+        protected void cvEndDate_ServerValidate(object source, ServerValidateEventArgs e)
         {
-            showRoutine();
+            DateTime starDate = DateTime.Parse(txtStartDate.Text);
+
+            DateTime endDate = DateTime.Parse(txtEndDate.Text);
+            //int idTraining = int.Parse(ddlTrainings.SelectedValue);
+
+            //TrainingBusiness trainingBusiness = new TrainingBusiness();
+            //Training training = new Training();
+
+            //training = trainingBusiness.Read(int.Parse(ddlTrainings.SelectedValue));
+
+            if (endDate >= starDate)
+            {
+                e.IsValid = true;
+            }
+            else
+            {
+                e.IsValid = false;
+            }
         }
 
-        protected void showRoutine()
+        protected void cvDailyRoutineDate_ServerValidate(object source, ServerValidateEventArgs e)
         {
-            dailyRoutineBusiness = new DailyRoutineBusiness();
-            DailyRoutine dailyRoutineVisualizer = new DailyRoutine();
-            dailyRoutineVisualizer = dailyRoutineBusiness.Read(int.Parse(ddlRoutines.SelectedValue));
+            int idTraining = int.Parse(ddlTrainings.SelectedValue);
 
-            gvRoutineExercises.DataSource = dailyRoutineVisualizer.exercisesList;
-            gvRoutineExercises.DataBind();
+            TrainingBusiness trainingBusiness = new TrainingBusiness();
+            Training training = new Training();
+
+            training = trainingBusiness.Read(int.Parse(ddlTrainings.SelectedValue));
+
+            DateTime dailyRoutineDate = DateTime.Parse(txtDailyRoutineDate.Text);
+
+            if ((dailyRoutineDate >= training.StartDate) && (dailyRoutineDate <= training.EndDate))
+            {
+                e.IsValid = true;
+            }
+            else
+            {
+                e.IsValid = false;
+            }
         }
     }
 }

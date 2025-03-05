@@ -23,6 +23,7 @@ namespace Business
             data = new DataAccess();
             trainingTypeBusiness = new TrainingTypeBusiness();
             int lastIndex;
+            bool success;
 
             try
             {
@@ -39,6 +40,54 @@ namespace Business
                 data.Reader.Read();
                 lastIndex = int.Parse(data.Reader["LastId"].ToString());
 
+                if (lastIndex != 0)
+                {
+                    success = true;
+                }
+                else
+                {
+                    success = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                lastIndex = 0;
+                success = false;
+                throw ex;
+            }
+            finally
+            {
+                data.CloseConnection();
+            }
+            return success;
+        }
+
+        public Training Read(int idTraining)
+        {
+            data = new DataAccess();
+            Training auxTraining = new Training();
+            trainingTypeBusiness = new TrainingTypeBusiness();
+            DailyRoutineBusiness dailyRoutineBusiness = new DailyRoutineBusiness();
+
+            try
+            {
+                data.SetQuery("select * from Trainings Where IdTraining = @IdTraining");
+                data.SetParameter("@IdTraining", idTraining);
+                data.ExecuteRead();
+
+                if (data.Reader.Read())
+                {
+                    auxTraining.idTraining = idTraining;
+
+                    auxTraining.idPartner = int.Parse(data.Reader["IdPartner"].ToString());
+                    auxTraining.Name = data.Reader["TrainingName"].ToString();
+                    auxTraining.Description = data.Reader["TrainingDescription"].ToString();
+                    auxTraining.Type = trainingTypeBusiness.Read(int.Parse(data.Reader["IdType"].ToString()));
+                    auxTraining.StartDate = DateTime.Parse(data.Reader["StartDate"].ToString());
+                    auxTraining.EndDate = DateTime.Parse(data.Reader["EndDate"].ToString());
+
+                    auxTraining.dailyRoutinesList = dailyRoutineBusiness.ListByTraining(idTraining);  
+                }
             }
             catch (Exception ex)
             {
@@ -50,10 +99,11 @@ namespace Business
                 data.CloseConnection();
             }
 
-            return true;
+            return auxTraining;
         }
 
-        public List<Training> List(int id)
+
+        public List<Training> ListByPartner(int idPartner)
         {
             data = new DataAccess();
             List<Training> trainingList = new List<Training>();
@@ -61,7 +111,7 @@ namespace Business
             try
             {
                 data.SetQuery("select * from Trainings where IdPartner = @IdPartner");
-                data.SetParameter("@IdPartner", id);
+                data.SetParameter("@IdPartner", idPartner);
                 data.ExecuteRead();
 
                 while (data.Reader.Read())
@@ -70,6 +120,7 @@ namespace Business
                     Training auxTraining = new Training();
 
                     auxTraining.idTraining = int.Parse(data.Reader["IdTraining"].ToString());
+                    auxTraining.idPartner = idPartner;
                     auxTraining.Name = data.Reader["TrainingName"].ToString();
                     auxTraining.Description = data.Reader["TrainingDescription"].ToString();
                     auxTraining.Type = trainingTypeBusiness.Read(int.Parse(data.Reader["IdType"].ToString()));

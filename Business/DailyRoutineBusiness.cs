@@ -16,19 +16,19 @@ namespace Business
         public bool Create(DailyRoutine dailyRoutine)
         {
             data = new DataAccess();
-
+            int rows;
             try
             {
                 data.SetQuery("INSERT INTO DailyRoutines(IdTraining,DailyRoutineDate) VALUES(@IdTraining, @DailyRoutineDate)");
                 data.SetParameter("@IdTraining", dailyRoutine.idTraining);
                 data.SetParameter("@DailyRoutineDate", dailyRoutine.dailyRoutineDate);
 
-                data.ExecuteAction();
+                rows = data.ExecuteAction();
 
             }
             catch (Exception ex)
             {
-
+                rows = 0;
                 throw ex;
             }
             finally
@@ -36,7 +36,7 @@ namespace Business
                 data.CloseConnection();
             }
 
-            return true;
+            return (rows > 0);
         }
 
         public DailyRoutine Read(int idDailyRoutine)
@@ -56,7 +56,7 @@ namespace Business
                 {
                     dailyRoutine.idDailyRoutine = idDailyRoutine;
                     dailyRoutine.idTraining = int.Parse(data.Reader["IdTraining"].ToString());
-                    dailyRoutine.dailyRoutineDate= DateTime.Parse(data.Reader["DailyRoutineDate"].ToString());
+                    dailyRoutine.dailyRoutineDate = DateTime.Parse(data.Reader["DailyRoutineDate"].ToString());
 
                     dailyRoutine.exercisesList = exerciseBusiness.ListByDailyRoutine(idDailyRoutine);
                 }

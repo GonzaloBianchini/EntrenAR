@@ -79,22 +79,18 @@
     <Content Include="LabelControl.ascx" />
     <Content Include="NewTraining.aspx" />
     <Content Include="NewTrainer.aspx" />
-    <Content Include="AdminPanel.aspx" />
     <Content Include="Toast.ascx" />
     <Content Include="ViewPartners.aspx" />
-    <Content Include="PartnerRequest.aspx" />
     <Content Include="ViewTrainers.aspx" />
     <Content Include="zSuperadoViewPartner.aspx" />
     <Content Include="zSuperadoViewTrainer.aspx" />
     <Content Include="Content\MyStyles.css" />
     <Content Include="ViewTrainings.aspx" />
-    <Content Include="ViewRoutine.aspx" />
     <Content Include="NewExercise.aspx" />
     <Content Include="ViewExercises.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
     <Content Include="NewPartner.aspx" />
-    <Content Include="TrainerRequests.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -161,13 +157,6 @@
     <Compile Include="NewTrainer.aspx.designer.cs">
       <DependentUpon>NewTrainer.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AdminPanel.aspx.cs">
-      <DependentUpon>AdminPanel.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="AdminPanel.aspx.designer.cs">
-      <DependentUpon>AdminPanel.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Toast.ascx.cs">
       <DependentUpon>Toast.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -181,13 +170,6 @@
     </Compile>
     <Compile Include="ViewPartners.aspx.designer.cs">
       <DependentUpon>ViewPartners.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="PartnerRequest.aspx.cs">
-      <DependentUpon>PartnerRequest.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="PartnerRequest.aspx.designer.cs">
-      <DependentUpon>PartnerRequest.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewTrainers.aspx.cs">
       <DependentUpon>ViewTrainers.aspx</DependentUpon>
@@ -216,13 +198,6 @@
     </Compile>
     <Compile Include="ViewTrainings.aspx.designer.cs">
       <DependentUpon>ViewTrainings.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ViewRoutine.aspx.cs">
-      <DependentUpon>ViewRoutine.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewRoutine.aspx.designer.cs">
-      <DependentUpon>ViewRoutine.aspx</DependentUpon>
     </Compile>
     <Compile Include="AllMaster.Master.cs">
       <DependentUpon>AllMaster.Master</DependentUpon>
@@ -262,13 +237,6 @@
     </Compile>
     <Compile Include="NewPartner.aspx.designer.cs">
       <DependentUpon>NewPartner.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="TrainerRequests.aspx.cs">
-      <DependentUpon>TrainerRequests.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="TrainerRequests.aspx.designer.cs">
-      <DependentUpon>TrainerRequests.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

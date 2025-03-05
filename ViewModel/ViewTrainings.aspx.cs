@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Runtime.ConstrainedExecution;
 
 namespace ViewModel
 {
@@ -35,9 +36,9 @@ namespace ViewModel
                 {
                     loadTrainers();
                 }
-                else if (partner.trainingList.Count >= 0)
+                else /*if (partner.trainingList.Count >= 0)*/
                 {
-                    loadTrainings(partner);
+                    enableTrainings(partner);
                 }
             }
         }
@@ -47,6 +48,13 @@ namespace ViewModel
             PartnerBusiness partnerBusiness = new PartnerBusiness();
 
             return partnerBusiness.hasAnyRequestSent(idPartner);
+        }
+
+        protected void loadLabelRequestSent()
+        {
+            pnlSelectTrainers.Visible = false;
+            pnlRequestSent.Visible = true;
+            pnlTrainings.Visible = false;
         }
 
         protected bool canSendRequest(int idPartner)
@@ -71,30 +79,56 @@ namespace ViewModel
             ddlTrainers.DataBind();
         }
 
-        protected void loadTrainings(Partner partner)
+        protected void enableTrainings(Partner partner)
         {
-            if(partner.trainingList.Count == 0)
+
+            pnlSelectTrainers.Visible = false;
+            pnlRequestSent.Visible = false;
+            pnlTrainings.Visible = true;
+
+            if (partner.trainingList.Count == 0)
             {
                 lblNoTrainings.Visible = true;
-                pnlSelectTrainers.Visible = false;
+                dgvTrainings.Visible = false;
+                enableRoutines(false);
             }
             else
             {
                 lblNoTrainings.Visible = false;
-                pnlTrainings.Visible = true;
-
+                dgvTrainings.Visible = true;
                 dgvTrainings.DataSource = partner.trainingList;
                 dgvTrainings.DataBind();
+                enableRoutines(true);
             }
         }
 
-        protected void loadLabelRequestSent()
+        protected void enableRoutines(bool flag)
         {
-            pnlSelectTrainers.Visible = false;
-            pnlRequestSent.Visible = true;
-            pnlTrainings.Visible = false;
+            if (flag)
+            {
+                pnlRoutines.Visible = true;
+
+            }
+            else
+            {
+                pnlRoutines.Visible = false;
+            }
+            enableExercises(false);
         }
 
+        protected void enableExercises(bool flag)
+        {
+            if (flag)
+            {
+                pnlExercises.Visible = true;
+            }
+            else
+            {
+                pnlExercises.Visible = false;
+            }
+        }
+
+        //EVENTOS BOTONES
         protected void btnSendRequest_Click(object sender, EventArgs e)
         {
             Request request = new Request();
@@ -112,9 +146,34 @@ namespace ViewModel
             loadLabelRequestSent();
         }
 
-        protected void btnViewTraining_Click(object sender, EventArgs e)
+        protected void btnViewTraining_Command(object sender, CommandEventArgs e)
         {
-            //ACA DEBO CARGAR TODAS LAS RUTINAS EN TARJETAS PROBABLEMENTE...
+            int idTraining = int.Parse(e.CommandArgument.ToString());
+
+            DailyRoutineBusiness dailyRoutineBusiness = new DailyRoutineBusiness();
+            List<DailyRoutine> dailyRoutinesList = new List<DailyRoutine>();
+
+            dailyRoutinesList = dailyRoutineBusiness.ListByTraining(idTraining);
+
+            enableRoutines(true);
+            dgvRutines.DataSource = dailyRoutinesList;
+            dgvRutines.DataBind();
+        }
+
+        
+
+        protected void btnRoutine_Command(object sender, CommandEventArgs e)
+        {
+            int idDailyRoutine = int.Parse(e.CommandArgument.ToString());
+
+            ExerciseBusiness exerciseBusiness = new ExerciseBusiness();
+            List<Exercise> exercisesList = new List<Exercise>();
+
+            exercisesList = exerciseBusiness.ListByDailyRoutine(idDailyRoutine);
+
+            enableExercises(true);
+            dgvExercises.DataSource = exercisesList;
+            dgvExercises.DataBind();
         }
     }
 }

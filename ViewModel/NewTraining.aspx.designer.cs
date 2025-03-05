@@ -15,6 +15,15 @@ namespace ViewModel
     {
 
         /// <summary>
+        /// ucToast control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::ViewModel.Toast ucToast;
+
+        /// <summary>
         /// lblPartnerName control.
         /// </summary>
         /// <remarks>
@@ -49,6 +58,24 @@ namespace ViewModel
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtTrainingName;
+
+        /// <summary>
+        /// rfvTrainingName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvTrainingName;
+
+        /// <summary>
+        /// cvTrainingName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator cvTrainingName;
 
         /// <summary>
         /// lblTrainingDescription control.
@@ -96,6 +123,15 @@ namespace ViewModel
         protected global::System.Web.UI.WebControls.TextBox txtStartDate;
 
         /// <summary>
+        /// rfvStartDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvStartDate;
+
+        /// <summary>
         /// lblEndDate control.
         /// </summary>
         /// <remarks>
@@ -114,6 +150,24 @@ namespace ViewModel
         protected global::System.Web.UI.WebControls.TextBox txtEndDate;
 
         /// <summary>
+        /// rfvEndDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvEndDate;
+
+        /// <summary>
+        /// cvEndDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator cvEndDate;
+
+        /// <summary>
         /// btnCreateTraining control.
         /// </summary>
         /// <remarks>
@@ -121,6 +175,15 @@ namespace ViewModel
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCreateTraining;
+
+        /// <summary>
+        /// pnlNewDailyRoutine control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlNewDailyRoutine;
 
         /// <summary>
         /// lblTrainings control.
@@ -141,6 +204,24 @@ namespace ViewModel
         protected global::System.Web.UI.WebControls.DropDownList ddlTrainings;
 
         /// <summary>
+        /// lblStartDateLimit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblStartDateLimit;
+
+        /// <summary>
+        /// lblEndDateLimit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEndDateLimit;
+
+        /// <summary>
         /// lblDailyRoutineDate control.
         /// </summary>
         /// <remarks>
@@ -159,6 +240,24 @@ namespace ViewModel
         protected global::System.Web.UI.WebControls.TextBox txtDailyRoutineDate;
 
         /// <summary>
+        /// rfvDailyRoutineDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvDailyRoutineDate;
+
+        /// <summary>
+        /// cvDailyRoutineDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator cvDailyRoutineDate;
+
+        /// <summary>
         /// btnAddDailyRoutine control.
         /// </summary>
         /// <remarks>
@@ -166,6 +265,15 @@ namespace ViewModel
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnAddDailyRoutine;
+
+        /// <summary>
+        /// pnlNewExercise control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlNewExercise;
 
         /// <summary>
         /// lblDailyRoutines control.
@@ -258,6 +366,24 @@ namespace ViewModel
         protected global::System.Web.UI.WebControls.TextBox txtWeight;
 
         /// <summary>
+        /// rfvWeight control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvWeight;
+
+        /// <summary>
+        /// revWeight control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator revWeight;
+
+        /// <summary>
         /// lblRestTime control.
         /// </summary>
         /// <remarks>
@@ -274,6 +400,24 @@ namespace ViewModel
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtRestTime;
+
+        /// <summary>
+        /// rfvRestTime control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvRestTime;
+
+        /// <summary>
+        /// revRestTime control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator revRestTime;
 
         /// <summary>
         /// btnAddExercise control.

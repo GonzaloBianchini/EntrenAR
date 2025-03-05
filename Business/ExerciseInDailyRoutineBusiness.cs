@@ -18,6 +18,7 @@ namespace Business
 
         public bool Create(int idDailyRoutine,Exercise exercise)
         {
+            //TODO: modificar el SP para que devuelva y pueda detectar el bool del ejercicio creado! 
             data = new DataAccess();
 
             try

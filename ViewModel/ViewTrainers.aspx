@@ -91,7 +91,7 @@
                                         </div>
 
                                         <div class="card p-3 mt-4">
-                                            <h4><i class="bi bi-person-badge"></i>Trainer</h4>
+                                            <h4><i class="bi bi-person-badge"></i>Partners</h4>
 
                                             <%--ESTA ETIQUETA JUEGA CUANDO NO HAY PARTNERS--%>
                                             <asp:Label ID="lblNoPartners" Text="NO HAY PARTNERS ASIGNAD@S" CssClass="h5" runat="server" />

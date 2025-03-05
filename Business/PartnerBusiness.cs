@@ -113,7 +113,7 @@ namespace Business
 
                     auxPartner.address = addressBusiness.Read(int.Parse(data.Reader["IdAddress"].ToString()));
 
-                    auxPartner.trainingList = trainingBusiness.List(auxPartner.idPartner);
+                    auxPartner.trainingList = trainingBusiness.ListByPartner(auxPartner.idPartner);
                 }
             }
             catch (Exception ex)
@@ -252,10 +252,15 @@ namespace Business
                 while (data.Reader.Read())
                 {
                     statusPartnerBusiness = new StatusPartnerBusiness();
+                    
+                    userBusiness = new UserBusiness();
+                    auxUser = new User();
+                    auxUser = userBusiness.Read(int.Parse(data.Reader["IdUser"].ToString()));
 
                     Partner auxPartner = new Partner();
                     auxPartner.idPartner = int.Parse(data.Reader["IdPartner"].ToString());
-                    auxPartner.idUser = int.Parse(data.Reader["IdUser"].ToString());
+                    auxPartner.idUser = auxUser.idUser; /*int.Parse(data.Reader["IdUser"].ToString());*/
+                    auxPartner.userName = auxUser.userName;
                     auxPartner.status = statusPartnerBusiness.Read(int.Parse(data.Reader["IdStatus"].ToString()));
 
                     auxPartner.dni = int.Parse(data.Reader["Dni"].ToString());
