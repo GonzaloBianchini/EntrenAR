@@ -143,5 +143,39 @@ namespace Business
 
             return trainingList;
         }
+
+        public Dictionary<string,int> getTrainingsByType()
+        {
+            data = new DataAccess();
+            Dictionary<string, int> auxDict = new Dictionary<string, int>();
+
+            string key;
+            int value;
+
+            try
+            {
+                data.SetQuery("SELECT TT.TrainingTypeName, COUNT(T.IdTraining) AS TrainingsQty FROM Trainings T INNER JOIN TrainingTypes TT ON T.IdType = TT.IdType GROUP BY TT.TrainingTypeName");
+                data.ExecuteRead();
+
+                while(data.Reader.Read())
+                {
+                    key = data.Reader["TrainingTypeName"].ToString();
+                    value = int.Parse(data.Reader["TrainingsQty"].ToString());
+
+                    auxDict.Add(key, value);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                data.CloseConnection();
+            }
+
+            return auxDict;
+        }
     }
 }

@@ -52,7 +52,7 @@ namespace Business
 
                 data.Reader.Read();
                 lastIndex = int.Parse(data.Reader["LastId"].ToString());
-                if(lastIndex != 0)
+                if (lastIndex != 0)
                 {
                     success = true;
                 }
@@ -144,14 +144,14 @@ namespace Business
                 auxUser.userPassword = partner.userPassword;
                 auxUser.role = partner.role;
 
-                if(userBusiness.Update(auxUser))
+                if (userBusiness.Update(auxUser))
                 {
                     rows = 1;   //si actualiza User, lo detecto...
                 }
 
                 auxAddress = partner.address;
 
-                if(addressBusiness.Update(auxAddress))
+                if (addressBusiness.Update(auxAddress))
                 {
                     rows = rows + 1;   //si actualiza Address, lo detecto...
                 }
@@ -252,7 +252,7 @@ namespace Business
                 while (data.Reader.Read())
                 {
                     statusPartnerBusiness = new StatusPartnerBusiness();
-                    
+
                     userBusiness = new UserBusiness();
                     auxUser = new User();
                     auxUser = userBusiness.Read(int.Parse(data.Reader["IdUser"].ToString()));
@@ -353,6 +353,40 @@ namespace Business
             }
 
             return flag;
+        }
+
+        public Dictionary<string, int> getPartnersByProvince()
+        {
+            data = new DataAccess();
+
+            Dictionary<string, int> auxDict = new Dictionary<string, int>();
+
+            string key;
+            int value;
+
+            try
+            {
+                data.SetQuery("SELECT P.ProvinceName, COUNT(PA.IdPartner) AS PartnersQty FROM Partners PA INNER JOIN Addresses A ON PA.IdAddress = A.IdAddress INNER JOIN Provinces P ON A.IdProvince = P.IdProvince WHERE PA.ActiveStatus = 1 GROUP BY P.ProvinceName");
+                data.ExecuteRead();
+
+                while (data.Reader.Read())
+                {
+                    key = data.Reader["ProvinceName"].ToString();
+                    value = int.Parse(data.Reader["PartnersQty"].ToString());
+
+                    auxDict.Add(key, value);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                data.CloseConnection();
+            }
+
+            return auxDict;
         }
     }
 }

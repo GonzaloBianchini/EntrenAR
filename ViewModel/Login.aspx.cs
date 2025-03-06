@@ -32,6 +32,7 @@ namespace ViewModel
         {
             if (Page.IsValid)
             {
+                Session.Add("firstTimeLoggedIn", true);
                 Response.Redirect("~/Dashboard.aspx", false);
             }
             else
@@ -81,13 +82,7 @@ namespace ViewModel
             {
                 Response.Redirect("~/Error.aspx", false); // Redirige a la página de error
                 //throw;
-
             }
         }
-
-        //protected void btnControlUC_Click(object sender, EventArgs e)
-        //{
-        //    ucToast.ShowToast("PRUEBA", "Cambios Guardados Exitosamente!", "bi-exclamation-triangle-fill", "text-warning");
-        //}
     }
 }

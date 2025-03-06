@@ -49,8 +49,8 @@
             <div class="container">
                 <a class="navbar-brand fw-bold" href="#">ENTREN<span class="text-warning">AR</span></a>
                 <div class="d-flex">
-                    <asp:Button runat="server" ID="btnRegistrarme" Text="Registrarme" OnClick="btnRegistrarme_Click" class="btn btn-outline-secondary me-2" />
-                    <asp:Button runat="server" ID="btnLogin" Text="LOGIN" OnClick="btnLogin_Click" class="btn btn-warning" />
+                    <asp:Button runat="server" ID="btnRegistrarme" Text="Registrarme" OnClick="btnRegistrarme_Click" CssClass="btn btn-lg fw-bold btn-outline-warning" />
+                    <%--<asp:Button runat="server" ID="btnLogin" Text="LOGIN" OnClick="btnLogin_Click" CssClass="btn btn-lg fw-bold btn-outline-warning" />--%>
                 </div>
             </div>
         </nav>
@@ -80,7 +80,7 @@
                     <asp:CustomValidator ID="cvUserPassword" ErrorMessage="Contraseña incorrecta..." ControlToValidate="txtUserPassword" OnServerValidate="cvUserPassword_ServerValidate" Display="Dynamic" ForeColor="Red" runat="server" />
                 </div>
                 <div class="d-grid">
-                    <asp:Button runat="server" Text="Ingresar" ID="btnIngresar" OnClick="btnIngresar_Click" class="btn btn-warning" />
+                    <asp:Button runat="server" Text="Ingresar" ID="btnIngresar" OnClick="btnIngresar_Click" CssClass="btn btn-lg fw-bold btn-outline-warning" />
                 </div>
             </div>
         </div>

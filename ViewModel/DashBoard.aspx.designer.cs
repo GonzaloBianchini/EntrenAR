@@ -33,6 +33,78 @@ namespace ViewModel
         protected global::System.Web.UI.WebControls.Panel AdminPanel;
 
         /// <summary>
+        /// lblTotalPartners control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTotalPartners;
+
+        /// <summary>
+        /// lblPartnersAssigned control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPartnersAssigned;
+
+        /// <summary>
+        /// lblPartnersAvailable control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPartnersAvailable;
+
+        /// <summary>
+        /// lblPartnersPending control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPartnersPending;
+
+        /// <summary>
+        /// lblTrainers control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTrainers;
+
+        /// <summary>
+        /// lblPartnersFemale control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPartnersFemale;
+
+        /// <summary>
+        /// lblPartnersMale control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPartnersMale;
+
+        /// <summary>
+        /// lblPartnersNotInformed control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPartnersNotInformed;
+
+        /// <summary>
         /// TrainerPanel control.
         /// </summary>
         /// <remarks>

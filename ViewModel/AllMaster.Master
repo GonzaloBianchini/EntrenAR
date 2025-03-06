@@ -60,10 +60,12 @@
                     <nav class="navbar navbar-expand-lg navbar-custom">
                         <div class="container-fluid">
                             <%--ACA EL SIGUIENTE SPAN DEBERIA DE SER UN CONTROL TIPO ASP:LABEL PARA PONER EL NOMBRE DEL ROL ACTIVO--%>
-                            <span class="navbar-brand">ADMIN</span>
+                            <%--<span class="navbar-brand">ADMIN</span>--%>
+                            <asp:Label ID="lblUserType" Text="" runat="server" />
                             <div class="d-flex">
-                                <span class="navbar-text me-3">Usuario: admin</span>
-                                <a href="#" class="nav-link">Cerrar sesión</a>
+                                <span class="navbar-text me-3">Usuario: </span>
+                                <asp:Label ID="lblUserName" Text="" class="navbar-text me-3" runat="server" />
+                                <asp:Button ID="btnLogOut" Text="Cerrar Sesion" OnClick="btnLogOut_Click" CssClass="btn btn-lg fw-bold btn-outline-warning" runat="server" />
                             </div>
                         </div>
                     </nav>

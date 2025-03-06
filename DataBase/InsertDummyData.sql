@@ -30,12 +30,12 @@ INSERT INTO Users (IdRole, UserNickName, UserPassword)
 VALUES (2, 'trainer_user', 'trainer'); -- trainer tiene IdRole = 2
 
 
-EXEC insert_partner 'partner1','PartnerPass1',3,1,12345678,'John', 'Doe', 'Male','john.doe@example.com', '123456789', '1990-01-01', 1
-EXEC insert_partner 'partner2','PartnerPass2',3,1,23456789, 'Jane', 'Doe', 'Female', 'jane.doe@example.com', '987654321', '1991-02-02', 2
-EXEC insert_partner 'partner3','PartnerPass3',3,1,34567890, 'Alice', 'Smith', 'Female', 'alice.smith@example.com', '567890123', '1992-03-03', 3
-EXEC insert_partner 'partner4','PartnerPass4',3,1,45678901, 'Bob', 'Brown', 'Male', 'bob.brown@example.com', '890123456', '1993-04-04', 4
-EXEC insert_partner 'partner5','PartnerPass5',3,1,56789012, 'Charlie', 'Johnson', 'Male', 'charlie.johnson@example.com', '345678901', '1994-05-05', 5
-EXEC insert_partner 'partner6','PartnerPass6',3,1,67890123, 'Eve', 'Davis', 'Female', 'eve.davis@example.com', '123890456', '1995-06-06', 6;
+EXEC insert_partner 'partner1','PartnerPass1',3,1,12345678,'John', 'Doe', 'Masculino','john.doe@example.com', '123456789', '1990-01-01', 1
+EXEC insert_partner 'partner2','PartnerPass2',3,1,23456789, 'Jane', 'Doe', 'Femenino', 'jane.doe@example.com', '987654321', '1991-02-02', 2
+EXEC insert_partner 'partner3','PartnerPass3',3,1,34567890, 'Alice', 'Smith', 'Femenino', 'alice.smith@example.com', '567890123', '1992-03-03', 3
+EXEC insert_partner 'partner4','PartnerPass4',3,1,45678901, 'Bob', 'Brown', 'Masculino', 'bob.brown@example.com', '890123456', '1993-04-04', 4
+EXEC insert_partner 'partner5','PartnerPass5',3,1,56789012, 'Charlie', 'Johnson', 'Masculino', 'charlie.johnson@example.com', '345678901', '1994-05-05', 5
+EXEC insert_partner 'partner6','PartnerPass6',3,1,67890123, 'Eve', 'Davis', 'Femenino', 'eve.davis@example.com', '123890456', '1995-06-06', 6;
 
 EXEC insert_trainer 'trainer1','TrainerPass1',2,'Entrenador 1','Apellido 1',78901234,'trainer1@example.com','123666456'
 EXEC insert_trainer 'trainer2','TrainerPass2',2,'Entrenador 2','Apellido 2',89012345,'trainer2@example.com','123777456'
@@ -46,11 +46,12 @@ EXEC insert_trainer 'gonzoo','holaqueTal123',2,'Gonzalo','Bianchini',99012345,'g
 -- select * from Users
 -- SELECT * from Trainers
 -- SELECT * from Partners
--- SELECT * from PartnersByTrainer
 -- SELECT * from Addresses
 -- SELECT * FROM Provinces
+-- SELECT * from PartnersByTrainer
 -- SELECT * FROM Exercises
--- Select * from ROLES
 -- select * from Requests
-
+-- select * from Trainings
+-- select * from DailyRoutines
+-- select * from ExercisesInDailyRoutine
 
