@@ -30,6 +30,7 @@ namespace Business
             bool success;
 
             addressBusiness = new AddressBusiness();
+
             try
             {
                 data.SetStoredProcedure("insert_partner");
@@ -343,7 +344,7 @@ namespace Business
 
             return partnersList;
         }
-        //TODO PONER TRY CATCH Y PONER LOS RETURN LUEGO DEL DATACLOSECONECCTION
+
         public bool hasAnyRequestSent(int idPartner)
         {
             data = new DataAccess();

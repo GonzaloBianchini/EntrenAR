@@ -11,12 +11,13 @@ namespace ViewModel
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            lblErrorMessage.Text = string.IsNullOrEmpty(Session["error"].ToString()) ? "Ocurrio un Error desconocido" : Session["error"].ToString();
+            Session.Remove("user");
         }
 
         protected void btnVolver_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/Dashboard.aspx",false); // Redirige a la página principal
+            Response.Redirect("Login.aspx",false); // Redirige a la página principal
         }
     }
 }

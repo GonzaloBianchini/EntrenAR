@@ -38,20 +38,16 @@
             }
         }
     </style>--%>
-
-
-
 </head>
 <body>
     <form id="form1" runat="server">
         <!-- Barra de división superior -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
-                <a class="navbar-brand fw-bold" href="#">ENTREN<span class="text-warning">AR</span></a>
-                <div class="d-flex">
+                <a class="navbar-brand fw-bold">ENTREN<span class="text-warning">AR</span></a>
+                <%--<div class="d-flex">
                     <asp:Button runat="server" ID="btnRegistrarme" Text="Registrarme" OnClick="btnRegistrarme_Click" CssClass="btn btn-lg fw-bold btn-outline-warning" />
-                    <%--<asp:Button runat="server" ID="btnLogin" Text="LOGIN" OnClick="btnLogin_Click" CssClass="btn btn-lg fw-bold btn-outline-warning" />--%>
-                </div>
+                </div>--%>
             </div>
         </nav>
 
@@ -85,9 +81,9 @@
             </div>
         </div>
 
-        
+
         <%--TOAST!--%>
-        <uc:Toast  ID="ucToast" runat="server" />
+        <uc:Toast ID="ucToast" runat="server" />
 
         <%--<button runat="server" onserverclick="btnCambiarMensaje_Click">Cambiar Mensaje</button>--%>
         <%--<asp:Button ID="btnControlUC" Text="CHANGE!" OnClick="btnControlUC_Click" CssClass="btn-primary" runat="server" />--%>
@@ -151,7 +147,6 @@
                 }
             });
         </script>--%>
-
     </form>
 </body>
 </html>

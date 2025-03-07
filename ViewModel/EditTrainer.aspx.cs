@@ -32,7 +32,8 @@ namespace ViewModel
                 }
                 catch (Exception)
                 {
-                    throw;
+                    Session.Add("error", "Problemas en Edicion de Trainer =(");
+                    Response.Redirect("Error.aspx", true);
                 }
             }
         }
@@ -54,13 +55,15 @@ namespace ViewModel
             }
             catch (Exception)
             {
-                throw;
+                Session.Add("error", "Problemas en Edicion de Trainer =(");
+                Response.Redirect("Error.aspx", true);
             }
         }
 
         protected void btnEditTrainer_Click(object sender, EventArgs e)
         {
-            if(Page.IsValid)
+            
+            if (Page.IsValid)
             {
                 try
                 {
@@ -79,10 +82,10 @@ namespace ViewModel
                     trainer.phone = txtPhone.Text;
                     trainer.email = txtEmail.Text;
 
-                    if(trainerBusiness.Update(trainer))
+                    if (trainerBusiness.Update(trainer))
                     {
-                        Session.Add("edited",true);
-                        Response.Redirect("ViewTrainers.aspx",false);
+                        Session.Add("edited", true);
+                        Response.Redirect("ViewTrainers.aspx", false);
                     }
                     else
                     {
@@ -91,63 +94,87 @@ namespace ViewModel
                 }
                 catch (Exception)
                 {
-
-                    throw;
+                    Session.Add("error", "Problemas en Edicion de Trainer =(");
+                    Response.Redirect("Error.aspx", true);
                 }
             }
         }
 
         protected void cvUserName_ServerValidate(object source, ServerValidateEventArgs e)
         {
-            UserBusiness userBusiness = new UserBusiness();
-            List<string> userNamesAlreadyUsed = new List<string>();
-
-            userNamesAlreadyUsed = userBusiness.List().Select(u => u.userName).ToList();    //me quedo con los userName...
-            userNamesAlreadyUsed.Remove(lblTxtOldUserName.Text);                            //saco de la lista de prohibidos, al User viejo...
-
-            if (userNamesAlreadyUsed.Contains(e.Value))
+            try
             {
-                e.IsValid = false;
+                UserBusiness userBusiness = new UserBusiness();
+                List<string> userNamesAlreadyUsed = new List<string>();
+
+                userNamesAlreadyUsed = userBusiness.List().Select(u => u.userName).ToList();    //me quedo con los userName...
+                userNamesAlreadyUsed.Remove(lblTxtOldUserName.Text);                            //saco de la lista de prohibidos, al User viejo...
+
+                if (userNamesAlreadyUsed.Contains(e.Value))
+                {
+                    e.IsValid = false;
+                }
+                else
+                {
+                    e.IsValid = true;
+                }
             }
-            else
+            catch (Exception)
             {
-                e.IsValid = true;
+                Session.Add("error", "Problemas en Edicion de Trainer =(");
+                Response.Redirect("Error.aspx", true);
             }
         }
 
         protected void cvDni_ServerValidate(object source, ServerValidateEventArgs e)
         {
-            trainerBusiness = new TrainerBusiness();
-            List<int> dniNumbersAlreadyUsed = new List<int>();
-
-            dniNumbersAlreadyUsed = trainerBusiness.List().Select(u => u.dni).ToList();     //me quedo con los dni...
-            dniNumbersAlreadyUsed.Remove(int.Parse(lblTxtOldDni.Text));                     //saco de la lista de prohibidos, al Dni viejo...
-
-            if (dniNumbersAlreadyUsed.Contains(int.Parse(e.Value)))
+            try
             {
-                e.IsValid = false;
+                trainerBusiness = new TrainerBusiness();
+                List<int> dniNumbersAlreadyUsed = new List<int>();
+
+                dniNumbersAlreadyUsed = trainerBusiness.List().Select(u => u.dni).ToList();     //me quedo con los dni...
+                dniNumbersAlreadyUsed.Remove(int.Parse(lblTxtOldDni.Text));                     //saco de la lista de prohibidos, al Dni viejo...
+
+                if (dniNumbersAlreadyUsed.Contains(int.Parse(e.Value)))
+                {
+                    e.IsValid = false;
+                }
+                else
+                {
+                    e.IsValid = true;
+                }
             }
-            else
+            catch (Exception)
             {
-                e.IsValid = true;
+                Session.Add("error", "Problemas en Edicion de Trainer =(");
+                Response.Redirect("Error.aspx", true);
             }
         }
 
         protected void cvEmail_ServerValidate(object source, ServerValidateEventArgs e)
         {
-            trainerBusiness = new TrainerBusiness();
-            List<string> emailNamesAlreadyUsed = new List<string>();
-
-            emailNamesAlreadyUsed = trainerBusiness.List().Select(u => u.email).ToList();   //me quedo con los email...
-            emailNamesAlreadyUsed.Remove(lblTxtOldEmail.Text);
-
-            if (emailNamesAlreadyUsed.Contains(e.Value))
+            try
             {
-                e.IsValid = false;
+                trainerBusiness = new TrainerBusiness();
+                List<string> emailNamesAlreadyUsed = new List<string>();
+
+                emailNamesAlreadyUsed = trainerBusiness.List().Select(u => u.email).ToList();   //me quedo con los email...
+                emailNamesAlreadyUsed.Remove(lblTxtOldEmail.Text);
+
+                if (emailNamesAlreadyUsed.Contains(e.Value))
+                {
+                    e.IsValid = false;
+                }
+                else
+                {
+                    e.IsValid = true;
+                }
             }
-            else
+            catch (Exception)
             {
-                e.IsValid = true;
+                Session.Add("error", "Problemas en Edicion de Trainer =(");
+                Response.Redirect("Error.aspx", true);
             }
         }
     }

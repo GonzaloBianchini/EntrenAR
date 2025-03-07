@@ -52,9 +52,10 @@ namespace ViewModel
                         ucToast.ShowToast("Alta Ejercicio", "El Ejercicio No se guardo...", "bi-x-circle-fill", "text-danger");
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    throw ex;
+                    Session.Add("error", "Problemas en la creacion de Ejercicio =(");
+                    Response.Redirect("Error.aspx", true);
                 }
             }
         }
@@ -68,18 +69,26 @@ namespace ViewModel
 
         protected void cvExerciseName_ServerValidate(object source, ServerValidateEventArgs e)
         {
-            exerciseBusiness = new ExerciseBusiness();
-            List<string> exerciseNamesAlreadyUsed = new List<string>();
-
-            exerciseNamesAlreadyUsed = exerciseBusiness.List().Select(u => u.Name).ToList();    //me quedo con los exerciseName...
-
-            if (exerciseNamesAlreadyUsed.Contains(e.Value))
+            try
             {
-                e.IsValid = false;
+                exerciseBusiness = new ExerciseBusiness();
+                List<string> exerciseNamesAlreadyUsed = new List<string>();
+
+                exerciseNamesAlreadyUsed = exerciseBusiness.List().Select(u => u.Name).ToList();    //me quedo con los exerciseName...
+
+                if (exerciseNamesAlreadyUsed.Contains(e.Value))
+                {
+                    e.IsValid = false;
+                }
+                else
+                {
+                    e.IsValid = true;
+                }
             }
-            else
+            catch (Exception)
             {
-                e.IsValid = true;
+                Session.Add("error", "Problemas en la creacion de Ejercicio =(");
+                Response.Redirect("Error.aspx", true);
             }
         }
     }

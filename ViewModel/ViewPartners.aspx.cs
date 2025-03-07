@@ -18,31 +18,40 @@ namespace ViewModel
         private Trainer trainer;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                partnerBusiness = new PartnerBusiness();
-                partnersList = new List<Partner>();
+                if (!IsPostBack)
+                {
+                    partnerBusiness = new PartnerBusiness();
+                    partnersList = new List<Partner>();
 
-                partnersList = partnerBusiness.List();
+                    partnersList = partnerBusiness.List();
 
-                dgvPartnersList.DataSource = partnersList;
-                dgvPartnersList.DataBind();
+                    dgvPartnersList.DataSource = partnersList;
+                    dgvPartnersList.DataBind();
+                }
+
+                //Pregunto si volvi de una edicion
+                bool edited = (bool)(Session["edited"] ?? false);
+                bool created = (bool)(Session["created"] ?? false);
+
+                if (edited)
+                {
+                    ucToast.ShowToast("Editar Partner", "Partner Actualizad@!", "bi-check-circle-fill", "text-success");
+                    Session["edited"] = false;
+                }
+                else if (created)
+                {
+                    ucToast.ShowToast("Crear Partner", "Partner Cread@!", "bi-check-circle-fill", "text-success");
+                    Session["created"] = false;
+                }
+            }
+            catch (Exception)
+            {
+                Session.Add("error", "Problemas para ver Partners =(");
+                Response.Redirect("Error.aspx", true);
             }
 
-            //Pregunto si volvi de una edicion
-            bool edited = (bool)(Session["edited"] ?? false);
-            bool created = (bool)(Session["created"] ?? false);
-
-            if (edited)
-            {
-                ucToast.ShowToast("Editar Partner", "Partner Actualizad@!", "bi-check-circle-fill", "text-success");
-                Session["edited"] = false;
-            }
-            else if (created)
-            {
-                ucToast.ShowToast("Crear Partner", "Partner Cread@!", "bi-check-circle-fill", "text-success");
-                Session["created"] = false;
-            }
         }
 
         protected void btnViewPartner_Command(object sender, CommandEventArgs e)
@@ -75,27 +84,36 @@ namespace ViewModel
                 }
                 catch (Exception)
                 {
-                    throw;
+                    Session.Add("error", "Problemas para ver Partners =(");
+                    Response.Redirect("Error.aspx", true);
                 }
             }
         }
 
         protected void loadPersonalInformation(Partner partner)
         {
-            lblIdPartner.Text = partner.idPartner.ToString();
-            lblFirstName.Text = partner.firstName;
-            lblLastName.Text = partner.lastName;
-            lblDni.Text = partner.dni.ToString();
-            lblBirthDate.Text = partner.birthDate.ToShortDateString();
-            lblGender.Text = partner.gender.ToString();
-            lblCountry.Text = partner.address.country;
-            lblUserName.Text = partner.userName;
-            lblAddress.Text = partner.address.streetName + " " + partner.address.streetNumber;
-            lblCity.Text = partner.address.city;
-            lblProvince.Text = partner.address.province.name;
-            lblEmail.Text = partner.email;
-            lblPhone.Text = partner.phone;
-            lblStatusPartner.Text = partner.status.Name;
+            try
+            {
+                lblIdPartner.Text = partner.idPartner.ToString();
+                lblFirstName.Text = partner.firstName;
+                lblLastName.Text = partner.lastName;
+                lblDni.Text = partner.dni.ToString();
+                lblBirthDate.Text = partner.birthDate.ToShortDateString();
+                lblGender.Text = partner.gender.ToString();
+                lblCountry.Text = partner.address.country;
+                lblUserName.Text = partner.userName;
+                lblAddress.Text = partner.address.streetName + " " + partner.address.streetNumber;
+                lblCity.Text = partner.address.city;
+                lblProvince.Text = partner.address.province.name;
+                lblEmail.Text = partner.email;
+                lblPhone.Text = partner.phone;
+                lblStatusPartner.Text = partner.status.Name;
+            }
+            catch (Exception)
+            {
+                Session.Add("error", "Problemas para ver Partners =(");
+                Response.Redirect("Error.aspx", true);
+            }
         }
 
         protected void loadTrainingList(Partner partner)
@@ -117,86 +135,124 @@ namespace ViewModel
 
         protected void loadTrainerAndControls(Partner partner, Trainer trainer)
         {
-            if (trainer.idTrainer == 0) //NO HAY PARTNER ASOCIAD@,ENTONCES MANDALE A BUSCAR TRAINER...
+            try
             {
-                btnManagePartner.Visible = false;   // NO TE DEJO METER ENTRENAMIENTOS SI NO HAY TRAINER ASOCIAD@
-
-                lblNoTrainer.Visible = true;
-                dgvTrainer.Visible = false;
-                lblRequestSent.Visible = false;
-
-                if (canSendRequest(partner.idPartner))
+                if (trainer.idTrainer == 0) //NO HAY PARTNER ASOCIAD@,ENTONCES MANDALE A BUSCAR TRAINER...
                 {
-                    btnLetsGoTraining.Visible = true;
-                    btnLetsGoTraining.Text = "SOLICITAR TRAINER";
+                    btnManagePartner.Visible = false;   // NO TE DEJO METER ENTRENAMIENTOS SI NO HAY TRAINER ASOCIAD@
+
+                    lblNoTrainer.Visible = true;
+                    dgvTrainer.Visible = false;
                     lblRequestSent.Visible = false;
+
+                    if (canSendRequest(partner.idPartner))
+                    {
+                        btnLetsGoTraining.Visible = true;
+                        btnLetsGoTraining.Text = "SOLICITAR TRAINER";
+                        lblRequestSent.Visible = false;
+                    }
+                    else if (hasAnyRequestSent(partner.idPartner))
+                    {
+                        btnLetsGoTraining.Visible = false;
+                        lblRequestSent.Visible = true;
+                    }
                 }
-                else if (hasAnyRequestSent(partner.idPartner))
+                else //SI HAY PARTNER ASOCIAD@
                 {
-                    btnLetsGoTraining.Visible = false;
-                    lblRequestSent.Visible = true;
+                    if (((User)Session["user"]).role.IdRole == 2)        //Si se logueo un Trainer...
+                    {
+                        Trainer trainerLoggedIn = new Trainer();
+                        trainerBusiness = new TrainerBusiness();
+                        trainerLoggedIn = trainerBusiness.ReadByUser(((User)Session["user"]).idUser);
+
+                        if (trainerLoggedIn.idTrainer == trainer.idTrainer)     //Si le trainer en session es el trainerBound
+                        {
+                            btnManagePartner.Visible = true;
+                        }
+                        else
+                        {
+                            btnManagePartner.Visible = false;
+                        }
+                    }
+                    else // POR ACA ENTRO SI ES ADMIN...no hay otra opcion de llegar hasta aca, siendo partner
+                    {
+                        btnManagePartner.Visible = true;   // TE DEJO METER ENTRENAMIENTOS SI HAY TRAINER ASOCIAD@, pero SOLO SI SOS ADMIN o TRAINER CORRECT@
+                    }
+
+                    lblNoTrainer.Visible = false;
+                    dgvTrainer.Visible = true;
+                    dgvTrainer.DataSource = new List<Trainer> { trainer };
+                    dgvTrainer.DataBind();
+
+                    lblRequestSent.Visible = false;
+
+                    if (partner.trainingList.Count > 0) //tiene entrenamientos asociados, puede verlos...
+                    {
+                        btnLetsGoTraining.Visible = true;
+                        btnLetsGoTraining.Text = "VER ENTRENAMIENTOS";
+                    }
+                    else //NO tiene entrenamientos asociados, no puede verlos...primero que gestione alguno
+                    {
+                        btnLetsGoTraining.Visible = false;
+                    }
                 }
             }
-            else //SI HAY PARTNER ASOCIAD@
+            catch (Exception)
             {
-                if (((User)Session["user"]).role.IdRole == 2)        //Si se logueo un Trainer...
-                {
-                    Trainer trainerLoggedIn = new Trainer();
-                    trainerBusiness = new TrainerBusiness();
-                    trainerLoggedIn = trainerBusiness.ReadByUser(((User)Session["user"]).idUser);
-
-                    if (trainerLoggedIn.idTrainer == trainer.idTrainer)     //Si le trainer en session es el trainerBound
-                    {
-                        btnManagePartner.Visible = true;
-                    }
-                    else
-                    {
-                        btnManagePartner.Visible = false;
-                    }
-                }
-                else // POR ACA ENTRO SI ES ADMIN...no hay otra opcion de llegar hasta aca, siendo partner
-                {
-                    btnManagePartner.Visible = true;   // TE DEJO METER ENTRENAMIENTOS SI HAY TRAINER ASOCIAD@, pero SOLO SI SOS ADMIN o TRAINER CORRECT@
-                }
-
-                lblNoTrainer.Visible = false;
-                dgvTrainer.Visible = true;
-                dgvTrainer.DataSource = new List<Trainer> { trainer };
-                dgvTrainer.DataBind();
-
-                lblRequestSent.Visible = false;
-
-                if (partner.trainingList.Count > 0) //tiene entrenamientos asociados, puede verlos...
-                {
-                    btnLetsGoTraining.Visible = true;
-                    btnLetsGoTraining.Text = "VER ENTRENAMIENTOS";
-                }
-                else //NO tiene entrenamientos asociados, no puede verlos...primero que gestione alguno
-                {
-                    btnLetsGoTraining.Visible = false;
-                }
+                Session.Add("error", "Problemas para ver Partners =(");
+                Response.Redirect("Error.aspx", true);
             }
+
         }
 
         protected bool hasAnyRequestSent(int idPartner)
         {
-            PartnerBusiness partnerBusiness = new PartnerBusiness();
+            try
+            {
+                PartnerBusiness partnerBusiness = new PartnerBusiness();
 
-            return partnerBusiness.hasAnyRequestSent(idPartner);
+                return partnerBusiness.hasAnyRequestSent(idPartner);
+            }
+            catch (Exception)
+            {
+                Session.Add("error", "Problemas para ver Partners =(");
+                Response.Redirect("Error.aspx", true);
+                return false;
+            }
+
         }
 
         protected bool canSendRequest(int idPartner)
         {
-            PartnerBusiness partnerBusiness = new PartnerBusiness();
+            try
+            {
+                PartnerBusiness partnerBusiness = new PartnerBusiness();
 
-            return partnerBusiness.canSendRequest(idPartner);
+                return partnerBusiness.canSendRequest(idPartner);
+            }
+            catch (Exception)
+            {
+                Session.Add("error", "Problemas para ver Partners =(");
+                Response.Redirect("Error.aspx", true);
+                return false;
+            }
+
         }
 
 
         protected void btnLetsGoTraining_Click(object sender, EventArgs e)
         {
-            int idPartner = int.Parse(lblIdPartner.Text);
-            Response.Redirect("ViewTrainings.aspx?idPartner=" + idPartner, false);
+            try
+            {
+                int idPartner = int.Parse(lblIdPartner.Text);
+                Response.Redirect("ViewTrainings.aspx?idPartner=" + idPartner, false);
+            }
+            catch (Exception)
+            {
+                Session.Add("error", "Problemas para ver Partners =(");
+                Response.Redirect("Error.aspx", true);
+            }
+            
         }
 
         protected void btnCreatePartner_Click(object sender, EventArgs e)
@@ -206,8 +262,18 @@ namespace ViewModel
 
         protected void btnEditPartner_Click(object sender, EventArgs e)
         {
-            int idPartner = int.Parse(lblIdPartner.Text);
-            Response.Redirect("EditPartner.aspx?idPartner=" + idPartner, false);
+            try
+            {
+                int idPartner = int.Parse(lblIdPartner.Text);
+                Response.Redirect("EditPartner.aspx?idPartner=" + idPartner, false);
+            }
+            catch (Exception)
+            {
+
+                Session.Add("error", "Problemas para ver Partners =(");
+                Response.Redirect("Error.aspx", true);
+            }
+            
         }
 
         protected void btnManagePartner_Click(object sender, EventArgs e)
@@ -219,7 +285,8 @@ namespace ViewModel
             }
             catch (Exception)
             {
-                throw;
+                Session.Add("error", "Problemas para ver Partners =(");
+                Response.Redirect("Error.aspx", true);
             }
         }
 

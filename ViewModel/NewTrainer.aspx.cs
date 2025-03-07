@@ -46,67 +46,92 @@ namespace ViewModel
                         Response.Redirect("ViewTrainers.aspx", false);
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    throw ex;
+                    Session.Add("error", "Problemas en la creacion de Trainer =(");
+                    Response.Redirect("Error.aspx", true);
                 }
             }
         }
 
         protected void cvUserName_ServerValidate(object source, ServerValidateEventArgs e)
         {
-            UserBusiness userBusiness = new UserBusiness();
-            List<string> userNamesAlreadyUsed = new List<string>();
-
-            userNamesAlreadyUsed = userBusiness.List().Select(u => u.userName).ToList();    //me quedo con los userName...
-
-            if (userNamesAlreadyUsed.Contains(e.Value))
+            try
             {
-                e.IsValid = false;
+                UserBusiness userBusiness = new UserBusiness();
+                List<string> userNamesAlreadyUsed = new List<string>();
+
+                userNamesAlreadyUsed = userBusiness.List().Select(u => u.userName).ToList();    //me quedo con los userName...
+
+                if (userNamesAlreadyUsed.Contains(e.Value))
+                {
+                    e.IsValid = false;
+                }
+                else
+                {
+                    e.IsValid = true;
+                }
             }
-            else
+            catch (Exception)
             {
-                e.IsValid = true;
+                Session.Add("error", "Problemas en la creacion de Trainer =(");
+                Response.Redirect("Error.aspx", true);
             }
         }
 
         protected void cvDni_ServerValidate(object source, ServerValidateEventArgs e)
         {
-            trainerBusiness = new TrainerBusiness();
-            PartnerBusiness partnerBusiness = new PartnerBusiness();
-
-            List<int> dniNumbersAlreadyUsed = new List<int>();
-
-            dniNumbersAlreadyUsed = trainerBusiness.List().Select(u => u.dni).ToList();     //me quedo con los DNI de Trainers
-            dniNumbersAlreadyUsed.AddRange(partnerBusiness.List().Select(x => x.dni));      //le agrego los DNI de Partners
-
-            if (dniNumbersAlreadyUsed.Contains(int.Parse(e.Value)))
+            try
             {
-                e.IsValid = false;
+                trainerBusiness = new TrainerBusiness();
+                PartnerBusiness partnerBusiness = new PartnerBusiness();
+
+                List<int> dniNumbersAlreadyUsed = new List<int>();
+
+                dniNumbersAlreadyUsed = trainerBusiness.List().Select(u => u.dni).ToList();     //me quedo con los DNI de Trainers
+                dniNumbersAlreadyUsed.AddRange(partnerBusiness.List().Select(x => x.dni));      //le agrego los DNI de Partners
+
+                if (dniNumbersAlreadyUsed.Contains(int.Parse(e.Value)))
+                {
+                    e.IsValid = false;
+                }
+                else
+                {
+                    e.IsValid = true;
+                }
             }
-            else
+            catch (Exception)
             {
-                e.IsValid = true;
-            }
+                Session.Add("error", "Problemas en la creacion de Trainer =(");
+                Response.Redirect("Error.aspx", true);
+            }  
         }
 
         protected void cvEmail_ServerValidate(object source, ServerValidateEventArgs e)
         {
-            trainerBusiness = new TrainerBusiness();
-            PartnerBusiness partnerBusiness = new PartnerBusiness();
-
-            List<string> emailNamesAlreadyUsed = new List<string>();
-
-            emailNamesAlreadyUsed = trainerBusiness.List().Select(u => u.email).ToList();
-            emailNamesAlreadyUsed.AddRange(partnerBusiness.List().Select(x => x.email));
-
-            if (emailNamesAlreadyUsed.Contains(e.Value))
+            try
             {
-                e.IsValid = false;
+                trainerBusiness = new TrainerBusiness();
+                PartnerBusiness partnerBusiness = new PartnerBusiness();
+
+                List<string> emailNamesAlreadyUsed = new List<string>();
+
+                emailNamesAlreadyUsed = trainerBusiness.List().Select(u => u.email).ToList();
+                emailNamesAlreadyUsed.AddRange(partnerBusiness.List().Select(x => x.email));
+
+                if (emailNamesAlreadyUsed.Contains(e.Value))
+                {
+                    e.IsValid = false;
+                }
+                else
+                {
+                    e.IsValid = true;
+                }
             }
-            else
+            catch (Exception)
             {
-                e.IsValid = true;
+                Session.Add("error", "Problemas en la creacion de Trainer =(");
+                Response.Redirect("Error.aspx", true);
             }
         }
     }

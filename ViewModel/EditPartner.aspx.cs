@@ -42,7 +42,8 @@ namespace ViewModel
                 }
                 catch (Exception)
                 {
-                    throw;
+                    Session.Add("error", "Problemas en Edicion de Partner =(");
+                    Response.Redirect("Error.aspx", true);
                 }
             }
         }
@@ -144,62 +145,90 @@ namespace ViewModel
                 }
                 catch (Exception)
                 {
-                    throw;
+                    Session.Add("error", "Problemas en Edicion de Partner =(");
+                    Response.Redirect("Error.aspx", true);
                 }
             }
         }
 
         protected void cvUserName_ServerValidate(object source, ServerValidateEventArgs e)
         {
-            UserBusiness userBusiness = new UserBusiness();
-            List<string> userNamesAlreadyUsed = new List<string>();
-
-            userNamesAlreadyUsed = userBusiness.List().Select(u => u.userName).ToList();    //me quedo con los userName...
-            userNamesAlreadyUsed.Remove(lblTxtOldUserName.Text);                            //saco de la lista de prohibidos, al User viejo...
-
-            if (userNamesAlreadyUsed.Contains(e.Value))
+            try
             {
-                e.IsValid = false;
+                UserBusiness userBusiness = new UserBusiness();
+                List<string> userNamesAlreadyUsed = new List<string>();
+
+                userNamesAlreadyUsed = userBusiness.List().Select(u => u.userName).ToList();    //me quedo con los userName...
+                userNamesAlreadyUsed.Remove(lblTxtOldUserName.Text);                            //saco de la lista de prohibidos, al User viejo...
+
+                if (userNamesAlreadyUsed.Contains(e.Value))
+                {
+                    e.IsValid = false;
+                }
+                else
+                {
+                    e.IsValid = true;
+                }
             }
-            else
+            catch (Exception)
             {
-                e.IsValid = true;
+                Session.Add("error", "Problemas en Edicion de Partner =(");
+                Response.Redirect("Error.aspx", true);
             }
         }
 
         protected void cvDni_ServerValidate(object source, ServerValidateEventArgs e)
         {
-            partnerBusiness = new PartnerBusiness();
-            List<int> dniNumbersAlreadyUsed = new List<int>();
-
-            dniNumbersAlreadyUsed = partnerBusiness.List().Select(u => u.dni).ToList();     //me quedo con los dni...
-            dniNumbersAlreadyUsed.Remove(int.Parse(lblTxtOldDni.Text));                     //saco de la lista de prohibidos, al Dni viejo...
-
-            if (dniNumbersAlreadyUsed.Contains(int.Parse(e.Value)))
+            try
             {
-                e.IsValid = false;
+                partnerBusiness = new PartnerBusiness();
+                List<int> dniNumbersAlreadyUsed = new List<int>();
+
+                dniNumbersAlreadyUsed = partnerBusiness.List().Select(u => u.dni).ToList();     //me quedo con los dni...
+                dniNumbersAlreadyUsed.Remove(int.Parse(lblTxtOldDni.Text));                     //saco de la lista de prohibidos, al Dni viejo...
+
+                if (dniNumbersAlreadyUsed.Contains(int.Parse(e.Value)))
+                {
+                    e.IsValid = false;
+                }
+                else
+                {
+                    e.IsValid = true;
+                }
             }
-            else
+            catch (Exception)
             {
-                e.IsValid = true;
+
+                Session.Add("error", "Problemas en Edicion de Partner =(");
+                Response.Redirect("Error.aspx", true);
             }
         }
 
         protected void cvEmail_ServerValidate(object source, ServerValidateEventArgs e)
         {
-            partnerBusiness = new PartnerBusiness();
-            List<string> emailNamesAlreadyUsed = new List<string>();
 
-            emailNamesAlreadyUsed = partnerBusiness.List().Select(u => u.email).ToList();   //me quedo con los email...
-            emailNamesAlreadyUsed.Remove(lblTxtOldEmail.Text);
-
-            if (emailNamesAlreadyUsed.Contains(e.Value))
+            try
             {
-                e.IsValid = false;
+                partnerBusiness = new PartnerBusiness();
+                List<string> emailNamesAlreadyUsed = new List<string>();
+
+                emailNamesAlreadyUsed = partnerBusiness.List().Select(u => u.email).ToList();   //me quedo con los email...
+                emailNamesAlreadyUsed.Remove(lblTxtOldEmail.Text);
+
+                if (emailNamesAlreadyUsed.Contains(e.Value))
+                {
+                    e.IsValid = false;
+                }
+                else
+                {
+                    e.IsValid = true;
+                }
             }
-            else
+            catch (Exception)
             {
-                e.IsValid = true;
+
+                Session.Add("error", "Problemas en Edicion de Partner =(");
+                Response.Redirect("Error.aspx", true);
             }
         }
     }

@@ -25,6 +25,7 @@ namespace Business
             data = new DataAccess();
             int lastIndex;
             bool flag;
+
             try
             {
                 data.SetStoredProcedure("insert_trainer");
@@ -60,6 +61,7 @@ namespace Business
             {
                 data.CloseConnection();
             }
+
             return flag;
         }
 

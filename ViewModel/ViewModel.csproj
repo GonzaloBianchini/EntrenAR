@@ -73,7 +73,7 @@
     <Content Include="DashBoard.aspx" />
     <Content Include="EditExercise.aspx" />
     <Content Include="EditPartner.aspx" />
-    <Content Include="EditProgram.aspx" />
+    <Content Include="zSuperadoEditProgram.aspx" />
     <Content Include="EditTrainer.aspx" />
     <Content Include="Error.aspx" />
     <Content Include="Images\error.jpg" />
@@ -118,12 +118,12 @@
     <Compile Include="EditPartner.aspx.designer.cs">
       <DependentUpon>EditPartner.aspx</DependentUpon>
     </Compile>
-    <Compile Include="EditProgram.aspx.cs">
-      <DependentUpon>EditProgram.aspx</DependentUpon>
+    <Compile Include="zSuperadoEditProgram.aspx.cs">
+      <DependentUpon>zSuperadoEditProgram.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="EditProgram.aspx.designer.cs">
-      <DependentUpon>EditProgram.aspx</DependentUpon>
+    <Compile Include="zSuperadoEditProgram.aspx.designer.cs">
+      <DependentUpon>zSuperadoEditProgram.aspx</DependentUpon>
     </Compile>
     <Compile Include="EditTrainer.aspx.cs">
       <DependentUpon>EditTrainer.aspx</DependentUpon>

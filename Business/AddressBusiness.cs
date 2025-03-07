@@ -50,6 +50,11 @@ namespace Business
                 throw ex;
             }
 
+            finally
+            {
+                data.CloseConnection();
+            }
+
             return listAddresses;
         }
         public int Create(Address address)
@@ -66,9 +71,9 @@ namespace Business
                 data.SetParameter("@StreetName", address.streetName);
                 data.SetParameter("@StreetNumber", address.streetNumber);
                 //data.SetParameter("@Flat", address.flat ?? (object)DBNull.Value);
-                data.SetParameter("@Flat", address.flat == string.Empty ? (object)DBNull.Value : address.flat );
+                data.SetParameter("@Flat", string.IsNullOrEmpty(address.flat) ? (object)DBNull.Value : address.flat );
                 //data.SetParameter("@Details", address.details ?? (object)DBNull.Value);
-                data.SetParameter("@Details", address.details == string.Empty ? (object)DBNull.Value : address.details);
+                data.SetParameter("@Details", string.IsNullOrEmpty(address.details) ? (object)DBNull.Value : address.details);
                 data.SetParameter("@City", address.city);
                 data.SetParameter("@Country", address.country);
                 
@@ -91,7 +96,6 @@ namespace Business
             return lastIndex;
         }
         
-        //TODO: revisar READ y UPDATE de todos los business...
         public Address Read(int id)
         {
             data = new DataAccess();
@@ -112,14 +116,12 @@ namespace Business
                     auxAddress.flat = data.Reader["Flat"].ToString();
                     auxAddress.details = data.Reader["Details"].ToString();
                     auxAddress.city = data.Reader["City"].ToString();
-                    //auxAddress.province.idProvince = int.Parse(data.Reader["Province"].ToString());
                     auxAddress.province = provinceBusiness.Read(int.Parse(data.Reader["IdProvince"].ToString()));
                     auxAddress.country = data.Reader["Country"].ToString();
                 }
             }
             catch (Exception)
             {
-
                 throw;
             }
             finally
@@ -166,6 +168,5 @@ namespace Business
             //TODO: NO DEBERIA HABER DELETE...o si?
             return true;
         }
-
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Domain;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -212,12 +213,7 @@ namespace Business
             }
             catch (Exception ex)
             {
-
                 throw ex;
-            }
-            finally
-            {
-                data.CloseConnection();
             }
 
             return auxUser;
@@ -233,6 +229,7 @@ namespace Business
 
             try
             {
+               
                 data.SetQuery("select * from Users where UserNickName = @UserName");
                 data.SetParameter("@UserName", userName);
                 data.ExecuteRead();
@@ -248,7 +245,7 @@ namespace Business
             }
             catch (Exception)
             {
-                throw;
+                throw new Exception("Problemas en User Business");
             }
             finally
             {

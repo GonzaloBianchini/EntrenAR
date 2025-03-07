@@ -18,26 +18,29 @@ namespace ViewModel
 
         }
 
-        protected void btnRegistrarme_Click(object sender, EventArgs e)
-        {
+        //protected void btnRegistrarme_Click(object sender, EventArgs e)
+        //{
 
-        }
-
-        protected void btnLogin_Click(object sender, EventArgs e)
-        {
-
-        }
+        //}
 
         protected void btnIngresar_Click(object sender, EventArgs e)
         {
-            if (Page.IsValid)
+            try
             {
-                Session.Add("firstTimeLoggedIn", true);
-                Response.Redirect("~/Dashboard.aspx", false);
+                if (Page.IsValid)
+                {
+                    Session.Add("firstTimeLoggedIn", true);
+                    Response.Redirect("~/Dashboard.aspx", false);
+                }
+                else
+                {
+                    ucToast.ShowToast("LOG IN", "LOG IN INCORRECTO", "bi-x-circle-fill", "text-danger");
+                }
             }
-            else
+            catch (Exception)
             {
-                ucToast.ShowToast("LOG IN","LOG IN INCORRECTO", "bi-x-circle-fill", "text-danger");
+                Session.Add("error", "Problemas en el LOGIN =(");
+                Response.Redirect("Error.aspx", true);
             }
         }
 
@@ -46,17 +49,24 @@ namespace ViewModel
             userBusiness = new UserBusiness();
             List<string> userNamesAlreadyUsed = new List<string>();
 
-            userNamesAlreadyUsed = userBusiness.List().Select(u => u.userName).ToList();    //me quedo con los userName...
-
-            if (userNamesAlreadyUsed.Contains(e.Value))
+            try
             {
-                e.IsValid = true;
-            }
-            else
-            {
-                e.IsValid = false;
-            }
+                userNamesAlreadyUsed = userBusiness.List().Select(u => u.userName).ToList();    //me quedo con los userName...
 
+                if (userNamesAlreadyUsed.Contains(e.Value))
+                {
+                    e.IsValid = true;
+                }
+                else
+                {
+                    e.IsValid = false;
+                }
+            }
+            catch (Exception)
+            {
+                Session.Add("error", "Problemas en el LOGIN =(");
+                Response.Redirect("Error.aspx", true);
+            }
         }
 
         protected void cvUserPassword_ServerValidate(object source, ServerValidateEventArgs e)
@@ -80,8 +90,8 @@ namespace ViewModel
             }
             catch (Exception)
             {
-                Response.Redirect("~/Error.aspx", false); // Redirige a la página de error
-                //throw;
+                Session.Add("error", "Problemas en el LOGIN =(");
+                Response.Redirect("Error.aspx", true);
             }
         }
     }

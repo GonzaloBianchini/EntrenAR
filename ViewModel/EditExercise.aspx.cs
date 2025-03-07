@@ -35,9 +35,10 @@ namespace ViewModel
                     imgPreview.Src = ((auxExercise.ImageUrl == (object)DBNull.Value) || (auxExercise.ImageUrl == string.Empty)) ? "~/Images/notfound.jpg" : "~/Images/" + auxExercise.ImageUrl;
                     imgPreview.Style["display"] = "block";
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    throw ex;
+                    Session.Add("error", "Problemas en Edicion de Ejercicio =(");
+                    Response.Redirect("Error.aspx", true);
                 }
             }
         }
@@ -77,28 +78,37 @@ namespace ViewModel
                         ucToast.ShowToast("Actualizar Ejercicio", "El Ejercicio No se actualizo...", "bi-x-circle-fill", "text-danger");
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    throw ex;
+                    Session.Add("error", "Problemas en Edicion de Ejercicio =(");
+                    Response.Redirect("Error.aspx", true);
                 }
             }
         }
         
         protected void cvExerciseName_ServerValidate(object source, ServerValidateEventArgs e)
         {
-            exerciseBusiness = new ExerciseBusiness();
-            List<string> exerciseNamesAlreadyUsed = new List<string>();
-
-            exerciseNamesAlreadyUsed = exerciseBusiness.List().Select(u => u.Name).ToList();    //me quedo con los exerciseName...
-            exerciseNamesAlreadyUsed.Remove(lblTxtOldName.Text);                                //saco de la lista de prohibidos, al nombre viejo...
-
-            if (exerciseNamesAlreadyUsed.Contains(e.Value))
+            try
             {
-                e.IsValid = false;
+                exerciseBusiness = new ExerciseBusiness();
+                List<string> exerciseNamesAlreadyUsed = new List<string>();
+
+                exerciseNamesAlreadyUsed = exerciseBusiness.List().Select(u => u.Name).ToList();    //me quedo con los exerciseName...
+                exerciseNamesAlreadyUsed.Remove(lblTxtOldName.Text);                                //saco de la lista de prohibidos, al nombre viejo...
+
+                if (exerciseNamesAlreadyUsed.Contains(e.Value))
+                {
+                    e.IsValid = false;
+                }
+                else
+                {
+                    e.IsValid = true;
+                }
             }
-            else
+            catch (Exception)
             {
-                e.IsValid = true;
+                Session.Add("error", "Problemas en Edicion de Ejercicio =(");
+                Response.Redirect("Error.aspx", true);
             }
         }
     }

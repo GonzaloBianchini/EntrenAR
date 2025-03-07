@@ -23,7 +23,8 @@
                 </div>
             </div>
 
-            <asp:GridView runat="server" ID="dgvExerciseList" AutoGenerateColumns="false" DataKeyNames="IdExercise" class="table table-striped table-bordered mt-3">
+
+            <asp:GridView runat="server" ID="dgvExerciseList" AutoGenerateColumns="false" DataKeyNames="IdExercise" class="table table-striped table-bordered mt-3 ml-1">
                 <Columns>
                     <asp:BoundField DataField="IdExercise" HeaderText="ID EJERCICIO" />
                     <asp:BoundField DataField="Name" HeaderText="NOMBRE EJERCICIO" />
@@ -32,12 +33,11 @@
                     <asp:TemplateField HeaderText="Accion">
                         <ItemTemplate>
                             <asp:LinkButton ID="btnViewExercise" OnCommand="btnViewExercise_Command" runat="server" CommandName="Ver" CommandArgument='<%# Eval("idExercise") %>' CssClass="btn btn-sm fw-bold btn-outline-warning">Ver</asp:LinkButton>
-                            <asp:LinkButton ID="btnEditExercise" OnCommand="btnEditExercise_Command" runat="server" CommandName="Editar" CommandArgument='<%# Eval("idExercise") %>' CssClass="btn btn-sm fw-bold btn-outline-warning">Editar</asp:LinkButton>
+                            <asp:LinkButton ID="btnEditExercise" OnCommand="btnEditExercise_Command" runat="server" CommandName="Editar" CommandArgument='<%# Eval("idExercise") %>' CssClass="btn btn-sm fw-bold btn-outline-warning">Edit</asp:LinkButton>
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
             </asp:GridView>
-
             <!-- Sección de Detalles del Ejercicio -->
             <%--MUESTRO U ESCONDO EL PANEL EN CASO QUE NO SE HAYA SELECCIONADO NINGUN EJERCICIO--%>
             <asp:Panel ID="pnlExerciseDetails" runat="server" CssClass="mt-4 p-4 border rounded shadow-sm bg-light" Visible="false">

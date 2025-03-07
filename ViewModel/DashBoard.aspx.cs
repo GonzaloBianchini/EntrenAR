@@ -22,35 +22,44 @@ namespace ViewModel
         protected void Page_Load(object sender, EventArgs e)
         {
             User user = new User();
-
-            if (!IsPostBack)
+            try
             {
-                //PARA MOSTRAR EL MENSAJE "LOGIN EXITOSO" SOLO UNA VEZ...
-                if (Session["firstTimeLoggedIn"] != null && (bool)Session["firstTimeLoggedIn"] == true)
+                if (!IsPostBack)
                 {
-                    ucToast.ShowToast("Log in", "LOGIN EXITOSO", "bi-check-circle-fill", "text-success");
-                    Session.Remove("firstTimeLoggedIn");
-                }
+                    //PARA MOSTRAR EL MENSAJE "LOGIN EXITOSO" SOLO UNA VEZ...
+                    if (Session["firstTimeLoggedIn"] != null && (bool)Session["firstTimeLoggedIn"] == true)
+                    {
+                        ucToast.ShowToast("Log in", "LOGIN EXITOSO", "bi-check-circle-fill", "text-success");
+                        Session.Remove("firstTimeLoggedIn");
+                    }
 
-                user = (User)(Session["user"]);
+                    user = (User)(Session["user"]);
 
-                switch (user.role.IdRole)
-                {
-                    case 1:     //ADMIN
-                        loadAdminDashBoard(user);
-                        break;
-                    case 2:     //TRAINER
-                        loadTrainerDashBoard(user);
-                        break;
-                    case 3:     //PARTNER
-                        loadPartnerDashBoard(user);
-                        break;
-                    default:    //Si no es ningun Rol conocido, te pateo.
-                        Session.Remove("user");
-                        Response.Redirect("Login.aspx", false);
-                        break;
+                    switch (user.role.IdRole)
+                    {
+                        case 1:     //ADMIN
+                            loadAdminDashBoard(user);
+                            break;
+                        case 2:     //TRAINER
+                            loadTrainerDashBoard(user);
+                            break;
+                        case 3:     //PARTNER
+                            loadPartnerDashBoard(user);
+                            break;
+                        default:    //Si no es ningun Rol conocido, te pateo.
+                            Session.Remove("user");
+                            Response.Redirect("Login.aspx", false);
+                            break;
+                    }
                 }
             }
+            catch (Exception)
+            {
+
+                Session.Add("error", "Problemas en el DashBoard =(");
+                Response.Redirect("Error.aspx", true);
+            }
+
         }
 
         protected void loadAdminDashBoard(User user)
@@ -68,25 +77,34 @@ namespace ViewModel
             partnerBusiness = new PartnerBusiness();
             trainerBusiness = new TrainerBusiness();
 
-            int totalPartners = partnerBusiness.List().Count;
-            int partnersAvailable = partnerBusiness.List().Where(p => p.status.IdStatus == 1).ToList().Count;    // me quedo con los partners AVAILABLE
-            int partnersPending = partnerBusiness.List().Where(p => p.status.IdStatus == 2).ToList().Count;       // me quedo con los partners PENDING
-            int partnersAssigned = partnerBusiness.List().Where(p => p.status.IdStatus == 3).ToList().Count;      // me quedo con los partners ASSIGNED
+            try
+            {
+                int totalPartners = partnerBusiness.List().Count;
+                int partnersAvailable = partnerBusiness.List().Where(p => p.status.IdStatus == 1).ToList().Count;    // me quedo con los partners AVAILABLE
+                int partnersPending = partnerBusiness.List().Where(p => p.status.IdStatus == 2).ToList().Count;       // me quedo con los partners PENDING
+                int partnersAssigned = partnerBusiness.List().Where(p => p.status.IdStatus == 3).ToList().Count;      // me quedo con los partners ASSIGNED
 
-            lblTotalPartners.Text = totalPartners.ToString();
-            lblPartnersAvailable.Text = partnersAvailable.ToString();
-            lblPartnersPending.Text = partnersPending.ToString();
-            lblPartnersAssigned.Text = partnersAssigned.ToString();
+                lblTotalPartners.Text = totalPartners.ToString();
+                lblPartnersAvailable.Text = partnersAvailable.ToString();
+                lblPartnersPending.Text = partnersPending.ToString();
+                lblPartnersAssigned.Text = partnersAssigned.ToString();
 
-            int totalTrainers = trainerBusiness.List().Count;
-            int partnersFemale = partnerBusiness.List().Where(p => p.gender == "Female" || p.gender == "Femenino").ToList().Count;                                         // me quedo con los partners Female
-            int partnersMale = partnerBusiness.List().Where(p => p.gender == "Male" || p.gender == "Masculino").ToList().Count;                                            // me quedo con los partners Male
-            int partnersNotInformed = partnerBusiness.List().Where(p => p.gender == "No informado" || p.gender == string.Empty || p.gender == null).ToList().Count;        // me quedo con los partners NOT INFORMED
+                int totalTrainers = trainerBusiness.List().Count;
+                int partnersFemale = partnerBusiness.List().Where(p => p.gender == "Female" || p.gender == "Femenino").ToList().Count;                                         // me quedo con los partners Female
+                int partnersMale = partnerBusiness.List().Where(p => p.gender == "Male" || p.gender == "Masculino").ToList().Count;                                            // me quedo con los partners Male
+                int partnersNotInformed = partnerBusiness.List().Where(p => p.gender == "No informado" || p.gender == string.Empty || p.gender == null).ToList().Count;        // me quedo con los partners NOT INFORMED
 
-            lblTrainers.Text = totalTrainers.ToString();
-            lblPartnersFemale.Text = partnersFemale.ToString();
-            lblPartnersMale.Text = partnersMale.ToString();
-            lblPartnersNotInformed.Text = partnersNotInformed.ToString();
+                lblTrainers.Text = totalTrainers.ToString();
+                lblPartnersFemale.Text = partnersFemale.ToString();
+                lblPartnersMale.Text = partnersMale.ToString();
+                lblPartnersNotInformed.Text = partnersNotInformed.ToString();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
 
         protected void loadChartsData()
@@ -94,30 +112,38 @@ namespace ViewModel
             partnerBusiness = new PartnerBusiness();
             trainingBusiness = new TrainingBusiness();
 
-            var partnersByProvince = partnerBusiness.getPartnersByProvince();
-            var trainingsByType = trainingBusiness.getTrainingsByType();
-
-            var partnersData = new
+            try
             {
-                labels = partnersByProvince.Keys.ToArray(),
-                values = partnersByProvince.Values.ToArray(),
-                colors = GenerateColors(partnersByProvince.Count) // Colores dinámicos
-            };
+                var partnersByProvince = partnerBusiness.getPartnersByProvince();
+                var trainingsByType = trainingBusiness.getTrainingsByType();
 
-            var trainingsData = new
+                var partnersData = new
+                {
+                    labels = partnersByProvince.Keys.ToArray(),
+                    values = partnersByProvince.Values.ToArray(),
+                    colors = GenerateColors(partnersByProvince.Count) // Colores dinámicos
+                };
+
+                var trainingsData = new
+                {
+                    labels = trainingsByType.Keys.ToArray(),
+                    values = trainingsByType.Values.ToArray(),
+                    colors = GenerateColors(trainingsByType.Count) // Colores dinámicos
+                };
+
+                // Paso los datos a formato JSON
+                string jsonPartners = Newtonsoft.Json.JsonConvert.SerializeObject(partnersData);
+                string jsonTrainings = Newtonsoft.Json.JsonConvert.SerializeObject(trainingsData);
+
+                // Paso los datos al front...
+                ScriptManager.RegisterStartupScript(this, GetType(), "cargarGraficos",
+                    $"loadChartTraining({jsonTrainings}); loadChartPartners({jsonPartners});", true);
+            }
+            catch (Exception)
             {
-                labels = trainingsByType.Keys.ToArray(),
-                values = trainingsByType.Values.ToArray(),
-                colors = GenerateColors(trainingsByType.Count) // Colores dinámicos
-            };
 
-            // Paso los datos a formato JSON
-            string jsonPartners = Newtonsoft.Json.JsonConvert.SerializeObject(partnersData);
-            string jsonTrainings = Newtonsoft.Json.JsonConvert.SerializeObject(trainingsData);
-
-            // Paso los datos al front...
-            ScriptManager.RegisterStartupScript(this, GetType(), "cargarGraficos",
-                $"loadChartTraining({jsonTrainings}); loadChartPartners({jsonPartners});", true);
+                throw;
+            }
         }
 
         // Genero colores
@@ -141,13 +167,21 @@ namespace ViewModel
             trainerBusiness = new TrainerBusiness();
             trainer = new Trainer();
 
-            trainer = trainerBusiness.ReadByUser(user.idUser);
+            try
+            {
+                trainer = trainerBusiness.ReadByUser(user.idUser);
 
-            loadPersonalInformation(trainer);
+                loadPersonalInformation(trainer);
 
-            loadPartners(trainer);
+                loadPartners(trainer);
 
-            loadRequests(trainer);
+                loadRequests(trainer);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         protected void loadPersonalInformation(Trainer trainer)
@@ -183,34 +217,50 @@ namespace ViewModel
             List<Request> requestList = new List<Request>();
             RequestBusiness requestBusiness = new RequestBusiness();
 
-            requestList = requestBusiness.ListByTrainer(trainer.idTrainer);
-            //Pregunto por solicitudes en REVISION, descarto ACEPTADAS y RECHAZADAS
-            requestList = requestList.Where(x => x.requestStatus.idRequestStatus == 1).ToList();
-
-            if (requestList.Count == 0)
+            try
             {
-                lblNoRequests.Visible = true;
-                dgvRequests.Visible = false;
+                requestList = requestBusiness.ListByTrainer(trainer.idTrainer);
+                //Pregunto por solicitudes en REVISION, descarto ACEPTADAS y RECHAZADAS
+                requestList = requestList.Where(x => x.requestStatus.idRequestStatus == 1).ToList();
+
+                if (requestList.Count == 0)
+                {
+                    lblNoRequests.Visible = true;
+                    dgvRequests.Visible = false;
+                }
+                else
+                {
+                    lblNoRequests.Visible = false;
+                    dgvRequests.Visible = true;
+
+                    dgvRequests.DataSource = requestList;
+                    dgvRequests.DataBind();
+                }
             }
-            else
+            catch (Exception)
             {
-                lblNoRequests.Visible = false;
-                dgvRequests.Visible = true;
 
-                dgvRequests.DataSource = requestList;
-                dgvRequests.DataBind();
+                throw;
             }
         }
 
         protected void btnAceptar_Command(object sender, CommandEventArgs e)
         {
-            //ACA SE ACEPTA LA REQUEST
-            if (e.CommandName == "Aceptar")
+            try
             {
-                //int idTrainer = int.Parse(lblIdTrainer.Text);
-                string idRequest = e.CommandArgument.ToString();
+                //ACA SE ACEPTA LA REQUEST
+                if (e.CommandName == "Aceptar")
+                {
+                    //int idTrainer = int.Parse(lblIdTrainer.Text);
+                    string idRequest = e.CommandArgument.ToString();
 
-                manageRequest(int.Parse(idRequest), 2);
+                    manageRequest(int.Parse(idRequest), 2);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
 
@@ -252,27 +302,42 @@ namespace ViewModel
             partnerBusiness = new PartnerBusiness();
             partner = new Partner();
 
-            partner = partnerBusiness.ReadByUser(((User)Session["user"]).idUser);
+            try
+            {
+                partner = partnerBusiness.ReadByUser(((User)Session["user"]).idUser);
 
-            if (hasAnyRequestSent(partner.idPartner))
-            {
-                loadLabelRequestSent();
+                if (hasAnyRequestSent(partner.idPartner))
+                {
+                    loadLabelRequestSent();
+                }
+                else if (canSendRequest(partner.idPartner))
+                {
+                    loadTrainers();
+                }
+                else /*if (partner.trainingList.Count >= 0)*/
+                {
+                    enableTrainings(partner);
+                }
             }
-            else if (canSendRequest(partner.idPartner))
+            catch (Exception)
             {
-                loadTrainers();
-            }
-            else /*if (partner.trainingList.Count >= 0)*/
-            {
-                enableTrainings(partner);
+
+                throw;
             }
         }
 
         protected bool hasAnyRequestSent(int idPartner)
         {
             PartnerBusiness partnerBusiness = new PartnerBusiness();
+            try
+            {
+                return partnerBusiness.hasAnyRequestSent(idPartner);
+            }
+            catch (Exception)
+            {
 
-            return partnerBusiness.hasAnyRequestSent(idPartner);
+                throw;
+            }
         }
 
         protected void loadLabelRequestSent()
@@ -286,22 +351,39 @@ namespace ViewModel
         {
             PartnerBusiness partnerBusiness = new PartnerBusiness();
 
-            return partnerBusiness.canSendRequest(idPartner);
+            try
+            {
+                return partnerBusiness.canSendRequest(idPartner);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
 
         protected void loadTrainers()
         {
-            trainerBusiness = new TrainerBusiness();
+            try
+            {
+                trainerBusiness = new TrainerBusiness();
 
-            ddlTrainers.DataValueField = "idTrainer";
-            ddlTrainers.DataTextField = "firstName";
+                ddlTrainers.DataValueField = "idTrainer";
+                ddlTrainers.DataTextField = "firstName";
 
-            pnlSelectTrainers.Visible = true;
-            pnlRequestSent.Visible = false;
-            pnlTrainings.Visible = false;
+                pnlSelectTrainers.Visible = true;
+                pnlRequestSent.Visible = false;
+                pnlTrainings.Visible = false;
 
-            ddlTrainers.DataSource = trainerBusiness.List();
-            ddlTrainers.DataBind();
+                ddlTrainers.DataSource = trainerBusiness.List();
+                ddlTrainers.DataBind();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         protected void enableTrainings(Partner partner)
@@ -355,47 +437,71 @@ namespace ViewModel
 
         protected void btnSendRequest_Click(object sender, EventArgs e)
         {
-            Request request = new Request();
-            RequestBusiness requestBusiness = new RequestBusiness();
+            try
+            {
+                Request request = new Request();
+                RequestBusiness requestBusiness = new RequestBusiness();
 
-            partnerBusiness = new PartnerBusiness();
-            trainerBusiness = new TrainerBusiness();
+                partnerBusiness = new PartnerBusiness();
+                trainerBusiness = new TrainerBusiness();
 
-            request.partner = partnerBusiness.ReadByUser(((User)Session["user"]).idUser);
-            request.trainer = trainerBusiness.Read(int.Parse(ddlTrainers.SelectedValue));
-            request.creationDate = DateTime.Now.Date;   //OJO OJO OJO! ACA LE AGREGUE EL .DATE para ver si me limita a la fecha sin hora...
+                request.partner = partnerBusiness.ReadByUser(((User)Session["user"]).idUser);
+                request.trainer = trainerBusiness.Read(int.Parse(ddlTrainers.SelectedValue));
+                request.creationDate = DateTime.Now.Date;   //OJO OJO OJO! ACA LE AGREGUE EL .DATE para ver si me limita a la fecha sin hora...
 
-            requestBusiness.Create(request);
+                requestBusiness.Create(request);
 
-            loadLabelRequestSent();
+                loadLabelRequestSent();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         protected void btnViewTraining_Command(object sender, CommandEventArgs e)
         {
-            int idTraining = int.Parse(e.CommandArgument.ToString());
+            try
+            {
+                int idTraining = int.Parse(e.CommandArgument.ToString());
 
-            DailyRoutineBusiness dailyRoutineBusiness = new DailyRoutineBusiness();
-            List<DailyRoutine> dailyRoutinesList = new List<DailyRoutine>();
+                DailyRoutineBusiness dailyRoutineBusiness = new DailyRoutineBusiness();
+                List<DailyRoutine> dailyRoutinesList = new List<DailyRoutine>();
 
-            dailyRoutinesList = dailyRoutineBusiness.ListByTraining(idTraining);
+                dailyRoutinesList = dailyRoutineBusiness.ListByTraining(idTraining);
 
-            enableRoutines(true);
-            dgvRutines.DataSource = dailyRoutinesList;
-            dgvRutines.DataBind();
+                enableRoutines(true);
+                dgvRutines.DataSource = dailyRoutinesList;
+                dgvRutines.DataBind();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         protected void btnRoutine_Command(object sender, CommandEventArgs e)
         {
-            int idDailyRoutine = int.Parse(e.CommandArgument.ToString());
+            try
+            {
+                int idDailyRoutine = int.Parse(e.CommandArgument.ToString());
 
-            ExerciseBusiness exerciseBusiness = new ExerciseBusiness();
-            List<Exercise> exercisesList = new List<Exercise>();
+                ExerciseBusiness exerciseBusiness = new ExerciseBusiness();
+                List<Exercise> exercisesList = new List<Exercise>();
 
-            exercisesList = exerciseBusiness.ListByDailyRoutine(idDailyRoutine);
+                exercisesList = exerciseBusiness.ListByDailyRoutine(idDailyRoutine);
 
-            enableExercises(true);
-            dgvExercises.DataSource = exercisesList;
-            dgvExercises.DataBind();
+                enableExercises(true);
+                dgvExercises.DataSource = exercisesList;
+                dgvExercises.DataBind();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

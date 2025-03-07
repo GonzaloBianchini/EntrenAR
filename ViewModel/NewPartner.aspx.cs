@@ -19,14 +19,22 @@ namespace ViewModel
         List<Province> provinceList;
         protected void Page_Load(object sender, EventArgs e)
         {
-            //UnobtrusiveValidationMode = UnobtrusiveValidationMode.None;
-            if (!IsPostBack)
+            try
             {
-                provinceBusiness = new ProvinceBusiness();
-                provinceList = new List<Province>();
-                provinceList = provinceBusiness.List();
-                ddlProvince.DataSource = provinceList;
-                ddlProvince.DataBind();
+                //UnobtrusiveValidationMode = UnobtrusiveValidationMode.None;
+                if (!IsPostBack)
+                {
+                    provinceBusiness = new ProvinceBusiness();
+                    provinceList = new List<Province>();
+                    provinceList = provinceBusiness.List();
+                    ddlProvince.DataSource = provinceList;
+                    ddlProvince.DataBind();
+                }
+            }
+            catch (Exception)
+            {
+                Session.Add("error", "Problemas en la creacion de Partner =(");
+                Response.Redirect("Error.aspx", true);
             }
         }
 
@@ -77,7 +85,8 @@ namespace ViewModel
                 }
                 catch (Exception)
                 {
-                    throw;
+                    Session.Add("error", "Problemas en la creacion de Partner =(");
+                    Response.Redirect("Error.aspx", true);
                 }
             }
         }
@@ -109,58 +118,83 @@ namespace ViewModel
 
         protected void cvUserName_ServerValidate(object source, ServerValidateEventArgs e)
         {
-            UserBusiness userBusiness = new UserBusiness();
-            List<string> userNamesAlreadyUsed = new List<string>();
-
-            userNamesAlreadyUsed = userBusiness.List().Select(u => u.userName).ToList();    //me quedo con los userName...
-
-            if (userNamesAlreadyUsed.Contains(e.Value))
+            try
             {
-                e.IsValid = false;
+                UserBusiness userBusiness = new UserBusiness();
+                List<string> userNamesAlreadyUsed = new List<string>();
+
+                userNamesAlreadyUsed = userBusiness.List().Select(u => u.userName).ToList();    //me quedo con los userName...
+
+                if (userNamesAlreadyUsed.Contains(e.Value))
+                {
+                    e.IsValid = false;
+                }
+                else
+                {
+                    e.IsValid = true;
+                }
             }
-            else
+            catch (Exception)
             {
-                e.IsValid = true;
+                Session.Add("error", "Problemas en la creacion de Partner =(");
+                Response.Redirect("Error.aspx", true);
             }
         }
 
         protected void cvDni_ServerValidate(object source, ServerValidateEventArgs e)
         {
-            partnerBusiness = new PartnerBusiness();
-            TrainerBusiness trainerBusiness = new TrainerBusiness();
-
-            List<int> dniNumbersAlreadyUsed = new List<int>();
-
-            dniNumbersAlreadyUsed = partnerBusiness.List().Select(u => u.dni).ToList();
-            dniNumbersAlreadyUsed.AddRange(trainerBusiness.List().Select(x => x.dni));
-
-            if(dniNumbersAlreadyUsed.Contains(int.Parse(e.Value)))
+            try
             {
-                e.IsValid = false;
+                partnerBusiness = new PartnerBusiness();
+                TrainerBusiness trainerBusiness = new TrainerBusiness();
+
+                List<int> dniNumbersAlreadyUsed = new List<int>();
+
+                dniNumbersAlreadyUsed = partnerBusiness.List().Select(u => u.dni).ToList();
+                dniNumbersAlreadyUsed.AddRange(trainerBusiness.List().Select(x => x.dni));
+
+                if (dniNumbersAlreadyUsed.Contains(int.Parse(e.Value)))
+                {
+                    e.IsValid = false;
+                }
+                else
+                {
+                    e.IsValid = true;
+                }
             }
-            else
+            catch (Exception)
             {
-                e.IsValid = true;
+                Session.Add("error", "Problemas en la creacion de Partner =(");
+                Response.Redirect("Error.aspx", true);
             }
+            
         }
 
         protected void cvEmail_ServerValidate(object source, ServerValidateEventArgs e)
         {
-            partnerBusiness = new PartnerBusiness();
-            TrainerBusiness trainerBusiness = new TrainerBusiness();
-
-            List<string> emailNamesAlreadyUsed = new List<string>();
-
-            emailNamesAlreadyUsed = partnerBusiness.List().Select(u => u.email).ToList();
-            emailNamesAlreadyUsed.AddRange(trainerBusiness.List().Select(x => x.email));
-
-            if (emailNamesAlreadyUsed.Contains(e.Value))
+            try
             {
-                e.IsValid = false;
+                partnerBusiness = new PartnerBusiness();
+                TrainerBusiness trainerBusiness = new TrainerBusiness();
+
+                List<string> emailNamesAlreadyUsed = new List<string>();
+
+                emailNamesAlreadyUsed = partnerBusiness.List().Select(u => u.email).ToList();
+                emailNamesAlreadyUsed.AddRange(trainerBusiness.List().Select(x => x.email));
+
+                if (emailNamesAlreadyUsed.Contains(e.Value))
+                {
+                    e.IsValid = false;
+                }
+                else
+                {
+                    e.IsValid = true;
+                }
             }
-            else
+            catch (Exception)
             {
-                e.IsValid = true;
+                Session.Add("error", "Problemas en la creacion de Partner =(");
+                Response.Redirect("Error.aspx", true);
             }
         }
     }
