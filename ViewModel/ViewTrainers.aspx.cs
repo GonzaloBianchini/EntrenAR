@@ -97,17 +97,7 @@ namespace ViewModel
             lblPhone.Text = trainer.phone;
         }
 
-        protected void manageRequest(int idRequest, int status)
-        {
-            requestStatusesBusiness = new RequestStatusesBusiness();
-            requestBusiness = new RequestBusiness();
-            Request request = requestBusiness.Read(idRequest);
-            request.requestStatus = requestStatusesBusiness.Read(status);    //1: en revision, 2: aceptada, 3: rechazada
-            requestBusiness.Update(request);
 
-            loadPartners();
-            loadRequests();
-        }
 
         protected void loadPartners()
         {
@@ -151,6 +141,18 @@ namespace ViewModel
                 dgvRequests.DataSource = requestList;
                 dgvRequests.DataBind();
             }
+        }
+
+        protected void manageRequest(int idRequest, int status)
+        {
+            requestStatusesBusiness = new RequestStatusesBusiness();
+            requestBusiness = new RequestBusiness();
+            Request request = requestBusiness.Read(idRequest);
+            request.requestStatus = requestStatusesBusiness.Read(status);    //1: en revision, 2: aceptada, 3: rechazada
+            requestBusiness.Update(request);
+
+            loadPartners();
+            loadRequests();
         }
 
         protected void btnCreateTrainer_Click(object sender, EventArgs e)

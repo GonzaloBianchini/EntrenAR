@@ -53,7 +53,7 @@
                         <asp:TextBox runat="server" ID="txtDni" class="form-control" placeholder="DNI del cliente (sin espacios ni puntos)" />
                         <asp:RequiredFieldValidator ID="rfvDni" ErrorMessage="El DNI es requerido..." ControlToValidate="txtDni" ForeColor="Red" Display="Dynamic" runat="server" />
                         <asp:RegularExpressionValidator ID="revDni" ValidationExpression="^\d{7,8}$" ErrorMessage="DNI invalido..." ControlToValidate="txtDni" ForeColor="Red" Display="Dynamic" runat="server" />
-                        <asp:CustomValidator ID="cvDni" OnServerValidate="cvDni_ServerValidate" ErrorMessage="El DNI pertenece a otr@ Partner..." ControlToValidate="txtDni" ForeColor="Red" Display="Dynamic" runat="server" />
+                        <asp:CustomValidator ID="cvDni" OnServerValidate="cvDni_ServerValidate" ErrorMessage="El DNI pertenece a otr@ User..." ControlToValidate="txtDni" ForeColor="Red" Display="Dynamic" runat="server" />
                     </div>
                 </div>
 

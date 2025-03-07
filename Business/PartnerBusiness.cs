@@ -129,6 +129,61 @@ namespace Business
             return auxPartner;
         }
 
+        public Partner ReadByUser(int idUser)
+        {
+            data = new DataAccess();
+
+            Partner auxPartner = new Partner();
+            userBusiness = new UserBusiness();
+            auxUser = new User();
+            statusPartnerBusiness = new StatusPartnerBusiness();
+            addressBusiness = new AddressBusiness();
+            trainingBusiness = new TrainingBusiness();
+
+            try
+            {
+                data.SetQuery("select * from Partners Where IdUser = @IdUser");
+                data.SetParameter("@IdUser", idUser);
+                data.ExecuteRead();
+
+                if (data.Reader.Read())
+                {
+                    auxUser = userBusiness.Read(idUser);
+
+                    auxPartner.idUser = idUser;
+                    auxPartner.userName = auxUser.userName;
+                    auxPartner.userPassword = auxUser.userPassword;
+                    auxPartner.role = auxUser.role;
+
+                    auxPartner.idPartner = int.Parse(data.Reader["IdPartner"].ToString());
+                    auxPartner.status = statusPartnerBusiness.Read(int.Parse(data.Reader["IdStatus"].ToString()));
+                    auxPartner.activeStatus = bool.Parse(data.Reader["ActiveStatus"].ToString());
+                    auxPartner.dni = int.Parse(data.Reader["Dni"].ToString());
+                    auxPartner.firstName = data.Reader["FirstName"].ToString();
+                    auxPartner.lastName = data.Reader["LastName"].ToString();
+                    auxPartner.gender = data.Reader["Gender"].ToString();
+                    auxPartner.email = data.Reader["Email"].ToString();
+                    auxPartner.phone = data.Reader["Phone"].ToString();
+                    auxPartner.birthDate = DateTime.Parse(data.Reader["BirthDate"].ToString());
+
+                    auxPartner.address = addressBusiness.Read(int.Parse(data.Reader["IdAddress"].ToString()));
+
+                    auxPartner.trainingList = trainingBusiness.ListByPartner(auxPartner.idPartner);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                data.CloseConnection();
+            }
+
+            return auxPartner;
+        }
+
         public bool Update(Partner partner)
         {
             data = new DataAccess();

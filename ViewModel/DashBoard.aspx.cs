@@ -16,6 +16,9 @@ namespace ViewModel
         private PartnerBusiness partnerBusiness;
         private TrainerBusiness trainerBusiness;
         private TrainingBusiness trainingBusiness;
+
+        private Trainer trainer;
+        private Partner partner;
         protected void Page_Load(object sender, EventArgs e)
         {
             User user = new User();
@@ -30,17 +33,37 @@ namespace ViewModel
                 }
 
                 user = (User)(Session["user"]);
-                //TODO: PONER MACROS EN EL ID ROLE
-                AdminPanel.Visible = user.role.IdRole == 1;
-                TrainerPanel.Visible = user.role.IdRole == 2;
-                PartnerPanel.Visible = user.role.IdRole == 3;
 
-                loadMetrics();
-                loadChartsData();
+                switch (user.role.IdRole)
+                {
+                    case 1:     //ADMIN
+                        loadAdminDashBoard(user);
+                        break;
+                    case 2:     //TRAINER
+                        loadTrainerDashBoard(user);
+                        break;
+                    case 3:     //PARTNER
+                        loadPartnerDashBoard(user);
+                        break;
+                    default:    //Si no es ningun Rol conocido, te pateo.
+                        Session.Remove("user");
+                        Response.Redirect("Login.aspx", false);
+                        break;
+                }
             }
         }
 
-        private void loadMetrics()
+        protected void loadAdminDashBoard(User user)
+        {
+            AdminPanel.Visible = true;
+            TrainerPanel.Visible = false;
+            PartnerPanel.Visible = false;
+
+            loadMetrics();
+            loadChartsData();
+        }
+
+        protected void loadMetrics()
         {
             partnerBusiness = new PartnerBusiness();
             trainerBusiness = new TrainerBusiness();
@@ -66,7 +89,7 @@ namespace ViewModel
             lblPartnersNotInformed.Text = partnersNotInformed.ToString();
         }
 
-        private void loadChartsData()
+        protected void loadChartsData()
         {
             partnerBusiness = new PartnerBusiness();
             trainingBusiness = new TrainingBusiness();
@@ -97,10 +120,8 @@ namespace ViewModel
                 $"loadChartTraining({jsonTrainings}); loadChartPartners({jsonPartners});", true);
         }
 
-
-
         // Genero colores
-        private string[] GenerateColors(int count)
+        protected string[] GenerateColors(int count)
         {
             string[] colorPalette = {
         "#FF6384", "#36A2EB", "#FFCE56", "#4CAF50", "#FF9800", "#9C27B0",
@@ -109,6 +130,272 @@ namespace ViewModel
 
             // Si hay más provincias que colores en la lista, se repiten colores
             return Enumerable.Range(0, count).Select(i => colorPalette[i % colorPalette.Length]).ToArray();
+        }
+
+        protected void loadTrainerDashBoard(User user)
+        {
+            AdminPanel.Visible = false;
+            TrainerPanel.Visible = true;
+            PartnerPanel.Visible = false;
+
+            trainerBusiness = new TrainerBusiness();
+            trainer = new Trainer();
+
+            trainer = trainerBusiness.ReadByUser(user.idUser);
+
+            loadPersonalInformation(trainer);
+
+            loadPartners(trainer);
+
+            loadRequests(trainer);
+        }
+
+        protected void loadPersonalInformation(Trainer trainer)
+        {
+            lblIdTrainer.Text = trainer.idTrainer.ToString();
+            lblFirstName.Text = trainer.firstName;
+            lblLastName.Text = trainer.lastName;
+            lblUserName.Text = trainer.userName;
+            lblEmail.Text = trainer.email;
+            lblPhone.Text = trainer.phone;
+        }
+
+        protected void loadPartners(Trainer trainer)
+        {
+
+            if (trainer.partnersList.Count == 0)
+            {
+                lblNoPartners.Visible = true;
+                dgvPartners.Visible = false;
+            }
+            else
+            {
+                lblNoPartners.Visible = false;
+                dgvPartners.Visible = true;
+
+                dgvPartners.DataSource = trainer.partnersList;
+                dgvPartners.DataBind();
+            }
+        }
+
+        protected void loadRequests(Trainer trainer)
+        {
+            List<Request> requestList = new List<Request>();
+            RequestBusiness requestBusiness = new RequestBusiness();
+
+            requestList = requestBusiness.ListByTrainer(trainer.idTrainer);
+            //Pregunto por solicitudes en REVISION, descarto ACEPTADAS y RECHAZADAS
+            requestList = requestList.Where(x => x.requestStatus.idRequestStatus == 1).ToList();
+
+            if (requestList.Count == 0)
+            {
+                lblNoRequests.Visible = true;
+                dgvRequests.Visible = false;
+            }
+            else
+            {
+                lblNoRequests.Visible = false;
+                dgvRequests.Visible = true;
+
+                dgvRequests.DataSource = requestList;
+                dgvRequests.DataBind();
+            }
+        }
+
+        protected void btnAceptar_Command(object sender, CommandEventArgs e)
+        {
+            //ACA SE ACEPTA LA REQUEST
+            if (e.CommandName == "Aceptar")
+            {
+                //int idTrainer = int.Parse(lblIdTrainer.Text);
+                string idRequest = e.CommandArgument.ToString();
+
+                manageRequest(int.Parse(idRequest), 2);
+            }
+        }
+
+        protected void btnRechazar_Command(object sender, CommandEventArgs e)
+        {
+            if (e.CommandName == "Rechazar")
+            {
+                //int idTrainer = int.Parse(lblIdTrainer.Text);
+                string idRequest = e.CommandArgument.ToString();
+
+                manageRequest(int.Parse(idRequest), 3);
+            }
+        }
+
+        protected void manageRequest(int idRequest, int status)
+        {
+            RequestStatusesBusiness requestStatusesBusiness = new RequestStatusesBusiness();
+            RequestBusiness requestBusiness = new RequestBusiness();
+            Request request = new Request();
+
+            request = requestBusiness.Read(idRequest);
+            request.requestStatus = requestStatusesBusiness.Read(status);    //1: en revision, 2: aceptada, 3: rechazada
+            requestBusiness.Update(request);
+
+            trainerBusiness = new TrainerBusiness();
+
+            int idUser = ((User)(Session["user"])).idUser;
+
+            loadPartners(trainerBusiness.ReadByUser(idUser));
+            loadRequests(trainerBusiness.ReadByUser(idUser));
+        }
+
+        protected void loadPartnerDashBoard(User user)
+        {
+            AdminPanel.Visible = false;
+            TrainerPanel.Visible = false;
+            PartnerPanel.Visible = true;
+
+            partnerBusiness = new PartnerBusiness();
+            partner = new Partner();
+
+            partner = partnerBusiness.ReadByUser(((User)Session["user"]).idUser);
+
+            if (hasAnyRequestSent(partner.idPartner))
+            {
+                loadLabelRequestSent();
+            }
+            else if (canSendRequest(partner.idPartner))
+            {
+                loadTrainers();
+            }
+            else /*if (partner.trainingList.Count >= 0)*/
+            {
+                enableTrainings(partner);
+            }
+        }
+
+        protected bool hasAnyRequestSent(int idPartner)
+        {
+            PartnerBusiness partnerBusiness = new PartnerBusiness();
+
+            return partnerBusiness.hasAnyRequestSent(idPartner);
+        }
+
+        protected void loadLabelRequestSent()
+        {
+            pnlSelectTrainers.Visible = false;
+            pnlRequestSent.Visible = true;
+            pnlTrainings.Visible = false;
+        }
+
+        protected bool canSendRequest(int idPartner)
+        {
+            PartnerBusiness partnerBusiness = new PartnerBusiness();
+
+            return partnerBusiness.canSendRequest(idPartner);
+        }
+
+        protected void loadTrainers()
+        {
+            trainerBusiness = new TrainerBusiness();
+
+            ddlTrainers.DataValueField = "idTrainer";
+            ddlTrainers.DataTextField = "firstName";
+
+            pnlSelectTrainers.Visible = true;
+            pnlRequestSent.Visible = false;
+            pnlTrainings.Visible = false;
+
+            ddlTrainers.DataSource = trainerBusiness.List();
+            ddlTrainers.DataBind();
+        }
+
+        protected void enableTrainings(Partner partner)
+        {
+
+            pnlSelectTrainers.Visible = false;
+            pnlRequestSent.Visible = false;
+            pnlTrainings.Visible = true;
+
+            if (partner.trainingList.Count == 0)
+            {
+                lblNoTrainings.Visible = true;
+                dgvTrainings.Visible = false;
+                enableRoutines(false);
+            }
+            else
+            {
+                lblNoTrainings.Visible = false;
+                dgvTrainings.Visible = true;
+                dgvTrainings.DataSource = partner.trainingList;
+                dgvTrainings.DataBind();
+                enableRoutines(true);
+            }
+        }
+
+        protected void enableRoutines(bool flag)
+        {
+            if (flag)
+            {
+                pnlRoutines.Visible = true;
+
+            }
+            else
+            {
+                pnlRoutines.Visible = false;
+            }
+            enableExercises(false);
+        }
+
+        protected void enableExercises(bool flag)
+        {
+            if (flag)
+            {
+                pnlExercises.Visible = true;
+            }
+            else
+            {
+                pnlExercises.Visible = false;
+            }
+        }
+
+        protected void btnSendRequest_Click(object sender, EventArgs e)
+        {
+            Request request = new Request();
+            RequestBusiness requestBusiness = new RequestBusiness();
+
+            partnerBusiness = new PartnerBusiness();
+            trainerBusiness = new TrainerBusiness();
+
+            request.partner = partnerBusiness.ReadByUser(((User)Session["user"]).idUser);
+            request.trainer = trainerBusiness.Read(int.Parse(ddlTrainers.SelectedValue));
+            request.creationDate = DateTime.Now.Date;   //OJO OJO OJO! ACA LE AGREGUE EL .DATE para ver si me limita a la fecha sin hora...
+
+            requestBusiness.Create(request);
+
+            loadLabelRequestSent();
+        }
+
+        protected void btnViewTraining_Command(object sender, CommandEventArgs e)
+        {
+            int idTraining = int.Parse(e.CommandArgument.ToString());
+
+            DailyRoutineBusiness dailyRoutineBusiness = new DailyRoutineBusiness();
+            List<DailyRoutine> dailyRoutinesList = new List<DailyRoutine>();
+
+            dailyRoutinesList = dailyRoutineBusiness.ListByTraining(idTraining);
+
+            enableRoutines(true);
+            dgvRutines.DataSource = dailyRoutinesList;
+            dgvRutines.DataBind();
+        }
+
+        protected void btnRoutine_Command(object sender, CommandEventArgs e)
+        {
+            int idDailyRoutine = int.Parse(e.CommandArgument.ToString());
+
+            ExerciseBusiness exerciseBusiness = new ExerciseBusiness();
+            List<Exercise> exercisesList = new List<Exercise>();
+
+            exercisesList = exerciseBusiness.ListByDailyRoutine(idDailyRoutine);
+
+            enableExercises(true);
+            dgvExercises.DataSource = exercisesList;
+            dgvExercises.DataBind();
         }
     }
 }

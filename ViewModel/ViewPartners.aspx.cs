@@ -57,7 +57,7 @@ namespace ViewModel
                     partnerBusiness = new PartnerBusiness();
                     partner = partnerBusiness.Read(idPartner);
 
-                    trainer = new Trainer();
+                    Trainer trainerBound = new Trainer();
                     trainerBusiness = new TrainerBusiness();
 
                     if (partner != null)
@@ -66,9 +66,9 @@ namespace ViewModel
 
                         loadTrainingList(partner);
 
-                        trainer = trainerBusiness.GetTrainerByParterId(partner.idPartner);
+                        trainerBound = trainerBusiness.GetTrainerByParterId(partner.idPartner);
 
-                        loadTrainerAndControls(partner, trainer);
+                        loadTrainerAndControls(partner, trainerBound);
 
                         pnlPartnerDetails.Visible = true;
                     }
@@ -117,7 +117,7 @@ namespace ViewModel
 
         protected void loadTrainerAndControls(Partner partner, Trainer trainer)
         {
-            if (trainer.idTrainer == 0) //NO HAY PARTNER ASOCIAD@, MANDALA A BUSCAR TRAINER...
+            if (trainer.idTrainer == 0) //NO HAY PARTNER ASOCIAD@,ENTONCES MANDALE A BUSCAR TRAINER...
             {
                 btnManagePartner.Visible = false;   // NO TE DEJO METER ENTRENAMIENTOS SI NO HAY TRAINER ASOCIAD@
 
@@ -139,7 +139,25 @@ namespace ViewModel
             }
             else //SI HAY PARTNER ASOCIAD@
             {
-                btnManagePartner.Visible = true;   // TE DEJO METER ENTRENAMIENTOS SI HAY TRAINER ASOCIAD@
+                if (((User)Session["user"]).role.IdRole == 2)        //Si se logueo un Trainer...
+                {
+                    Trainer trainerLoggedIn = new Trainer();
+                    trainerBusiness = new TrainerBusiness();
+                    trainerLoggedIn = trainerBusiness.ReadByUser(((User)Session["user"]).idUser);
+
+                    if (trainerLoggedIn.idTrainer == trainer.idTrainer)     //Si le trainer en session es el trainerBound
+                    {
+                        btnManagePartner.Visible = true;
+                    }
+                    else
+                    {
+                        btnManagePartner.Visible = false;
+                    }
+                }
+                else // POR ACA ENTRO SI ES ADMIN...no hay otra opcion de llegar hasta aca, siendo partner
+                {
+                    btnManagePartner.Visible = true;   // TE DEJO METER ENTRENAMIENTOS SI HAY TRAINER ASOCIAD@, pero SOLO SI SOS ADMIN o TRAINER CORRECT@
+                }
 
                 lblNoTrainer.Visible = false;
                 dgvTrainer.Visible = true;

@@ -11,7 +11,7 @@
                 <div class="row justify-content-md-center">
                     <h2 class="mb-3"><i class="bi bi-list"></i>Planes de Entrenamiento</h2>
 
-                    <asp:Label ID="lblPartnerName" Text="Bienvenid@ " CssClass="mb-3 h3" runat="server" />
+                    <asp:Label ID="lblPartnerName" Text="Entrenamientos de: " CssClass="mb-3 h3" runat="server" />
 
                     <%--ETIQUETA INVISIBLE PARA GUARDAR EL ID PARTNER--%>
                     <asp:Label ID="lblIdPartner" Text="text" Visible="false" runat="server" />

@@ -111,6 +111,51 @@ namespace Business
             return auxTrainer;
         }
 
+        public Trainer ReadByUser(int idUser)
+        {
+            data = new DataAccess();
+            Trainer auxTrainer = new Trainer();
+
+            userBusiness = new UserBusiness();
+            partnerBusiness = new PartnerBusiness();
+
+            try
+            {
+                data.SetQuery("select * from Trainers Where IdUser = @IdUser");
+                data.SetParameter("@IdUser", idUser);
+                data.ExecuteRead();
+
+                if (data.Reader.Read())
+                {
+                    auxTrainer.idTrainer = int.Parse(data.Reader["IdTrainer"].ToString());
+
+                    auxTrainer.idUser = idUser;
+                    auxUser = userBusiness.Read(idUser);
+                    auxTrainer.userName = auxUser.userName;
+                    auxTrainer.userPassword = auxUser.userPassword;
+                    auxTrainer.role = auxUser.role;
+
+                    auxTrainer.firstName = data.Reader["FirstName"].ToString();
+                    auxTrainer.lastName = data.Reader["LastName"].ToString();
+                    auxTrainer.dni = int.Parse(data.Reader["Dni"].ToString());
+                    auxTrainer.email = data.Reader["Email"].ToString();
+                    auxTrainer.phone = data.Reader["Phone"].ToString();
+
+                    auxTrainer.partnersList = partnerBusiness.ListByTrainerId(auxTrainer.idTrainer);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                data.CloseConnection();
+            }
+
+            return auxTrainer;
+        }
+
         public bool Update(Trainer trainer)
         {
             data = new DataAccess();
@@ -153,14 +198,14 @@ namespace Business
             return (rows > 0);
         }
 
-
-
         public Trainer GetTrainerByParterId(int idPartner)
         {
             data = new DataAccess();
             Trainer trainer = new Trainer();
             userBusiness = new UserBusiness();
             auxUser = new User();
+
+            partnerBusiness = new PartnerBusiness();
 
             try
             {
@@ -170,7 +215,6 @@ namespace Business
 
                 if (data.Reader.Read())
                 {
-
                     trainer.idUser = int.Parse(data.Reader["IdUser"].ToString());
 
                     auxUser = userBusiness.Read(trainer.idUser);
@@ -185,6 +229,8 @@ namespace Business
                     trainer.dni = int.Parse(data.Reader["Dni"].ToString());
                     trainer.email = data.Reader["Email"].ToString();
                     trainer.phone = data.Reader["Phone"].ToString();
+
+                    trainer.partnersList = partnerBusiness.ListByTrainerId(trainer.idTrainer);
                 }
             }
             catch (Exception ex)

@@ -127,9 +127,12 @@ namespace ViewModel
         protected void cvDni_ServerValidate(object source, ServerValidateEventArgs e)
         {
             partnerBusiness = new PartnerBusiness();
+            TrainerBusiness trainerBusiness = new TrainerBusiness();
+
             List<int> dniNumbersAlreadyUsed = new List<int>();
 
             dniNumbersAlreadyUsed = partnerBusiness.List().Select(u => u.dni).ToList();
+            dniNumbersAlreadyUsed.AddRange(trainerBusiness.List().Select(x => x.dni));
 
             if(dniNumbersAlreadyUsed.Contains(int.Parse(e.Value)))
             {
@@ -144,9 +147,12 @@ namespace ViewModel
         protected void cvEmail_ServerValidate(object source, ServerValidateEventArgs e)
         {
             partnerBusiness = new PartnerBusiness();
+            TrainerBusiness trainerBusiness = new TrainerBusiness();
+
             List<string> emailNamesAlreadyUsed = new List<string>();
 
             emailNamesAlreadyUsed = partnerBusiness.List().Select(u => u.email).ToList();
+            emailNamesAlreadyUsed.AddRange(trainerBusiness.List().Select(x => x.email));
 
             if (emailNamesAlreadyUsed.Contains(e.Value))
             {

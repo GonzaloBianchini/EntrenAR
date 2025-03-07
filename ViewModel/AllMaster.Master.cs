@@ -29,11 +29,18 @@ namespace ViewModel
                 user = (User)Session["user"];
                 lblUserType.Text = user.role.Name;
                 lblUserName.Text = user.userName;
+                enableSideBar(user);
             }
             else
             {
                 Response.Redirect("Login.aspx", false);
             }
+        }
+
+        protected void enableSideBar(User user)
+        {
+            pnlPartnersLink.Visible = user.role.IdRole != 3;    //SOLO SE VE PARA ADMIN Y PARTNER
+            pnlTrainersLink.Visible = user.role.IdRole == 1;    //SOLO SE VE PARA ADMIN
         }
 
         protected void btnLogOut_Click(object sender, EventArgs e)
